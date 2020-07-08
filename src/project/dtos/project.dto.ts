@@ -1,6 +1,6 @@
 import { User } from "src/users/dtos/user.dto";
 
-export interface Project {
+export class Project {
     title: String;
     // photos
     description: String;

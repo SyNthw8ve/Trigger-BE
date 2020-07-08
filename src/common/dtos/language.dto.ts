@@ -1,4 +1,4 @@
-export interface Language {
-    name: String,
-    score: number
+export class Language {
+    name: String;
+    score: number;
 }

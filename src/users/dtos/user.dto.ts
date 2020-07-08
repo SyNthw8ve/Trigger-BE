@@ -1,7 +1,7 @@
 import { Hardskill } from "src/common/dtos/hardSkill.dto";
 import { Softkill } from "src/common/dtos/softSkill.dto";
 
-export interface User {
+export class User {
     name: String;
     // photo
     institution?: String;

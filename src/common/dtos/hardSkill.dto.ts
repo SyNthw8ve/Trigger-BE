@@ -1,4 +1,4 @@
-export interface Hardskill {
-    name: String,
-    score: number
+export class Hardskill {
+    name: String;
+    score: number;
 }

@@ -1,4 +1,4 @@
-export interface Softkill {
-    name: String,
-    score: number
+export class Softkill {
+    name: String;
+    score: number;
 }
