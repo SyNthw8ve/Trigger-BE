@@ -1,4 +1,4 @@
-import { User } from "src/users/interfaces/user.interface";
+import { User } from "src/users/dtos/user.dto";
 
 export interface Project {
     title: String;

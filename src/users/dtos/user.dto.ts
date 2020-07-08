@@ -1,5 +1,5 @@
-import { Hardskill } from "src/common/interfaces/hardSkill.interface";
-import { Softkill } from "src/common/interfaces/softSkill.interface";
+import { Hardskill } from "src/common/dtos/hardSkill.dto";
+import { Softkill } from "src/common/dtos/softSkill.dto";
 
 export interface User {
     name: String;
