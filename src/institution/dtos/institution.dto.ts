@@ -1,4 +1,4 @@
-import { User } from "src/users/dtos/user.dto";
+import { User } from "src/user/dtos/user.dto";
 
 export class Institution {
     name: String;
