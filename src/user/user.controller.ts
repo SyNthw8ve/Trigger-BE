@@ -9,7 +9,7 @@ export class UserController {
 
     @Post()
     async create(@Body() registerUserDto: RegisterUserDto) {
-        await this.userService.register(registerUserDto);
+        await this.userService.new(registerUserDto);
     }
 
 }

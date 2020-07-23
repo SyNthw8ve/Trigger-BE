@@ -11,7 +11,7 @@ export class UserService {
 
     constructor(@InjectModel(User.name) private userModel: Model<User>) { }
 
-    async register(registerUserDto: RegisterUserDto): Promise<User> {
+    async new(registerUserDto: RegisterUserDto): Promise<User> {
         const createdCat = new this.userModel(registerUserDto);
         return createdCat.save();
     }
