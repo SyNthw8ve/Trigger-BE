@@ -12,8 +12,8 @@ export class User extends Document {
     // @Prop({ required: false })
     // institution?: String;
 
-    // @Prop()
-    // interests: String[];
+    @Prop()
+    interests: String[];
 
     // @Prop()
     // hardSkills: Hardskill[];
