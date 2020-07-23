@@ -12,7 +12,7 @@ export class User extends Document {
     // @Prop({ required: false })
     // institution?: String;
 
-    @Prop()
+    @Prop([String])
     interests: String[];
 
     // @Prop()
