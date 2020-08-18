@@ -14,6 +14,7 @@ export class UserService {
 
     async new(registerUserDto: RegisterUserDto): Promise<User> {
         // TODO: validate this
+        // TODO: THERE ARE PASSWORDS HERE, THIS HAS NO SECURITY 
         const createdUser = new this.userModel(registerUserDto);
         return createdUser.save();
     }

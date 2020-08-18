@@ -8,9 +8,16 @@ import { Document, SchemaTypes } from 'mongoose';
 export class User extends Document {
     @Prop({ required: true })
     name: string;
+
+    @Prop({ required: true })
+    email: string;
+
+    @Prop({ required: true })
+    password: string;
     // photo
-    // @Prop({ required: false })
-    // institution?: String;
+    
+    @Prop({ required: false })
+    institution?: String;
 
     @Prop([String])
     interests: String[];
