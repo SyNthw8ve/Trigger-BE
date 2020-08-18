@@ -3,6 +3,7 @@ import { Softkill } from "src/common/dtos/softSkill.dto";
 
 import { Prop, Schema, raw, SchemaFactory } from '@nestjs/mongoose'
 import { Document, SchemaTypes } from 'mongoose';
+import { Institution } from "src/institution/schemas/institution.schema";
 
 @Schema()
 export class User extends Document {
@@ -17,7 +18,7 @@ export class User extends Document {
     // photo
     
     @Prop({ required: false })
-    institution?: String;
+    institution?: Institution['_id'];
 
     @Prop([String])
     interests: String[];
