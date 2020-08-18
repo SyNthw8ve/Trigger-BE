@@ -4,19 +4,19 @@ import { Document, SchemaTypes } from 'mongoose';
 
 @Schema()
 export class Project extends Document {
-    @Prop()
+    @Prop({ required: true })
     title: string;
     // photos
-    @Prop()
+    @Prop({ required: true })
     description: string;
-    @Prop()
+    @Prop({ required: true })
     scope: string;
     // location?
     // status <- What is this D:
     // recommendations
     // deadlines
-    @Prop([{ type: SchemaTypes.ObjectId, ref: 'User' }])
-    currentTeam: User['_id'];
+    @Prop([{ type: SchemaTypes.ObjectId, ref: User.name }])
+    currentTeam: User['_id'][];
     // openings
 }
 
