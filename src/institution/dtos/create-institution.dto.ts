@@ -1,7 +1,7 @@
 import { Institution } from "../schemas/institution.schema";
 
 export class CreateInstitutionDto {
-    manager: Institution['manager'];
+    creator: Institution['creator'];
     name: Institution['name'];
     // photo
     description: Institution['description'];

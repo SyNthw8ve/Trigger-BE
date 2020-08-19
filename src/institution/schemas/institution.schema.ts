@@ -5,6 +5,7 @@ import { Prop, Schema, raw, SchemaFactory } from '@nestjs/mongoose'
 import { Document, SchemaTypes } from 'mongoose';
 import { User } from "src/user/schemas/user.schema";
 import { Project } from "src/project/schemas/project.schema";
+import { Locale } from "src/common/dtos/locale.dto";
 
 @Schema()
 export class Institution extends Document {
@@ -17,11 +18,11 @@ export class Institution extends Document {
     @Prop({ required: true })
     sector: String;
 
-    @Prop({ type: SchemaTypes.ObjectId, ref: User.name })
-    manager: User['_id'];
+    @Prop({ type: SchemaTypes.ObjectId, ref: 'User', required: true })
+    creator: User['_id'];
 
-    @Prop([{ type: SchemaTypes.ObjectId, ref: User.name }])
-    admins: User['_id'][];
+    @Prop({ required: true })
+    location: Locale;
 
     // @Prop({ required: true })
     // localization: { address: string, position: { longitude: number, latitude: number } }
