@@ -24,10 +24,7 @@ export class Institution extends Document {
     @Prop({ required: true })
     location: Locale;
 
-    // @Prop({ required: true })
-    // localization: { address: string, position: { longitude: number, latitude: number } }
-
-    @Prop([{ type: SchemaTypes.ObjectId, ref: Project.name }])
+    @Prop([{ type: SchemaTypes.ObjectId, ref: 'Project' }])
     projects: Project['_id'][]
     // favorites: (User | Institution)[];
     // recommendations [of it's projects]
