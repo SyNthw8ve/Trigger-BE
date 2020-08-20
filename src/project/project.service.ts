@@ -50,4 +50,8 @@ export class ProjectService {
     async get_coordinates_for_adress(adress: Locale['address']): Promise<Locale['position']> {
         return { longitude: 23, latitude: 24 };
     }
+
+    async findWithId(id: Project['_id']): Promise<Project> {
+        return await this.projectModel.findById(id);
+    }
 }
