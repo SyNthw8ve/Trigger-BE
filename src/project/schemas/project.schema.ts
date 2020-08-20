@@ -3,6 +3,7 @@ import { Prop, Schema, raw, SchemaFactory } from '@nestjs/mongoose'
 import { Document, SchemaTypes } from 'mongoose';
 import { Institution } from "src/institution/schemas/institution.schema";
 import { Locale } from "src/common/dtos/locale.dto";
+import { Phase } from "src/phase/schemas/phase.schema";
 
 export enum ProjectStatus {
     Open = "open",
@@ -46,6 +47,9 @@ export class Project extends Document {
 
     @Prop({ required: true, default: false })
     highlighted: boolean;
+
+    @Prop([{ type: SchemaTypes.ObjectId, ref: Phase.name }])
+    phases: Phase['_id'][];
 }
 
 export const ProjectSchema = SchemaFactory.createForClass(Project);
