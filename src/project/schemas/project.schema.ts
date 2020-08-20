@@ -13,6 +13,10 @@ export enum ProjectStatus {
 export class Project extends Document {
     @Prop({ required: true })
     title: string;
+
+    @Prop([String])
+    aliases: string[];
+
     // photos
     @Prop({ required: true })
     description: string;
@@ -39,6 +43,9 @@ export class Project extends Document {
     @Prop({ type: SchemaTypes.ObjectId, ref: 'Institution', required: false })
     institution?: Institution['id'];
     // openings
+
+    @Prop({ required: true, default: false })
+    highlighted: boolean;
 }
 
 export const ProjectSchema = SchemaFactory.createForClass(Project);
