@@ -10,5 +10,6 @@ import { Institution, InstitutionSchema } from './schemas/institution.schema';
     providers: [
         InstitutionService,
     ],
+    exports: [InstitutionService,],
 })
 export class InstitutionModule { }

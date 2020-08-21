@@ -2,15 +2,19 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Locale } from 'src/common/dtos/locale.dto';
+import { InstitutionService } from 'src/institution/institution.service';
 import { Opening } from 'src/opening/schemas/opening.schema';
 import { Phase } from 'src/phase/schemas/phase.schema';
+import { UserService } from 'src/user/user.service';
 import { CreateProjectDto } from './dtos/create-project.dto';
 import { Project, ProjectStatus } from './schemas/project.schema';
 
 @Injectable()
 export class ProjectService {
 
-    constructor(@InjectModel(Project.name) private projectModel: Model<Project>) { }
+    constructor(@InjectModel(Project.name) private projectModel: Model<Project>,
+        private userService: UserService,
+        private institutionService: InstitutionService) { }
 
     async new(createProjectDto: CreateProjectDto) {
         // TODO: validate this
@@ -38,7 +42,17 @@ export class ProjectService {
         };
 
         const createdProject = new this.projectModel(data);
-        return createdProject.save();
+        const savedProject = await createdProject.save();
+
+
+        // TODO: Is this right?
+        if (createProjectDto.institution) {
+            this.institutionService.addProject(createProjectDto.institution, savedProject._id)
+        } else {
+            this.userService.addProject(createProjectDto.manager, savedProject._id);
+        }
+
+        return savedProject;
     }
 
     async addPhase(projectId: Project['_id'], phaseId: Phase['_id']) {

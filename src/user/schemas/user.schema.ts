@@ -4,6 +4,7 @@ import { Softkill } from "src/common/dtos/softSkill.dto";
 import { Prop, Schema, raw, SchemaFactory } from '@nestjs/mongoose'
 import { Document, SchemaTypes } from 'mongoose';
 import { Institution } from "src/institution/schemas/institution.schema";
+import { Project } from "src/project/schemas/project.schema";
 
 @Schema()
 export class User extends Document {
@@ -16,12 +17,15 @@ export class User extends Document {
     @Prop({ required: true })
     password: string;
     // photo
-    
+
     @Prop({ required: false })
     institution?: Institution['_id'];
 
     @Prop([String])
     interests: String[];
+
+    @Prop([{ type: SchemaTypes.ObjectId, ref: 'Project' }])
+    projects: Project['_id'][];
 
     // @Prop()
     // hardSkills: Hardskill[];

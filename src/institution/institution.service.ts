@@ -4,11 +4,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Institution } from './schemas/institution.schema';
 import { CreateInstitutionDto } from './dtos/create-institution.dto';
+import { Project } from 'src/project/schemas/project.schema';
 
 @Injectable()
 export class InstitutionService {
 
-    constructor(@InjectModel(Institution.name) private userModel: Model<Institution>) { }
+    constructor(@InjectModel(Institution.name) private model: Model<Institution>) { }
 
     async new(createInstitutionDto: CreateInstitutionDto): Promise<Institution> {
         // TODO: validate this
@@ -16,9 +17,16 @@ export class InstitutionService {
         // TODO: How do we want to handle admins? Do we always add the manager to that list? A manager is always
         // gonna be an admin, right? If we want him there, something like below?
         // const objectWithManagerAsAdmin = Object.assign(createInstitutionDto, { admins: Institution['admins'] = [createInstitutionDto.manager] });
-        
-        const created = new this.userModel(createInstitutionDto);
+
+        const created = new this.model(createInstitutionDto);
         return created.save();
+    }
+
+    async addProject(institutionId: Institution['_id'], projectId: Project['_id']) {
+        const institution = await this.model.findById(institutionId);
+        institution.projects.push(projectId);
+
+        institution.save();
     }
 
     // async update(updateUserDto: UpdateUserDto): Promise<void> {
