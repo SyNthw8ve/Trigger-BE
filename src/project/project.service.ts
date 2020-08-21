@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Locale } from 'src/common/dtos/locale.dto';
+import { Opening } from 'src/opening/schemas/opening.schema';
+import { Phase } from 'src/phase/schemas/phase.schema';
 import { CreateProjectDto } from './dtos/create-project.dto';
 import { Project, ProjectStatus } from './schemas/project.schema';
 
@@ -39,6 +41,13 @@ export class ProjectService {
         return createdProject.save();
     }
 
+    async addPhase(projectId: Project['_id'], phaseId: Phase['_id']) {
+        // FIXME: handle wrong ids? 
+        const project = await this.findWithId(projectId);
+        project.phases.push(phaseId);
+        project.save();
+    }
+
     async location_from_adress(adress: Locale['address']): Promise<Locale> {
         let location = new Locale();
         location.address = adress;
@@ -52,6 +61,6 @@ export class ProjectService {
     }
 
     async findWithId(id: Project['_id']): Promise<Project> {
-        return await this.projectModel.findById(id);
+        return this.projectModel.findById(id);
     }
 }

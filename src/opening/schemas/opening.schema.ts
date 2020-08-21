@@ -2,20 +2,10 @@ import { Prop, Schema, raw, SchemaFactory } from '@nestjs/mongoose'
 import { Document, SchemaTypes } from 'mongoose';
 import { Availability } from 'src/common/dtos/availability.dto';
 import { Locale } from 'src/common/dtos/locale.dto';
+import { Match } from 'src/match/schemas/match.schema';
+import { Participation } from 'src/participation/schemas/participation.schema';
 import { Project } from 'src/project/schemas/project.schema';
 import { User } from 'src/user/schemas/user.schema';
-
-
-export class Task {
-    @Prop({ required: true })
-    startDate: Date;
-
-    @Prop({ required: true })
-    endDate: Date;
-
-    @Prop({ required: true })
-    description: string;
-}
 
 export enum ApplicationType {
     Manual = "spontaneous",
@@ -26,8 +16,8 @@ export class Application {
     @Prop({ required: true })
     type: ApplicationType;
 
-    // @Prop({ required: false })
-    // match?: Match['_id'];
+    @Prop({ type: SchemaTypes.ObjectId, ref: Match.name, required: true })
+    match?: Match['_id'];
 
     @Prop({ type: SchemaTypes.ObjectId, ref: User.name, required: true })
     user: User['_id'];
@@ -35,9 +25,6 @@ export class Application {
 
 @Schema()
 export class Opening extends Document {
-    @Prop([Task])
-    tasks: Task[]
-
     @Prop({ required: true })
     area: string;
 
@@ -58,6 +45,9 @@ export class Opening extends Document {
 
     @Prop([Application])
     applications: Application[];
+
+    @Prop([{ type: SchemaTypes.ObjectId, ref: 'Participation' }])
+    participations: Participation['_id'][];
 
     @Prop({ type: SchemaTypes.ObjectId, ref: 'Project', required: true })
     project: Project['_id'];

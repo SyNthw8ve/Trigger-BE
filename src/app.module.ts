@@ -1,4 +1,5 @@
-import { UserController } from './user/user.controller';
+import { ParticipationModule } from './participation/participation.module';
+import { PhaseModule } from './phase/phase.module';
 import { ProjectModule } from './project/project.module';
 import { InstitutionModule } from './institution/institution.module';
 import { CommonModule } from './common/common.module';
@@ -10,6 +11,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
+    ParticipationModule,
+    PhaseModule,
     ProjectModule,
     InstitutionModule,
     CommonModule,
