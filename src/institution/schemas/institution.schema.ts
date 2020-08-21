@@ -25,7 +25,7 @@ export class Institution extends Document {
     location: Locale;
 
     @Prop([{ type: SchemaTypes.ObjectId, ref: 'Project' }])
-    projects: Project['_id'][]
+    projects: Project['_id'][];
     // favorites: (User | Institution)[];
     // recommendations [of it's projects]
     // recommended by
