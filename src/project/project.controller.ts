@@ -10,12 +10,12 @@ export class ProjectController {
 
     @Post()
     async new(@Body() createProjectDto: CreateProjectDto) {
-        await this.projectService.new(createProjectDto);
+        return this.projectService.new(createProjectDto);
     }
 
     @Get(':id')
     async findOne(@Param() params): Promise<Project> {
-        return await this.projectService.findWithId(params.id);
+        return this.projectService.findWithId(params.id);
     }
 
     // @Put("/update")

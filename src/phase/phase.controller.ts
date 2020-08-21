@@ -9,7 +9,7 @@ export class PhaseController {
 
     @Post()
     async new(@Body() createDto: CreatePhaseDto) {
-        await this.phaseService.new(createDto);
+        return this.phaseService.new(createDto);
     }
 
 }

@@ -9,7 +9,7 @@ export class OpeningController {
 
     @Post()
     async new(@Body() createDto: CreateOpeningDto) {
-        await this.openingService.new(createDto);
+        return this.openingService.new(createDto);
     }
 
 }

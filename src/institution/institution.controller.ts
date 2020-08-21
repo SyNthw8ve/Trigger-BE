@@ -9,7 +9,7 @@ export class InstitutionController {
 
     @Post()
     async new(@Body() registerInstitution: CreateInstitutionDto) {
-        await this.institutionService.new(registerInstitution);
+        return this.institutionService.new(registerInstitution);
     }
 
     // @Put("/update")

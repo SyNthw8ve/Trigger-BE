@@ -10,12 +10,12 @@ export class UserController {
 
     @Post()
     async new(@Body() registerUserDto: RegisterUserDto) {
-        await this.userService.new(registerUserDto);
+        return this.userService.new(registerUserDto);
     }
 
     @Put("/update")
     async update(@Body() updateUserDto: UpdateUserDto) {
-        await this.userService.update(updateUserDto);
+        return this.userService.update(updateUserDto);
     }
 
 }
