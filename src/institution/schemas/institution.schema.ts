@@ -21,7 +21,8 @@ export class Institution extends Document {
     @Prop({ type: SchemaTypes.ObjectId, ref: 'User', required: true })
     creator: User['_id'];
 
-    @Prop({ required: true })
+    // TODO: PUT THIS BACK IN
+    // @Prop({ required: true })
     location: Locale;
 
     @Prop([{ type: SchemaTypes.ObjectId, ref: 'Project' }])

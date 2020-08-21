@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Locale } from 'src/common/dtos/locale.dto';
+import { LocationService } from 'src/common/location.service';
 import { InstitutionService } from 'src/institution/institution.service';
 import { Opening } from 'src/opening/schemas/opening.schema';
 import { Phase } from 'src/phase/schemas/phase.schema';
@@ -14,11 +15,12 @@ export class ProjectService {
 
     constructor(@InjectModel(Project.name) private projectModel: Model<Project>,
         private userService: UserService,
-        private institutionService: InstitutionService) { }
+        private institutionService: InstitutionService,
+        private locationService: LocationService) { }
 
     async new(createProjectDto: CreateProjectDto) {
         // TODO: validate this
-        const location = await this.location_from_adress(createProjectDto.location_adress);
+        const location = await this.locationService.localeFromAdress(createProjectDto.location_adress);
 
         // TODO: Is this assumption correct?
         const status = ProjectStatus.Open;
@@ -60,18 +62,6 @@ export class ProjectService {
         const project = await this.findWithId(projectId);
         project.phases.push(phaseId);
         project.save();
-    }
-
-    async location_from_adress(adress: Locale['address']): Promise<Locale> {
-        let location = new Locale();
-        location.address = adress;
-        location.position = await this.get_coordinates_for_adress(adress);
-        return location;
-    }
-
-    // TODO: Make this actually do something
-    async get_coordinates_for_adress(adress: Locale['address']): Promise<Locale['position']> {
-        return { longitude: 23, latitude: 24 };
     }
 
     async findWithId(id: Project['_id']): Promise<Project> {

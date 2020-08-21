@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
+import { LocationService } from './location.service';
 
 @Module({
     imports: [],
     controllers: [],
-    providers: [],
+    providers: [LocationService],
+    exports: [LocationService]
 })
 export class CommonModule { }
