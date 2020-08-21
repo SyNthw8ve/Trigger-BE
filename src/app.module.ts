@@ -9,6 +9,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 
+import { connectionString } from './config'
+
 @Module({
   imports: [
     ParticipationModule,
@@ -17,7 +19,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     InstitutionModule,
     CommonModule,
     UserModule,
-    MongooseModule.forRoot('mongodb://localhost/nest'),],
+    MongooseModule.forRoot(connectionString),],
   controllers: [AppController],
   providers: [AppService],
 })
