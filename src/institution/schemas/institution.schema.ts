@@ -1,6 +1,3 @@
-import { Hardskill } from "src/common/dtos/hardSkill.dto";
-import { Softkill } from "src/common/dtos/softSkill.dto";
-
 import { Prop, Schema, raw, SchemaFactory } from '@nestjs/mongoose'
 import { Document, SchemaTypes } from 'mongoose';
 import { User } from "src/user/schemas/user.schema";

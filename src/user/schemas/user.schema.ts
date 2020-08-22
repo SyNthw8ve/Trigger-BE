@@ -1,10 +1,25 @@
 import { Hardskill } from "src/common/dtos/hardSkill.dto";
-import { Softkill } from "src/common/dtos/softSkill.dto";
 
 import { Prop, Schema, raw, SchemaFactory } from '@nestjs/mongoose'
 import { Document, SchemaTypes } from 'mongoose';
 import { Institution } from "src/institution/schemas/institution.schema";
 import { Project } from "src/project/schemas/project.schema";
+import { Softskill } from "src/common/schemas/softSkill.dto";
+
+// Maybe this should be called UserSoftskillResult?
+@Schema()
+export class UserSoftskill {
+    @Prop({ type: SchemaTypes.ObjectId, ref: Softskill.name, required: true })
+    softskillId: Softskill['_id'];
+
+    @Prop({ required: true })
+    score: number;
+
+    @Prop({ required: true })
+    visible: boolean;
+}
+
+const ssSchema = SchemaFactory.createForClass(UserSoftskill);
 
 @Schema()
 export class User extends Document {
@@ -30,8 +45,9 @@ export class User extends Document {
     // @Prop()
     // hardSkills: Hardskill[];
 
-    // @Prop()
-    // softSkills: Softkill[];
+    @Prop([{ type: ssSchema }])
+    softSkills: UserSoftskill[];
+
     // friends: User[]; // not yet
     // favorites: (User | number)[];
     // location
