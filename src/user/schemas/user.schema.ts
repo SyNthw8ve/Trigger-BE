@@ -1,10 +1,11 @@
-import { Hardskill } from "src/common/dtos/hardSkill.dto";
+import { Hardskill } from "src/common/schemas/hardskill.schema";
 
 import { Prop, Schema, raw, SchemaFactory } from '@nestjs/mongoose'
 import { Document, SchemaTypes } from 'mongoose';
 import { Institution } from "src/institution/schemas/institution.schema";
 import { Project } from "src/project/schemas/project.schema";
-import { Softskill } from "src/common/schemas/softSkill.dto";
+import { Softskill } from "src/common/schemas/softskill.schema";
+import { Language } from "src/common/schemas/language.schema";
 
 // Maybe this should be called UserSoftskillResult?
 @Schema()
@@ -42,11 +43,14 @@ export class User extends Document {
     @Prop([{ type: SchemaTypes.ObjectId, ref: 'Project' }])
     projects: Project['_id'][];
 
-    // @Prop()
-    // hardSkills: Hardskill[];
+    @Prop([{ type: SchemaTypes.ObjectId, ref: Hardskill.name }])
+    hardSkills: Hardskill['_id'][];
 
     @Prop([{ type: ssSchema }])
     softSkills: UserSoftskill[];
+
+    @Prop([{ type: SchemaTypes.ObjectId, ref: Language.name }])
+    languages: Language['_id'][];
 
     // friends: User[]; // not yet
     // favorites: (User | number)[];
