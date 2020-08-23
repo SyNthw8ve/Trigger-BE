@@ -1,5 +1,5 @@
 import { Availability } from "src/common/schemas/availability.schema";
-import { Locale } from "src/common/dtos/locale.dto";
+import { Locale } from "src/common/schemas/locale.schema";
 import { Opening } from "../schemas/opening.schema";
 
 export class CreateOpeningDto {

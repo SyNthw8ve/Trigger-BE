@@ -19,25 +19,7 @@ export class UserService {
     async new(registerUserDto: RegisterUserDto): Promise<User> {
         // TODO: validate this
         // TODO: THERE ARE PASSWORDS HERE, THIS HAS NO SECURITY
-
-        let { hardSkills: oldHardSkills, ...rest } = registerUserDto;
-
-        // Because we may not have any
-        if (!oldHardSkills) { oldHardSkills = []; }
-
-        const finalHardSkills = await Promise.all(oldHardSkills.map(async value => {
-
-            // FIXME: Ugly, essentially if it's a name, 
-            // we have to add it to the hardskills we now of,
-            // since this doesn't exist yet
-            if (value.name) {
-                return (await this.hardSkillsService.new(value))._id;
-            } else {
-                return value;
-            }
-        }));
-
-        const createdUser = new this.userModel({ hardSkills: finalHardSkills, ...rest });
+        const createdUser = new this.userModel(registerUserDto);
         return createdUser.save();
     }
 

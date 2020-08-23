@@ -2,7 +2,7 @@ import { User } from "src/user/schemas/user.schema";
 import { Prop, Schema, raw, SchemaFactory } from '@nestjs/mongoose'
 import { Document, SchemaTypes } from 'mongoose';
 import { Institution } from "src/institution/schemas/institution.schema";
-import { Locale } from "src/common/dtos/locale.dto";
+import { Locale, LocaleSchema } from "src/common/schemas/locale.schema";
 import { Phase } from "src/phase/schemas/phase.schema";
 
 export enum ProjectStatus {
@@ -25,7 +25,7 @@ export class Project extends Document {
     @Prop({ required: true })
     scope: string;
 
-    @Prop({ required: false })
+    @Prop({ type: LocaleSchema, required: false })
     location?: Locale;
 
     @Prop({ required: true })

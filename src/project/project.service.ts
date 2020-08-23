@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Locale } from 'src/common/dtos/locale.dto';
+import { Locale } from 'src/common/schemas/locale.schema';
 import { LocationService } from 'src/common/location.service';
 import { InstitutionService } from 'src/institution/institution.service';
 import { Opening } from 'src/opening/schemas/opening.schema';

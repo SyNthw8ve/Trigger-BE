@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Locale } from './dtos/locale.dto';
+import { Locale } from './schemas/locale.schema';
 
 @Injectable()
 export class LocationService {

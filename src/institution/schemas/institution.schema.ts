@@ -2,7 +2,7 @@ import { Prop, Schema, raw, SchemaFactory } from '@nestjs/mongoose'
 import { Document, SchemaTypes } from 'mongoose';
 import { User } from "src/user/schemas/user.schema";
 import { Project } from "src/project/schemas/project.schema";
-import { Locale } from "src/common/dtos/locale.dto";
+import { Locale, LocaleSchema } from "src/common/schemas/locale.schema";
 
 @Schema()
 export class Institution extends Document {
@@ -18,8 +18,7 @@ export class Institution extends Document {
     @Prop({ type: SchemaTypes.ObjectId, ref: 'User', required: true })
     creator: User['_id'];
 
-    // TODO: PUT THIS BACK IN
-    // @Prop({ required: true })
+    @Prop({ type: LocaleSchema, required: true })
     location: Locale;
 
     @Prop([{ type: SchemaTypes.ObjectId, ref: 'Project' }])

@@ -1,7 +1,7 @@
 import { Prop, Schema, raw, SchemaFactory } from '@nestjs/mongoose'
 import { Document, SchemaTypes } from 'mongoose';
 import { Availability, AvailabilitySchema } from 'src/common/schemas/availability.schema';
-import { Locale } from 'src/common/dtos/locale.dto';
+import { Locale, LocaleSchema } from 'src/common/schemas/locale.schema';
 import { Match } from 'src/match/schemas/match.schema';
 import { Participation } from 'src/participation/schemas/participation.schema';
 import { Project } from 'src/project/schemas/project.schema';
@@ -31,7 +31,7 @@ export class Opening extends Document {
     @Prop({ required: true })
     remuneration: number;
 
-    @Prop({ required: false })
+    @Prop({ type: LocaleSchema, required: false })
     location?: Locale;
 
     // languages;

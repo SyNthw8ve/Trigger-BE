@@ -1,4 +1,4 @@
-import { Locale } from "src/common/dtos/locale.dto";
+import { Locale } from "src/common/schemas/locale.schema";
 import { Project } from "../schemas/project.schema";
 
 export class CreateProjectDto {
