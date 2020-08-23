@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { ObjectType, Field, Float, registerEnumType,  } from "@nestjs/graphql";
 
 export enum AvailabilityType {
     FullTime = "full-time",
@@ -6,11 +7,17 @@ export enum AvailabilityType {
     Hours = "hours",
 }
 
+registerEnumType(AvailabilityType, { name: 'AvailabilityType' });
+
+@ObjectType()
 @Schema()
 export class Availability {
+
+    @Field(type => AvailabilityType,{ nullable: false })
     @Prop({ required: true })
     type: AvailabilityType;
 
+    @Field(type => Float, { nullable: true })
     @Prop({ required: false })
     hours?: number;
 }
