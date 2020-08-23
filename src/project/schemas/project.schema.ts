@@ -5,7 +5,7 @@ import { Institution } from "src/institution/schemas/institution.schema";
 import { Locale, LocaleSchema } from "src/common/schemas/locale.schema";
 import { Phase } from "src/phase/schemas/phase.schema";
 
-import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Field, ObjectType, ID, registerEnumType } from '@nestjs/graphql';
 
 export enum ProjectStatus {
     Open = "open",
@@ -44,19 +44,19 @@ export class Project extends Document {
     status: ProjectStatus;
     // recommendations
     // deadlines
-    @Field(type => [Int])
+    @Field(type => [ID])
     @Prop([{ type: SchemaTypes.ObjectId, ref: User.name }])
     currentTeam: User['_id'][];
 
-    @Field(type => Int)
+    @Field(type => ID)
     @Prop({ type: SchemaTypes.ObjectId, ref: User.name })
     manager: User['_id'];
 
-    @Field(type => [Int])
+    @Field(type => [ID])
     @Prop([{ type: SchemaTypes.ObjectId, ref: User.name }])
     admins: User['_id'][];
 
-    @Field(type => Int, { nullable: false })
+    @Field(type => ID, { nullable: true })
     @Prop({ type: SchemaTypes.ObjectId, ref: 'Institution', required: false })
     institution?: Institution['id'];
 
@@ -64,7 +64,7 @@ export class Project extends Document {
     @Prop({ required: true, default: false })
     highlighted: boolean;
 
-    @Field(type => [Int])
+    @Field(type => [ID])
     @Prop([{ type: SchemaTypes.ObjectId, ref: Phase.name }])
     phases: Phase['_id'][];
 }
