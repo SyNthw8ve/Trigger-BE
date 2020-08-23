@@ -5,48 +5,66 @@ import { Institution } from "src/institution/schemas/institution.schema";
 import { Locale, LocaleSchema } from "src/common/schemas/locale.schema";
 import { Phase } from "src/phase/schemas/phase.schema";
 
+import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
+
 export enum ProjectStatus {
     Open = "open",
     Closed = "closed",
 }
 
+registerEnumType(ProjectStatus, { name: 'ProjectStatus' });
+
+@ObjectType()
 @Schema()
 export class Project extends Document {
+
+    @Field(type => String, { nullable: false })
     @Prop({ required: true })
     title: string;
 
+    @Field(type => [String])
     @Prop([String])
     aliases: string[];
 
     // photos
+    @Field(type => String, { nullable: false })
     @Prop({ required: true })
     description: string;
 
+    @Field(type => String, { nullable: false })
     @Prop({ required: true })
     scope: string;
 
+    @Field(type => Locale, { nullable: true })
     @Prop({ type: LocaleSchema, required: false })
     location?: Locale;
 
+    @Field(type => ProjectStatus, { nullable: false })
     @Prop({ required: true })
     status: ProjectStatus;
     // recommendations
     // deadlines
+    @Field(type => [Int])
     @Prop([{ type: SchemaTypes.ObjectId, ref: User.name }])
     currentTeam: User['_id'][];
 
+    @Field(type => Int)
     @Prop({ type: SchemaTypes.ObjectId, ref: User.name })
     manager: User['_id'];
 
+    @Field(type => [Int])
     @Prop([{ type: SchemaTypes.ObjectId, ref: User.name }])
     admins: User['_id'][];
 
+    @Field(type => Int, { nullable: false })
     @Prop({ type: SchemaTypes.ObjectId, ref: 'Institution', required: false })
     institution?: Institution['id'];
 
+    @Field(type => Boolean)
     @Prop({ required: true, default: false })
     highlighted: boolean;
 
+    @Field(type => [Int])
     @Prop([{ type: SchemaTypes.ObjectId, ref: Phase.name }])
     phases: Phase['_id'][];
 }

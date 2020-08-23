@@ -9,10 +9,12 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
+import { GraphQLModule } from '@nestjs/graphql';
 
 import { connectionString } from './config'
 import { LanguageModule } from './language/language.module';
 import { SoftskillModule } from './softskill/softskill.module';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -25,7 +27,14 @@ import { SoftskillModule } from './softskill/softskill.module';
     InstitutionModule,
     CommonModule,
     UserModule,
-    MongooseModule.forRoot(connectionString),],
+    MongooseModule.forRoot(connectionString),
+    GraphQLModule.forRoot(
+      {
+        debug: true, 
+        playground: true, 
+        autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+        sortSchema: true
+      })],
   controllers: [AppController],
   providers: [AppService],
 })
