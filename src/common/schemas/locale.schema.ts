@@ -2,7 +2,10 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 @Schema()
 export class Position {
+    @Prop({ required: true })
     longitude: number;
+
+    @Prop({ required: true })
     latitude: number;
 }
 
