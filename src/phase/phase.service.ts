@@ -23,13 +23,9 @@ export class PhaseService {
         const { project, openingsAndTasks, ...rest } = createDto;
 
         let created = new this.model(rest);
-        created = await created.save();
 
         const participations = await this.createParticipations(created, openingsAndTasks);
         created.participations = participations;
-
-        // FIXME: again :(
-        created = await created.save();
 
         this.projectService.addPhase(project, created._id);
 
@@ -39,7 +35,7 @@ export class PhaseService {
     }
 
 
-    async createParticipations(phase: Phase, openingsAndTasks: { opening: any; tasks: Task[]; }[]) {
+    async createParticipations(phase: Phase, openingsAndTasks: CreatePhaseDto['openingsAndTasks']) {
 
         return Promise.all(openingsAndTasks.map(async value => {
             return await this.participationService.new({ opening: value.opening, phase: phase._id, tasks: value.tasks })
@@ -47,7 +43,7 @@ export class PhaseService {
 
     }
 
-    async putParticipationsInOpenings(openingsAndTasks: { opening: any; tasks: Task[]; }[], participations: Participation[]) {
+    async putParticipationsInOpenings(openingsAndTasks: CreatePhaseDto['openingsAndTasks'], participations: Participation[]) {
 
         return Promise.all(openingsAndTasks.map(async (value, index) => {
             return await this.openingService.addParticipation(value.opening, participations[index]._id);
