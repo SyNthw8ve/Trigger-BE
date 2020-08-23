@@ -3,9 +3,30 @@ import { Phase } from "src/phase/schemas/phase.schema";
 import { Project } from "src/project/schemas/project.schema";
 import { Task } from "../../common/schemas/task";
 
+import { ObjectType, InputType, Field, ID, GraphQLISODateTime } from '@nestjs/graphql';
+
+@ObjectType()
+export class OpeningTasks {
+
+    @Field(type => ID, { nullable: false })
+    opening: Opening['_id'];
+
+    @Field(type => [Task], { nullable: false })
+    tasks: Task[];
+}
+
+@InputType()
 export class CreatePhaseDto {
+
+    @Field(type => ID, { nullable: false })
     project: Project['_id'];
+
+    @Field(type => GraphQLISODateTime, { nullable: false })
     startDate: Phase['startDate'];
+
+    @Field(type => GraphQLISODateTime, { nullable: false })
     endDate: Phase['endDate'];
-    openingsAndTasks: { opening: Opening['_id']; tasks: Task[]; }[];
+
+    @Field(type => [OpeningTasks], { nullable: false })
+    openingsAndTasks: OpeningTasks[];
 }
