@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Task } from 'src/common/dtos/task';
 import { OpeningService } from 'src/opening/opening.service';
 import { ParticipationService } from 'src/participation/participation.service';
 import { Participation } from 'src/participation/schemas/participation.schema';
@@ -31,7 +30,7 @@ export class PhaseService {
 
         this.putParticipationsInOpenings(openingsAndTasks, participations);
 
-        return created;
+        return created.save();
     }
 
 
