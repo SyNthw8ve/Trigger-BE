@@ -1,12 +1,12 @@
-import { Hardskill } from "src/common/schemas/hardskill.schema";
+import { Hardskill } from "src/hardskill/schemas/hardskill.schema";
 
 import { Prop, Schema, raw, SchemaFactory } from '@nestjs/mongoose'
 import { Document, SchemaTypes } from 'mongoose';
 import { Institution } from "src/institution/schemas/institution.schema";
 import { Project } from "src/project/schemas/project.schema";
-import { Softskill } from "src/common/schemas/softskill.schema";
-import { Language } from "src/common/schemas/language.schema";
-import { Availability, AvailabilitySchema, AvailabilityType } from "src/common/schemas/availability.schema";
+import { Softskill } from "src/softskill/schemas/softskill.schema";
+import { Language } from "src/language/schemas/language.schema";
+import { Availability, AvailabilitySchema } from "src/common/schemas/availability.schema";
 
 // Maybe this should be called UserSoftskillResult?
 @Schema()

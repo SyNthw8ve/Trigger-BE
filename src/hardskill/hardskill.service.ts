@@ -5,9 +5,15 @@ import { CreateHardskillDto } from './dtos/create-hardskill.dto';
 import { Hardskill } from './schemas/hardskill.schema';
 
 @Injectable()
-export class HardskillsService {
+export class HardskillService {
 
     constructor(@InjectModel(Hardskill.name) private model: Model<Hardskill>) { }
+
+    async many_new(registerHardSkills: CreateHardskillDto[]): Promise<Hardskill[]> {
+        return Promise.all(
+            registerHardSkills.map(value => this.new(value))
+        );
+    }
 
     async new(createDto: CreateHardskillDto): Promise<Hardskill> {
         // TODO: validate this

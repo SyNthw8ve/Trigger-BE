@@ -1,3 +1,4 @@
+import { HardskillModule } from './hardskill/hardskill.module';
 import { ParticipationModule } from './participation/participation.module';
 import { PhaseModule } from './phase/phase.module';
 import { ProjectModule } from './project/project.module';
@@ -10,9 +11,14 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { connectionString } from './config'
+import { LanguageModule } from './language/language.module';
+import { SoftskillModule } from './softskill/softskill.module';
 
 @Module({
   imports: [
+    HardskillModule,
+    LanguageModule,
+    SoftskillModule,
     ParticipationModule,
     PhaseModule,
     ProjectModule,

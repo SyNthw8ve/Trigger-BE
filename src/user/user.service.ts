@@ -7,14 +7,11 @@ import { User } from './schemas/user.schema';
 import { RegisterUserDto } from './dtos/create-User.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { Project } from 'src/project/schemas/project.schema';
-import { HardskillsService } from 'src/common/hardskills.service';
-import { CreateHardskillDto } from 'src/common/dtos/create-hardskill.dto';
 
 @Injectable()
 export class UserService {
 
-    constructor(@InjectModel(User.name) private userModel: Model<User>,
-        private hardSkillsService: HardskillsService) { }
+    constructor(@InjectModel(User.name) private userModel: Model<User>) { }
 
     async new(registerUserDto: RegisterUserDto): Promise<User> {
         // TODO: validate this

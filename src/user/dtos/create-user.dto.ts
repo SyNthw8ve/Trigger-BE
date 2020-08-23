@@ -1,5 +1,5 @@
-import { CreateHardskillDto } from "src/common/dtos/create-hardskill.dto";
-import { Hardskill } from "src/common/schemas/hardskill.schema";
+import { CreateHardskillDto } from "src/hardskill/dtos/create-hardskill.dto";
+import { Hardskill } from "src/hardskill/schemas/hardskill.schema";
 import { User } from "../schemas/user.schema";
 
 export class RegisterUserDto {
