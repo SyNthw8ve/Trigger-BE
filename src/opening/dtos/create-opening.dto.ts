@@ -1,4 +1,4 @@
-import { Availability } from "src/common/dtos/availability.dto";
+import { Availability } from "src/common/schemas/availability.schema";
 import { Locale } from "src/common/dtos/locale.dto";
 import { Opening } from "../schemas/opening.schema";
 

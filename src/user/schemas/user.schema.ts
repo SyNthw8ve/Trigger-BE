@@ -6,6 +6,7 @@ import { Institution } from "src/institution/schemas/institution.schema";
 import { Project } from "src/project/schemas/project.schema";
 import { Softskill } from "src/common/schemas/softskill.schema";
 import { Language } from "src/common/schemas/language.schema";
+import { Availability, AvailabilitySchema, AvailabilityType } from "src/common/schemas/availability.schema";
 
 // Maybe this should be called UserSoftskillResult?
 @Schema()
@@ -52,12 +53,13 @@ export class User extends Document {
     @Prop([{ type: SchemaTypes.ObjectId, ref: Language.name }])
     languages: Language['_id'][];
 
+    @Prop({ type: AvailabilitySchema, required: false })
+    availability?: Availability;
+
     // friends: User[]; // not yet
     // favorites: (User | number)[];
     // location
     // recommendations
-    // disponiblidade
 }
-
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -9,4 +9,5 @@ export class RegisterUserDto {
     readonly hardSkills?: User['hardSkills'];
     readonly softSkills?: User['softSkills'];
     readonly languages?: User['languages'];
+    readonly availability?: User['availability'];
 }

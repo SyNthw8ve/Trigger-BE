@@ -1,6 +1,6 @@
 import { Prop, Schema, raw, SchemaFactory } from '@nestjs/mongoose'
 import { Document, SchemaTypes } from 'mongoose';
-import { Availability } from 'src/common/dtos/availability.dto';
+import { Availability, AvailabilitySchema } from 'src/common/schemas/availability.schema';
 import { Locale } from 'src/common/dtos/locale.dto';
 import { Match } from 'src/match/schemas/match.schema';
 import { Participation } from 'src/participation/schemas/participation.schema';
@@ -40,7 +40,7 @@ export class Opening extends Document {
 
     // hardskills;
 
-    @Prop({ required: true })
+    @Prop({ type: AvailabilitySchema, required: true })
     availability: Availability;
 
     @Prop([Application])
