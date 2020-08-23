@@ -1,7 +1,7 @@
 import { Hardskill } from "../schemas/hardskill.schema";
-import { ObjectType , Field } from '@nestjs/graphql';
+import { InputType , Field } from '@nestjs/graphql';
 
-@ObjectType()
+@InputType()
 export class CreateHardskillDto {
 
     @Field(type => String, { nullable: false })

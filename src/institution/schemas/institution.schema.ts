@@ -4,23 +4,33 @@ import { User } from "src/user/schemas/user.schema";
 import { Project } from "src/project/schemas/project.schema";
 import { Locale, LocaleSchema } from "src/common/schemas/locale.schema";
 
+import { ObjectType, Field, ID } from '@nestjs/graphql';
+
+@ObjectType()
 @Schema()
 export class Institution extends Document {
+
+    @Field(type => String, { nullable: false })
     @Prop({ required: true })
     name: String;
     // photo
+    @Field(type => String, { nullable: false })
     @Prop({ required: true })
     description: String;
 
+    @Field(type => String, { nullable: false })
     @Prop({ required: true })
     sector: String;
 
+    @Field(type => ID, { nullable: false })
     @Prop({ type: SchemaTypes.ObjectId, ref: 'User', required: true })
     creator: User['_id'];
 
+    @Field(type => Locale, { nullable: false })
     @Prop({ type: LocaleSchema, required: true })
     location: Locale;
 
+    @Field(type => [ID])
     @Prop([{ type: SchemaTypes.ObjectId, ref: 'Project' }])
     projects: Project['_id'][];
     // favorites: (User | Institution)[];
