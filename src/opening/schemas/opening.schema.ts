@@ -2,9 +2,12 @@ import { Prop, Schema, raw, SchemaFactory } from '@nestjs/mongoose'
 import { Document, SchemaTypes } from 'mongoose';
 import { Availability, AvailabilitySchema } from 'src/common/schemas/availability.schema';
 import { Locale, LocaleSchema } from 'src/common/schemas/locale.schema';
+import { Hardskill, HardskillSchema } from 'src/hardskill/schemas/hardskill.schema';
+import { Language, LanguageSchema } from 'src/language/schemas/language.schema';
 import { Match } from 'src/match/schemas/match.schema';
 import { Participation } from 'src/participation/schemas/participation.schema';
 import { Project } from 'src/project/schemas/project.schema';
+import { Softskill, SoftskillSchema } from 'src/softskill/schemas/softskill.schema';
 import { User } from 'src/user/schemas/user.schema';
 
 export enum ApplicationType {
@@ -34,11 +37,14 @@ export class Opening extends Document {
     @Prop({ type: LocaleSchema, required: false })
     location?: Locale;
 
-    // languages;
+    @Prop([{ type: SchemaTypes.ObjectId, ref: Language.name }])
+    languages: Language['_id'][];
 
-    // softskills;
+    @Prop([{ type: SchemaTypes.ObjectId, ref: Softskill.name }])
+    softskills: Softskill['_id'][];
 
-    // hardskills;
+    @Prop([{ type: SchemaTypes.ObjectId, ref: Hardskill.name }])
+    hardskills: Hardskill['_id'][];
 
     @Prop({ type: AvailabilitySchema, required: true })
     availability: Availability;
