@@ -5,11 +5,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Institution } from './schemas/institution.schema';
 import { CreateInstitutionDto } from './dtos/create-institution.dto';
 import { Project } from 'src/project/schemas/project.schema';
+import { LocationService } from 'src/common/location.service';
 
 @Injectable()
 export class InstitutionService {
 
-    constructor(@InjectModel(Institution.name) private model: Model<Institution>) { }
+    constructor(@InjectModel(Institution.name) private model: Model<Institution>,
+        private locationService: LocationService) { }
 
     async new(createInstitutionDto: CreateInstitutionDto): Promise<Institution> {
         // TODO: validate this
@@ -18,7 +20,13 @@ export class InstitutionService {
         // gonna be an admin, right? If we want him there, something like below?
         // const objectWithManagerAsAdmin = Object.assign(createInstitutionDto, { admins: Institution['admins'] = [createInstitutionDto.manager] });
 
-        const created = new this.model(createInstitutionDto);
+        const { locationAdress, ...rest } = createInstitutionDto;
+
+        const location = await this.locationService.localeFromAdress(locationAdress);
+
+        const data = { location, ...rest };
+
+        const created = new this.model(data);
         return created.save();
     }
 

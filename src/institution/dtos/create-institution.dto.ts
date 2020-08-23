@@ -1,3 +1,4 @@
+import { Locale } from "src/common/schemas/locale.schema";
 import { Institution } from "../schemas/institution.schema";
 
 export class CreateInstitutionDto {
@@ -6,6 +7,6 @@ export class CreateInstitutionDto {
     // photo
     description: Institution['description'];
     sector: Institution['sector'];
-    // location
+    locationAdress: Locale['address'];
     // favorites: (User | Institution)[];
 }

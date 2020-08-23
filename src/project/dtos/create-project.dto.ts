@@ -7,5 +7,5 @@ export class CreateProjectDto {
     title: Project['title'];
     description: Project['description'];
     scope: Project['scope'];
-    location_adress: Locale['address'];
+    locationAdress: Locale['address'];
 }

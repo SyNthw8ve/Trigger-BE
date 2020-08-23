@@ -20,7 +20,7 @@ export class ProjectService {
 
     async new(createProjectDto: CreateProjectDto) {
         // TODO: validate this
-        const location = await this.locationService.localeFromAdress(createProjectDto.location_adress);
+        const location = await this.locationService.localeFromAdress(createProjectDto.locationAdress);
 
         // TODO: Is this assumption correct?
         const status = ProjectStatus.Open;
