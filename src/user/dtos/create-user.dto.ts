@@ -1,5 +1,5 @@
 import { User } from "../schemas/user.schema";
-import { Availability } from "../../common/schemas/availability.schema";
+import { AvailabilityInput } from "../../common/dtos/availability-input.dto";
 
 import { InputType, Field, ID } from '@nestjs/graphql';
 
@@ -24,7 +24,7 @@ export class RegisterUserDto {
     @Field(type => [ID], { nullable: true })
     readonly languages?: User['languages'];
 
-    @Field(type => Availability, { nullable: true })
+    @Field(type => AvailabilityInput, { nullable: true })
     readonly availability?: User['availability'];
 
     @Field(type => [String], { nullable: true })

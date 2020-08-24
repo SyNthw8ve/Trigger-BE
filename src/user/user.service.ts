@@ -20,16 +20,21 @@ export class UserService {
         return createdUser.save();
     }
 
-    async update(updateUserDto: UpdateUserDto): Promise<void> {
+    async update(updateUserDto: UpdateUserDto): Promise<User> {
         // TODO: validate this
         let { id, ...updateObj } = updateUserDto;
-        await this.userModel.updateOne({ _id: id }, updateObj);
+        return await this.userModel.findByIdAndUpdate({ _id: id }, updateObj, { useFindAndModify: false });
     }
 
     async addProject(managerId: User['_id'], projectId: Project['_id']) {
         const user = await this.userModel.findById(managerId);
         user.projects.push(projectId);
         user.save();
+    }
+
+    async getUsers() : Promise<User[]> {
+
+        return await this.userModel.find();
     }
 
 }

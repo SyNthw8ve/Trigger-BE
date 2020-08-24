@@ -2,6 +2,33 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Application {
+  match: ID
+  type: ApplicationType!
+  user: ID!
+}
+
+enum ApplicationType {
+  Manual
+  Match
+}
+
+type Availability {
+  hours: Float
+  type: AvailabilityType!
+}
+
+input AvailabilityInput {
+  hours: Float
+  type: AvailabilityType!
+}
+
+enum AvailabilityType {
+  FullTime
+  Hours
+  PartTime
+}
+
 input CreateHardskillDto {
   name: String!
 }
@@ -10,11 +37,71 @@ type Hardskill {
   name: String!
 }
 
+type Locale {
+  address: String!
+  position: Position!
+}
+
 type Mutation {
+  newUser(user: RegisterUserDto!): User!
   registerHardSkill(skill: CreateHardskillDto!): Hardskill!
   registerMutlipleHardSkills(skills: [CreateHardskillDto!]!): [Hardskill!]!
+  updateUser(user: UpdateUserDto!): User!
+}
+
+type Position {
+  latitude: Float!
+  longitude: Float!
 }
 
 type Query {
   getHardSkills: [Hardskill!]!
+  getUsers: [User!]!
+}
+
+input RegisterUserDto {
+  availability: AvailabilityInput
+  email: String!
+  hardSkills: [ID!]
+  interests: [String!]
+  languages: [ID!]
+  name: String!
+  password: String!
+  softSkills: [ID!]
+}
+
+type Task {
+  description: String!
+  title: String!
+}
+
+input UpdateUserDto {
+  availability: AvailabilityInput
+  email: String!
+  hardSkills: [ID!]
+  id: ID!
+  interests: [String!]
+  languages: [ID!]
+  name: String!
+  password: String!
+  softSkills: [ID!]
+}
+
+type User {
+  availability: Availability
+  email: String!
+  hardSkills: [ID!]!
+  institution: ID
+  interests: [String!]!
+  languages: [ID!]!
+  name: String!
+  password: String!
+  projects: [ID!]!
+  softSkills: [UserSoftskill!]!
+}
+
+type UserSoftskill {
+  score: Float!
+  softskillId: ID!
+  visible: Boolean!
 }

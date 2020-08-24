@@ -19,14 +19,14 @@ import { join } from 'path';
 @Module({
   imports: [
     HardskillModule,
-   /*  LanguageModule,
+    LanguageModule,
     SoftskillModule,
     ParticipationModule,
     PhaseModule,
     ProjectModule,
     InstitutionModule,
     CommonModule,
-    UserModule, */
+    UserModule,
     MongooseModule.forRoot(connectionString),
     GraphQLModule.forRoot(
       {
