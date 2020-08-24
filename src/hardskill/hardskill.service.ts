@@ -20,4 +20,9 @@ export class HardskillService {
         const hardSkill = new this.model(createDto);
         return hardSkill.save();
     }
+
+    async find_all() : Promise<Hardskill[]> {
+
+        return this.model.find();
+    }
 }

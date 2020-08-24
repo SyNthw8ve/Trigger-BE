@@ -1,0 +1,20 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateHardskillDto {
+  name: String!
+}
+
+type Hardskill {
+  name: String!
+}
+
+type Mutation {
+  registerHardSkill(skill: CreateHardskillDto!): Hardskill!
+  registerMutlipleHardSkills(skills: [CreateHardskillDto!]!): [Hardskill!]!
+}
+
+type Query {
+  getHardSkills: [Hardskill!]!
+}

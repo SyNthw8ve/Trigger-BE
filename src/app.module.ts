@@ -19,14 +19,14 @@ import { join } from 'path';
 @Module({
   imports: [
     HardskillModule,
-    LanguageModule,
+   /*  LanguageModule,
     SoftskillModule,
     ParticipationModule,
     PhaseModule,
     ProjectModule,
     InstitutionModule,
     CommonModule,
-    UserModule,
+    UserModule, */
     MongooseModule.forRoot(connectionString),
     GraphQLModule.forRoot(
       {
@@ -35,7 +35,6 @@ import { join } from 'path';
         autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
         sortSchema: true
       })],
-  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule { }
