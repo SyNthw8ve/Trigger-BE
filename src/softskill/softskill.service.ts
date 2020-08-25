@@ -14,4 +14,9 @@ export class SoftskillService {
         const skill = new this.model(createDto);
         return skill.save();
     }
+
+    async findWithId(id: Softskill['_id']) : Promise<Softskill> {
+
+        return await this.model.findById(id);
+    }
 }

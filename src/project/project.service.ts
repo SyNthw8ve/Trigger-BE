@@ -67,4 +67,9 @@ export class ProjectService {
     async findWithId(id: Project['_id']): Promise<Project> {
         return this.projectModel.findById(id);
     }
+
+    async findManyWithId(ids: Project['_id'][]): Promise<Project[]> {
+        
+        return await this.projectModel.find({ _id: { $in: ids } });
+    }
 }

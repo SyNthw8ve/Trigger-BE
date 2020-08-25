@@ -37,6 +37,19 @@ export class InstitutionService {
         institution.save();
     }
 
+    async findWithId(institutionId: Institution['_id']) {
+        
+        try {
+
+            return await this.model.findById(institutionId);
+        }
+
+        catch (err) {
+
+            return null
+        }
+    }
+
     // async update(updateUserDto: UpdateUserDto): Promise<void> {
     //     // TODO: validate this
     //     let { id, ...updateObj } = updateUserDto;

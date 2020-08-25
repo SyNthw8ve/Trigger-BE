@@ -14,4 +14,9 @@ export class LanguageService {
         const language = new this.model(createDto);
         return language.save();
     }
+
+    async findManyById(ids: Language['_id'][]) : Promise<Language[]> {
+
+        return await this.model.find({ _id: { $in: ids } });
+    }
 }

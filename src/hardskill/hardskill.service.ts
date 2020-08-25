@@ -21,8 +21,13 @@ export class HardskillService {
         return hardSkill.save();
     }
 
-    async find_all() : Promise<Hardskill[]> {
+    async find_all(): Promise<Hardskill[]> {
 
         return this.model.find();
+    }
+
+    async findManyById(ids: Hardskill['_id'][]): Promise<Hardskill[]> {
+
+        return await this.model.find({ _id: { $in: ids } });
     }
 }

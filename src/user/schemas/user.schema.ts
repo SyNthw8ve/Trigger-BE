@@ -39,7 +39,7 @@ export class User extends Document {
     name: string;
 
     @Field(type => String, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ required: true, unique: true })
     email: string;
 
     @Field(type => String, { nullable: false })

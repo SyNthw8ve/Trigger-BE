@@ -37,6 +37,19 @@ type Hardskill {
   name: String!
 }
 
+type Institution {
+  creator: ID!
+  description: String!
+  location: Locale!
+  name: String!
+  projects: [ID!]!
+  sector: String!
+}
+
+type Language {
+  name: String!
+}
+
 type Locale {
   address: String!
   position: Position!
@@ -54,6 +67,26 @@ type Position {
   longitude: Float!
 }
 
+type Project {
+  admins: [ID!]!
+  aliases: [String!]!
+  currentTeam: [ID!]!
+  description: String!
+  highlighted: Boolean!
+  institution: ID
+  location: Locale
+  manager: ID!
+  phases: [ID!]!
+  scope: String!
+  status: ProjectStatus!
+  title: String!
+}
+
+enum ProjectStatus {
+  Closed
+  Open
+}
+
 type Query {
   getHardSkills: [Hardskill!]!
   getUsers: [User!]!
@@ -68,6 +101,10 @@ input RegisterUserDto {
   name: String!
   password: String!
   softSkills: [ID!]
+}
+
+type Softskill {
+  name: String!
 }
 
 type Task {
@@ -90,18 +127,18 @@ input UpdateUserDto {
 type User {
   availability: Availability
   email: String!
-  hardSkills: [ID!]!
-  institution: ID
+  hardSkills: [Hardskill!]!
+  institution: Institution
   interests: [String!]!
-  languages: [ID!]!
+  languages: [Language!]!
   name: String!
   password: String!
-  projects: [ID!]!
+  projects: [Project!]!
   softSkills: [UserSoftskill!]!
 }
 
 type UserSoftskill {
   score: Float!
-  softskillId: ID!
+  softskillId: Softskill!
   visible: Boolean!
 }

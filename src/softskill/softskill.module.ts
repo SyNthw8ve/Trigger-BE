@@ -8,5 +8,6 @@ import { Softskill, SoftskillSchema } from './schemas/softskill.schema';
     imports: [MongooseModule.forFeature([{ name: Softskill.name, schema: SoftskillSchema }])],
     controllers: [SoftskillController,],
     providers: [SoftskillService],
+    exports: [SoftskillService]
 })
 export class SoftskillModule { }
