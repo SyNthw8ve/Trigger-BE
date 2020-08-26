@@ -41,6 +41,10 @@ input CreateInstitutionDto {
   sector: String!
 }
 
+input CreateLanguageDto {
+  name: String!
+}
+
 type Hardskill {
   name: String!
 }
@@ -70,6 +74,7 @@ input LocaleInput {
 
 type Mutation {
   newInstitution(institution: CreateInstitutionDto!): Institution!
+  newLanguage(language: CreateLanguageDto!): Language!
   newUser(user: RegisterUserDto!): User!
   registerHardSkill(skill: CreateHardskillDto!): Hardskill!
   registerMutlipleHardSkills(skills: [CreateHardskillDto!]!): [Hardskill!]!
@@ -109,6 +114,7 @@ enum ProjectStatus {
 type Query {
   getHardSkills: [Hardskill!]!
   getInstitutions: [Institution!]!
+  getLanguages: [Language!]!
   getUsers: [User!]!
 }
 
