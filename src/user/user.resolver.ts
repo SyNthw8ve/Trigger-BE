@@ -13,6 +13,7 @@ import { Language } from 'src/language/schemas/language.schema';
 import { LanguageService } from 'src/language/language.service';
 import { Softskill } from 'src/softskill/schemas/softskill.schema';
 import { SoftskillService } from 'src/softskill/softskill.service';
+import { InsertionResult } from './dtos/insertion-result.dto';
 
 @Resolver(of => User)
 export class UserResolver {
@@ -36,8 +37,8 @@ export class UserResolver {
         return await this.userService.findWithEmail(email);
     }
 
-    @Mutation(returns => User)
-    async newUser(@Args('user') user: RegisterUserDto): Promise<User> {
+    @Mutation(returns => InsertionResult)
+    async newUser(@Args('user') user: RegisterUserDto): Promise<InsertionResult> {
 
         return await this.userService.new(user);
     }

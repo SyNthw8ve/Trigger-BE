@@ -6,27 +6,43 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schemas/user.schema';
 import { RegisterUserDto } from './dtos/create-User.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
+import { InsertionResult, Description } from './dtos/insertion-result.dto';
 import { Project } from 'src/project/schemas/project.schema';
+
+import { genSalt, hash } from 'bcrypt';
+
 
 @Injectable()
 export class UserService {
 
+    saltRounds = 10;
+
     constructor(@InjectModel(User.name) private userModel: Model<User>) { }
 
-    async new(registerUserDto: RegisterUserDto): Promise<User> {
-        // TODO: validate this
-        // TODO: THERE ARE PASSWORDS HERE, THIS HAS NO SECURITY
+    async new(registerUserDto: RegisterUserDto): Promise<InsertionResult> {
+
         try {
 
-            const createdUser = new this.userModel(registerUserDto);
-            return await createdUser.save();
+            const { password, ...userData } = registerUserDto;
+
+            const salt = await genSalt(this.saltRounds);
+            const hashedPassword = await hash(password, salt);
+
+            const createdUser = new this.userModel({ ...userData, password: hashedPassword });
+
+            await createdUser.save();
+
+            return { success: true, description: Description.OK };
         }
 
         catch (err) {
 
-            if (err.code == 11000) console.log("Duplicate email");
+            if (err.code == 11000) { 
+                
+                return { success: false, description: Description.EMAIL_IN_USE }; 
+            }
         }
-        
+
     }
 
     async update(updateUserDto: UpdateUserDto): Promise<User> {
@@ -41,32 +57,32 @@ export class UserService {
         user.save();
     }
 
-    async getUsers() : Promise<User[]> {
+    async getUsers(): Promise<User[]> {
 
         return await this.userModel.find();
     }
 
-    async findWithId(id: User['_id']) : Promise<User> {
+    async findWithId(id: User['_id']): Promise<User> {
 
         return await this.userModel.findById(id);
     }
 
-    async findWithEmail(email: string) : Promise<User> {
+    async findWithEmail(email: string): Promise<User> {
 
         try {
 
-            return await this.userModel.findOne({'email': email}).exec();
+            return await this.userModel.findOne({ 'email': email }).exec();
 
-        } catch(err) {
+        } catch (err) {
 
             return null;
         }
 
     }
 
-    async findManyWithId(ids: User['_id'][]) : Promise<User[]> {
+    async findManyWithId(ids: User['_id'][]): Promise<User[]> {
 
-        return await this.userModel.find({ _id: { $in: ids }});
+        return await this.userModel.find({ _id: { $in: ids } });
     }
 
 }

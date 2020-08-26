@@ -4,6 +4,8 @@ import { User } from '../user/schemas/user.schema';
 import { UserValidation } from './dtos/user-validation.dto';
 import { AuthResult, Status } from './dtos/auth-result.dto';
 
+import { compare } from 'bcrypt';
+
 @Injectable()
 export class AuthService {
 
@@ -18,7 +20,9 @@ export class AuthService {
 
             authResult = { result: null, status: Status.PASSWORD_NOT_MATCH, success: false }
 
-            if (toValidate.password == user.password) {
+            const isEqual = await compare(toValidate.password, user.password)
+
+            if (isEqual) {
 
                 const { password, ...result } = user.toObject();
                
