@@ -19,4 +19,9 @@ export class SoftskillService {
 
         return await this.model.findById(id);
     }
+
+    async getAll() : Promise<Softskill[]> {
+
+        return await this.model.find();
+    }
 }

@@ -45,6 +45,10 @@ input CreateLanguageDto {
   name: String!
 }
 
+input CreateSoftskillDto {
+  name: String!
+}
+
 type Hardskill {
   name: String!
 }
@@ -75,6 +79,7 @@ input LocaleInput {
 type Mutation {
   newInstitution(institution: CreateInstitutionDto!): Institution!
   newLanguage(language: CreateLanguageDto!): Language!
+  newSoftskill(softskill: CreateSoftskillDto!): Softskill!
   newUser(user: RegisterUserDto!): User!
   registerHardSkill(skill: CreateHardskillDto!): Hardskill!
   registerMutlipleHardSkills(skills: [CreateHardskillDto!]!): [Hardskill!]!
@@ -115,6 +120,7 @@ type Query {
   getHardSkills: [Hardskill!]!
   getInstitutions: [Institution!]!
   getLanguages: [Language!]!
+  getSoftskills: [Softskill!]!
   getUsers: [User!]!
 }
 
