@@ -1,4 +1,3 @@
-import { Body, Controller, Post } from '@nestjs/common';
 import { CreateOpeningDto } from './dtos/create-opening.dto';
 import { OpeningService } from './opening.service';
 import { Resolver, Args, Mutation, ResolveField, Parent } from '@nestjs/graphql';

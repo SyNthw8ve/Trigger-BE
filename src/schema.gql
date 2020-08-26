@@ -53,6 +53,13 @@ input CreateOpeningDto {
   remuneration: Float!
 }
 
+input CreatePhaseDto {
+  endDate: DateTime!
+  openingsAndTasks: [OpeningTasksInput!]!
+  project: ID!
+  startDate: DateTime!
+}
+
 input CreateProjectDto {
   description: String!
   institution: ID
@@ -100,6 +107,7 @@ input LocaleInput {
 
 type Mutation {
   createOpening(opening: CreateOpeningDto!): Opening!
+  createPhase(phase: CreatePhaseDto!): Phase!
   newInstitution(institution: CreateInstitutionDto!): Institution!
   newLanguage(language: CreateLanguageDto!): Language!
   newProject(project: CreateProjectDto!): Project!
@@ -123,6 +131,11 @@ type Opening {
   softskills: [Softskill!]!
 }
 
+input OpeningTasksInput {
+  opening: ID!
+  tasks: [TaskInput!]!
+}
+
 type Participation {
   opening: ID!
   phase: ID!
@@ -131,7 +144,7 @@ type Participation {
 
 type Phase {
   endDate: DateTime!
-  participations: [ID!]!
+  participations: [Participation!]!
   startDate: DateTime!
 }
 
@@ -190,6 +203,11 @@ type Softskill {
 }
 
 type Task {
+  description: String!
+  title: String!
+}
+
+input TaskInput {
   description: String!
   title: String!
 }
