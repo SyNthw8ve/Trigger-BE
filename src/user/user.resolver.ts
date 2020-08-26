@@ -30,6 +30,12 @@ export class UserResolver {
         return await this.userService.getUsers();
     }
 
+    @Query(returns => User)
+    async getUser(@Args('email') email: string): Promise<User> {
+
+        return await this.userService.findWithEmail(email);
+    }
+
     @Mutation(returns => User)
     async newUser(@Args('user') user: RegisterUserDto): Promise<User> {
 

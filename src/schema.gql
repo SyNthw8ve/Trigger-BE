@@ -13,6 +13,12 @@ enum ApplicationType {
   Match
 }
 
+type AuthResult {
+  result: Result
+  status: Status!
+  success: Boolean!
+}
+
 type Availability {
   hours: Float
   type: AvailabilityType!
@@ -184,7 +190,9 @@ type Query {
   getLanguages: [Language!]!
   getProject(id: String!): Project!
   getSoftskills: [Softskill!]!
+  getUser(email: String!): User!
   getUsers: [User!]!
+  loginEmail(user: UserValidation!): AuthResult!
 }
 
 input RegisterUserDto {
@@ -198,8 +206,26 @@ input RegisterUserDto {
   softSkills: [ID!]
 }
 
+type Result {
+  availability: Availability
+  email: String!
+  hardSkills: [ID!]!
+  institution: ID
+  interests: [String!]!
+  languages: [ID!]!
+  name: String!
+  projects: [ID!]!
+  softSkills: [UserSoftskill!]!
+}
+
 type Softskill {
   name: String!
+}
+
+enum Status {
+  INVALID_EMAIL
+  OK
+  PASSWORD_NOT_MATCH
 }
 
 type Task {
@@ -241,4 +267,9 @@ type UserSoftskill {
   score: Float!
   softskillId: Softskill!
   visible: Boolean!
+}
+
+input UserValidation {
+  email: String!
+  password: String!
 }

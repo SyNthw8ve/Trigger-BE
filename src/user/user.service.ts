@@ -51,6 +51,19 @@ export class UserService {
         return await this.userModel.findById(id);
     }
 
+    async findWithEmail(email: string) : Promise<User> {
+
+        try {
+
+            return await this.userModel.findOne({'email': email}).exec();
+
+        } catch(err) {
+
+            return null;
+        }
+
+    }
+
     async findManyWithId(ids: User['_id'][]) : Promise<User[]> {
 
         return await this.userModel.find({ _id: { $in: ids }});

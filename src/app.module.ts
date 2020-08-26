@@ -6,7 +6,7 @@ import { InstitutionModule } from './institution/institution.module';
 import { CommonModule } from './common/common.module';
 import { UserModule } from './user/user.module';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
+import { AppResolver } from './app.resolver';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -15,6 +15,7 @@ import { connectionString } from './config'
 import { LanguageModule } from './language/language.module';
 import { SoftskillModule } from './softskill/softskill.module';
 import { join } from 'path';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -34,7 +35,8 @@ import { join } from 'path';
         playground: true, 
         autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
         sortSchema: true
-      })],
-  providers: [AppService],
+      }),
+    AuthModule],
+  providers: [AppService, AppResolver],
 })
 export class AppModule { }
