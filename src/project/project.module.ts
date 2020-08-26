@@ -9,7 +9,7 @@ import { CommonModule } from 'src/common/common.module';
 
 @Module({
     imports: [MongooseModule.forFeature([{ name: Project.name, schema: ProjectSchema }]),
-        InstitutionModule,
+        forwardRef(() => InstitutionModule),
         forwardRef(() => UserModule),
         CommonModule],
     controllers: [

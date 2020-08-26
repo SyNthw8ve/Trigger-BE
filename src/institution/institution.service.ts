@@ -20,13 +20,7 @@ export class InstitutionService {
         // gonna be an admin, right? If we want him there, something like below?
         // const objectWithManagerAsAdmin = Object.assign(createInstitutionDto, { admins: Institution['admins'] = [createInstitutionDto.manager] });
 
-        const { locationAdress, ...rest } = createInstitutionDto;
-
-        const location = await this.locationService.localeFromAdress(locationAdress);
-
-        const data = { location, ...rest };
-
-        const created = new this.model(data);
+        const created = new this.model(createInstitutionDto);
         return created.save();
     }
 
@@ -35,6 +29,11 @@ export class InstitutionService {
         institution.projects.push(projectId);
 
         institution.save();
+    }
+
+    async getInstitutions() : Promise<Institution[]> {
+
+        return await this.model.find();
     }
 
     async findWithId(institutionId: Institution['_id']) {

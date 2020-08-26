@@ -1,6 +1,7 @@
 import { Locale } from "src/common/schemas/locale.schema";
 import { Institution } from "../schemas/institution.schema";
 import { InputType, Field, ID } from '@nestjs/graphql';
+import { LocaleInput } from "src/common/dtos/locale-input.dto";
 
 @InputType()
 export class CreateInstitutionDto {
@@ -17,7 +18,7 @@ export class CreateInstitutionDto {
     @Field(type => String, { nullable: false })
     sector: Institution['sector'];
 
-    @Field(type => String, { nullable: false })
-    locationAdress: Locale['address'];
+    @Field(type => LocaleInput, { nullable: false })
+    location: Locale;
     // favorites: (User | Institution)[];
 }

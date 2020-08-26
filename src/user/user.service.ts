@@ -46,4 +46,9 @@ export class UserService {
         return await this.userModel.find();
     }
 
+    async findWithId(id: User['_id']) : Promise<User> {
+
+        return await this.userModel.findById(id);
+    }
+
 }

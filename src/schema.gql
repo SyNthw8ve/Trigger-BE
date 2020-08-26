@@ -33,16 +33,24 @@ input CreateHardskillDto {
   name: String!
 }
 
+input CreateInstitutionDto {
+  creator: ID!
+  description: String!
+  location: LocaleInput!
+  name: String!
+  sector: String!
+}
+
 type Hardskill {
   name: String!
 }
 
 type Institution {
-  creator: ID!
+  creator: User!
   description: String!
   location: Locale!
   name: String!
-  projects: [ID!]!
+  projects: [Project!]!
   sector: String!
 }
 
@@ -55,7 +63,13 @@ type Locale {
   position: Position!
 }
 
+input LocaleInput {
+  address: String!
+  position: PositionInput!
+}
+
 type Mutation {
+  newInstitution(institution: CreateInstitutionDto!): Institution!
   newUser(user: RegisterUserDto!): User!
   registerHardSkill(skill: CreateHardskillDto!): Hardskill!
   registerMutlipleHardSkills(skills: [CreateHardskillDto!]!): [Hardskill!]!
@@ -63,6 +77,11 @@ type Mutation {
 }
 
 type Position {
+  latitude: Float!
+  longitude: Float!
+}
+
+input PositionInput {
   latitude: Float!
   longitude: Float!
 }
@@ -89,6 +108,7 @@ enum ProjectStatus {
 
 type Query {
   getHardSkills: [Hardskill!]!
+  getInstitutions: [Institution!]!
   getUsers: [User!]!
 }
 

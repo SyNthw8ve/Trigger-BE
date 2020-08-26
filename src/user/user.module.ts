@@ -14,7 +14,7 @@ import { SoftskillModule } from 'src/softskill/softskill.module';
     imports: [
         MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
         CommonModule, 
-        InstitutionModule,
+        forwardRef(() =>InstitutionModule),
         HardskillModule,
         SoftskillModule,
         LanguageModule,
