@@ -45,9 +45,23 @@ input CreateLanguageDto {
   name: String!
 }
 
+input CreateProjectDto {
+  description: String!
+  institution: ID
+  location: LocaleInput!
+  manager: ID!
+  scope: String!
+  title: String!
+}
+
 input CreateSoftskillDto {
   name: String!
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type Hardskill {
   name: String!
@@ -79,11 +93,18 @@ input LocaleInput {
 type Mutation {
   newInstitution(institution: CreateInstitutionDto!): Institution!
   newLanguage(language: CreateLanguageDto!): Language!
+  newProject(project: CreateProjectDto!): Project!
   newSoftskill(softskill: CreateSoftskillDto!): Softskill!
   newUser(user: RegisterUserDto!): User!
   registerHardSkill(skill: CreateHardskillDto!): Hardskill!
   registerMutlipleHardSkills(skills: [CreateHardskillDto!]!): [Hardskill!]!
   updateUser(user: UpdateUserDto!): User!
+}
+
+type Phase {
+  endDate: DateTime!
+  participations: [ID!]!
+  startDate: DateTime!
 }
 
 type Position {
@@ -97,15 +118,15 @@ input PositionInput {
 }
 
 type Project {
-  admins: [ID!]!
+  admins: [User!]!
   aliases: [String!]!
-  currentTeam: [ID!]!
+  currentTeam: [User!]!
   description: String!
   highlighted: Boolean!
-  institution: ID
+  institution: Institution
   location: Locale
-  manager: ID!
-  phases: [ID!]!
+  manager: User!
+  phases: [Phase!]!
   scope: String!
   status: ProjectStatus!
   title: String!
@@ -120,6 +141,7 @@ type Query {
   getHardSkills: [Hardskill!]!
   getInstitutions: [Institution!]!
   getLanguages: [Language!]!
+  getProject(id: String!): Project!
   getSoftskills: [Softskill!]!
   getUsers: [User!]!
 }

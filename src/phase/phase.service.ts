@@ -50,4 +50,9 @@ export class PhaseService {
 
     }
 
+    async getManyWithId(ids: Phase['_id'][]) : Promise<Phase[]> {
+
+        return await this.model.find({ _id: { $in: ids }});
+    }
+
 }

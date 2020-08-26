@@ -51,4 +51,9 @@ export class UserService {
         return await this.userModel.findById(id);
     }
 
+    async findManyWithId(ids: User['_id'][]) : Promise<User[]> {
+
+        return await this.userModel.find({ _id: { $in: ids }});
+    }
+
 }

@@ -2,6 +2,7 @@ import { Locale } from "src/common/schemas/locale.schema";
 import { Project } from "../schemas/project.schema";
 
 import { InputType, Field, ID } from '@nestjs/graphql';
+import { LocaleInput } from "src/common/dtos/locale-input.dto";
 
 @InputType()
 export class CreateProjectDto {
@@ -21,6 +22,6 @@ export class CreateProjectDto {
     @Field(type => String, { nullable: false })
     scope: Project['scope'];
 
-    @Field(type => String, { nullable: false })
-    locationAdress: Locale['address'];
+    @Field(type => LocaleInput, { nullable: false })
+    location: Locale;
 }

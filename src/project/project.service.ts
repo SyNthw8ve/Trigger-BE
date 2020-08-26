@@ -20,7 +20,6 @@ export class ProjectService {
 
     async new(createProjectDto: CreateProjectDto) {
         // TODO: validate this
-        const location = await this.locationService.localeFromAdress(createProjectDto.locationAdress);
 
         // TODO: Is this assumption correct?
         const status = ProjectStatus.Open;
@@ -37,7 +36,6 @@ export class ProjectService {
         // the "Document" part
         const data = {
             ...createProjectDto,
-            location,
             status,
             admins,
             currentTeam
@@ -65,6 +63,7 @@ export class ProjectService {
     }
 
     async findWithId(id: Project['_id']): Promise<Project> {
+        
         return this.projectModel.findById(id);
     }
 

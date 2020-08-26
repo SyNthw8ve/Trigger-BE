@@ -3,6 +3,7 @@ import { Locale } from "src/common/schemas/locale.schema";
 import { Opening } from "../schemas/opening.schema";
 
 import { InputType, Field, ID, Float } from '@nestjs/graphql';
+import { AvailabilityInput } from "src/common/dtos/availability-input.dto";
 
 @InputType()
 export class CreateOpeningDto {
@@ -25,5 +26,6 @@ export class CreateOpeningDto {
 
     // hardskills;
 
+    @Field(type => AvailabilityInput , { nullable: false })
     availability: Availability;
 }
