@@ -15,4 +15,9 @@ export class ParticipationService {
         return created.save();
     }
 
+    async findManyWithId(ids: Participation['_id'][]): Promise<Participation[]> {
+
+        return await this.model.find({ _id: { $in: ids } });
+    }
+
 }

@@ -45,6 +45,14 @@ input CreateLanguageDto {
   name: String!
 }
 
+input CreateOpeningDto {
+  area: String!
+  availability: AvailabilityInput!
+  location: LocaleInput
+  project: ID!
+  remuneration: Float!
+}
+
 input CreateProjectDto {
   description: String!
   institution: ID
@@ -91,6 +99,7 @@ input LocaleInput {
 }
 
 type Mutation {
+  createOpening(opening: CreateOpeningDto!): Opening!
   newInstitution(institution: CreateInstitutionDto!): Institution!
   newLanguage(language: CreateLanguageDto!): Language!
   newProject(project: CreateProjectDto!): Project!
@@ -99,6 +108,25 @@ type Mutation {
   registerHardSkill(skill: CreateHardskillDto!): Hardskill!
   registerMutlipleHardSkills(skills: [CreateHardskillDto!]!): [Hardskill!]!
   updateUser(user: UpdateUserDto!): User!
+}
+
+type Opening {
+  applications: [Application!]!
+  area: String!
+  availability: Availability!
+  hardskills: [Hardskill!]!
+  languages: [Language!]!
+  location: Locale
+  participations: [Participation!]!
+  project: Project!
+  remuneration: Float!
+  softskills: [Softskill!]!
+}
+
+type Participation {
+  opening: ID!
+  phase: ID!
+  tasks: [Task!]!
 }
 
 type Phase {

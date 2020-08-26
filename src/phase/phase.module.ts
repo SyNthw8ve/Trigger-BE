@@ -10,8 +10,8 @@ import { OpeningModule } from 'src/opening/opening.module';
 @Module({
     imports: [MongooseModule.forFeature([{ name: Phase.name, schema: PhaseSchema }]),
     forwardRef(() => ProjectModule),
-        ParticipationModule,
-        OpeningModule],
+    forwardRef(() => ParticipationModule),
+    forwardRef(() => OpeningModule)],
     controllers: [PhaseController],
     providers: [
         PhaseService,],

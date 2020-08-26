@@ -4,6 +4,7 @@ import { Opening } from "../schemas/opening.schema";
 
 import { InputType, Field, ID, Float } from '@nestjs/graphql';
 import { AvailabilityInput } from "src/common/dtos/availability-input.dto";
+import { LocaleInput } from "src/common/dtos/locale-input.dto";
 
 @InputType()
 export class CreateOpeningDto {
@@ -17,7 +18,7 @@ export class CreateOpeningDto {
     @Field(type => Float, { nullable: false })
     remuneration: Opening['remuneration'];
 
-    @Field(type => Locale, { nullable: true })
+    @Field(type => LocaleInput, { nullable: true })
     location?: Locale;
 
     // languages;

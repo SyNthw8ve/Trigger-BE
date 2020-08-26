@@ -12,7 +12,7 @@ import { PhaseModule } from 'src/phase/phase.module';
     imports: [MongooseModule.forFeature([{ name: Project.name, schema: ProjectSchema }]),
     forwardRef(() => InstitutionModule),
     forwardRef(() => UserModule),
-    CommonModule,
+        CommonModule,
     forwardRef(() => PhaseModule)],
     providers: [
         ProjectService,

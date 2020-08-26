@@ -20,6 +20,11 @@ export class SoftskillService {
         return await this.model.findById(id);
     }
 
+    async findManyWithId(ids: Softskill['_id'][]) : Promise<Softskill[]> {
+
+        return await this.model.find({ _id: { $in: ids } });
+    }
+
     async getAll() : Promise<Softskill[]> {
 
         return await this.model.find();
