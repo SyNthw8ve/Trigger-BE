@@ -14,6 +14,7 @@ enum ApplicationType {
 }
 
 type AuthResult {
+  accessToken: String
   result: Result
   status: Status!
   success: Boolean!
@@ -124,6 +125,7 @@ input LocaleInput {
 type Mutation {
   createOpening(opening: CreateOpeningDto!): Opening!
   createPhase(phase: CreatePhaseDto!): Phase!
+  loginEmail(user: UserValidation!): AuthResult!
   newInstitution(institution: CreateInstitutionDto!): Institution!
   newLanguage(language: CreateLanguageDto!): Language!
   newProject(project: CreateProjectDto!): Project!
@@ -202,7 +204,6 @@ type Query {
   getSoftskills: [Softskill!]!
   getUser(email: String!): User!
   getUsers: [User!]!
-  loginEmail(user: UserValidation!): AuthResult!
 }
 
 input RegisterUserDto {

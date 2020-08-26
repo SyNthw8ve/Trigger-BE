@@ -14,6 +14,8 @@ import { LanguageService } from 'src/language/language.service';
 import { Softskill } from 'src/softskill/schemas/softskill.schema';
 import { SoftskillService } from 'src/softskill/softskill.service';
 import { InsertionResult } from './dtos/insertion-result.dto';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Resolver(of => User)
 export class UserResolver {
@@ -25,12 +27,14 @@ export class UserResolver {
         private readonly softskillService: SoftskillService,
         private readonly languageService: LanguageService) { }
 
+    @UseGuards(JwtAuthGuard)
     @Query(returns => [User])
     async getUsers(): Promise<User[]> {
 
         return await this.userService.getUsers();
     }
 
+    @UseGuards(JwtAuthGuard)
     @Query(returns => User)
     async getUser(@Args('email') email: string): Promise<User> {
 
@@ -43,6 +47,7 @@ export class UserResolver {
         return await this.userService.new(user);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Mutation(returns => User)
     async updateUser(@Args('user') user: UpdateUserDto): Promise<User> {
 

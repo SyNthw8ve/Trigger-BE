@@ -57,4 +57,7 @@ export class AuthResult {
 
     @Field(type => Status, { nullable: false })
     status: Status;
+
+    @Field(type => String, { nullable: true })
+    accessToken: string;
 }

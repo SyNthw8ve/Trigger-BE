@@ -34,7 +34,8 @@ import { AuthModule } from './auth/auth.module';
         debug: true, 
         playground: true, 
         autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-        sortSchema: true
+        sortSchema: true,
+        context: ({ req }) => ({ req }),
       }),
     AuthModule],
   providers: [AppService, AppResolver],
