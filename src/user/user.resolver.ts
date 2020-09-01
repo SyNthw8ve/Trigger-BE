@@ -27,7 +27,7 @@ export class UserResolver {
         private readonly softskillService: SoftskillService,
         private readonly languageService: LanguageService) { }
 
-    @UseGuards(JwtAuthGuard)
+    //@UseGuards(JwtAuthGuard)
     @Query(returns => [User])
     async getUsers(): Promise<User[]> {
 
