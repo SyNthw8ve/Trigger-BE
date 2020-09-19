@@ -10,12 +10,16 @@ import { AppResolver } from './app.resolver';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { GraphQLModule } from '@nestjs/graphql';
+import { BullModule } from '@nestjs/bull';
 
 import { connectionString } from './config'
 import { LanguageModule } from './language/language.module';
 import { SoftskillModule } from './softskill/softskill.module';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
+import { NotificationsModule } from './notifications/notifications.module';
+import { EmailModule } from './email/email.module';
+import { FlaskModule } from './flask/flask.module';
 
 @Module({
   imports: [
@@ -37,7 +41,10 @@ import { AuthModule } from './auth/auth.module';
         sortSchema: true,
         context: ({ req }) => ({ req }),
       }),
-    AuthModule],
+    AuthModule,
+    NotificationsModule,
+    EmailModule,
+    FlaskModule],
   providers: [AppService, AppResolver],
 })
 export class AppModule { }
