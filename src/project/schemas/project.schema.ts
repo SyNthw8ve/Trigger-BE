@@ -18,6 +18,9 @@ registerEnumType(ProjectStatus, { name: 'ProjectStatus' });
 @Schema()
 export class Project extends Document {
 
+    @Field(type => ID, { nullable: false })
+    _id: Document['_id'];
+
     @Field(type => String, { nullable: false })
     @Prop({ required: true })
     title: string;
