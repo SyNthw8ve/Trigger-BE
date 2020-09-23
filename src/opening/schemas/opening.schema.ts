@@ -43,9 +43,9 @@ export class Opening extends Document {
     @Prop({ required: true })
     area: string;
 
-    @Field(type => Float, { nullable: false })
-    @Prop({ required: true })
-    remuneration: number;
+    @Field(type => Float, { nullable: true })
+    @Prop({ required: false })
+    remuneration?: number;
 
     @Field(type => Locale, { nullable: true })
     @Prop({ type: LocaleSchema, required: false })
