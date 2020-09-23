@@ -1,4 +1,5 @@
-import { ObjectType, Field, registerEnumType } from '@nestjs/graphql';
+import { ObjectType, Field, registerEnumType, ID } from '@nestjs/graphql';
+import { User } from '../schemas/user.schema';
 
 export enum Description {
 
@@ -16,4 +17,7 @@ export class InsertionResult {
 
     @Field(type => Description, { nullable: false })
     description: Description;
+
+    @Field(type => ID, { nullable: true })
+    _id?: User['_id'];
 }

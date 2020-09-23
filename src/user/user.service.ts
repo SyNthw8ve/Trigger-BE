@@ -32,14 +32,14 @@ export class UserService {
 
             await createdUser.save();
 
-            return { success: true, description: Description.OK };
+            return { success: true, description: Description.OK, _id: createdUser._id };
         }
 
         catch (err) {
 
-            if (err.code == 11000) { 
+            if (err.code == 11000) {
                 
-                return { success: false, description: Description.EMAIL_IN_USE }; 
+                return { success: false, description: Description.EMAIL_IN_USE, _id: null };
             }
         }
 
