@@ -1,4 +1,4 @@
-import { User } from "../schemas/user.schema";
+import { User, UserSoftskillInput } from "../schemas/user.schema";
 import { AvailabilityInput } from "../../common/dtos/availability-input.dto";
 
 import { InputType, Field, ID } from '@nestjs/graphql';
@@ -18,7 +18,7 @@ export class RegisterUserDto {
     @Field(type => [ID], { nullable: true })
     readonly hardSkills?: User['hardSkills'];
 
-    @Field(type => [ID], { nullable: true })
+    @Field(type => [UserSoftskillInput], { nullable: true })
     readonly softSkills?: User['softSkills'];
 
     @Field(type => [ID], { nullable: true })

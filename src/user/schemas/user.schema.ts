@@ -8,12 +8,28 @@ import { Softskill } from "src/softskill/schemas/softskill.schema";
 import { Language } from "src/language/schemas/language.schema";
 import { Availability, AvailabilitySchema } from "src/common/schemas/availability.schema";
 
-import { ObjectType, Field, ID, Float } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Float, InputType } from '@nestjs/graphql';
 // Maybe this should be called UserSoftskillResult?
 
 @ObjectType()
 @Schema()
 export class UserSoftskill {
+
+    @Field(type => ID, { nullable: false })
+    @Prop({ type: SchemaTypes.ObjectId, ref: Softskill.name, required: true })
+    softskillId: Softskill['_id'];
+
+    @Field(type => Float, { nullable: false })
+    @Prop({ required: true })
+    score: number;
+
+    @Field(type => Boolean, { nullable: false })
+    @Prop({ required: true })
+    visible: boolean;
+}
+
+@InputType()
+export class UserSoftskillInput {
 
     @Field(type => ID, { nullable: false })
     @Prop({ type: SchemaTypes.ObjectId, ref: Softskill.name, required: true })
