@@ -15,8 +15,8 @@ export class CreateOpeningDto {
     @Field(type => String, { nullable: false })
     area: Opening['area'];
 
-    @Field(type => Float, { nullable: false })
-    remuneration: Opening['remuneration'];
+    @Field(type => Float, { nullable: true })
+    remuneration?: Opening['remuneration'];
 
     @Field(type => LocaleInput, { nullable: true })
     location?: Locale;
