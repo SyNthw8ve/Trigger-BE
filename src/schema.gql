@@ -230,6 +230,7 @@ type Result {
 }
 
 type Softskill {
+  _id: ID!
   name: String!
 }
 
