@@ -21,11 +21,14 @@ export class CreateOpeningDto {
     @Field(type => LocaleInput, { nullable: true })
     location?: Locale;
 
-    // languages;
+    @Field(type => [ID], { nullable: true })
+    hardskills?: Opening['hardskills'];
 
-    // softskills;
+    @Field(type => [ID], { nullable: true })
+    softskills?: Opening['softskills'];
 
-    // hardskills;
+    @Field(type => [ID], { nullable: true })
+    languages?: Opening['languages'];
 
     @Field(type => AvailabilityInput , { nullable: false })
     availability: Availability;
