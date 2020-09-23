@@ -55,9 +55,12 @@ input CreateLanguageDto {
 input CreateOpeningDto {
   area: String!
   availability: AvailabilityInput!
+  hardskills: [ID!]
+  languages: [ID!]
   location: LocaleInput
   project: ID!
-  remuneration: Float!
+  remuneration: Float
+  softskills: [ID!]
 }
 
 input CreatePhaseDto {
@@ -96,6 +99,7 @@ type Hardskill {
 }
 
 type InsertionResult {
+  _id: ID
   description: Description!
   success: Boolean!
 }
@@ -138,6 +142,7 @@ type Mutation {
 }
 
 type Opening {
+  _id: ID!
   applications: [Application!]!
   area: String!
   availability: Availability!
@@ -146,7 +151,7 @@ type Opening {
   location: Locale
   participations: [Participation!]!
   project: Project!
-  remuneration: Float!
+  remuneration: Float
   softskills: [Softskill!]!
 }
 
@@ -178,6 +183,7 @@ input PositionInput {
 }
 
 type Project {
+  _id: ID!
   admins: [User!]!
   aliases: [String!]!
   currentTeam: [User!]!
