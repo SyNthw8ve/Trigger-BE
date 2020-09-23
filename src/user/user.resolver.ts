@@ -95,6 +95,6 @@ export class UserSoftskillResolver {
     async getUserSoftSkills(@Parent() softskill: UserSoftskill): Promise<Softskill> {
 
         const softSkill = softskill.softskillId;
-        return await this.softskillService.findWithId(softskill);
+        return await this.softskillService.findWithId(softSkill);
     }
 }
