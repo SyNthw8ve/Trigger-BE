@@ -39,6 +39,9 @@ export class Application {
 @Schema()
 export class Opening extends Document {
 
+    @Field(type => ID, { nullable: false })
+    _id: any;
+
     @Field(type => String, { nullable: false })
     @Prop({ required: true })
     area: string;
