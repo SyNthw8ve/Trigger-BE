@@ -9,6 +9,7 @@ import { InstitutionModule } from 'src/institution/institution.module';
 import { HardskillModule } from 'src/hardskill/hardskill.module';
 import { LanguageModule } from 'src/language/language.module';
 import { SoftskillModule } from 'src/softskill/softskill.module';
+import { MatchModule } from 'src/match/match.module';
 
 @Module({
     imports: [
@@ -18,7 +19,9 @@ import { SoftskillModule } from 'src/softskill/softskill.module';
         HardskillModule,
         SoftskillModule,
         LanguageModule,
-        forwardRef(() => ProjectModule)],
+        forwardRef(() => ProjectModule),
+        MatchModule
+    ],
     providers: [UserService, UserResolver, UserSoftskillResolver],
     exports: [UserService],
 })
