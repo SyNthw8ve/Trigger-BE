@@ -16,6 +16,7 @@ import { SoftskillService } from 'src/softskill/softskill.service';
 import { InsertionResult } from './dtos/insertion-result.dto';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { MatchService } from 'src/match/match.service';
 
 @Resolver(of => User)
 export class UserResolver {
@@ -25,7 +26,8 @@ export class UserResolver {
         private readonly institutionService: InstitutionService,
         private readonly hardskillService: HardskillService,
         private readonly softskillService: SoftskillService,
-        private readonly languageService: LanguageService) { }
+        private readonly languageService: LanguageService,
+        private readonly matchService: MatchService) { }
 
     //@UseGuards(JwtAuthGuard)
     @Query(returns => [User])
@@ -44,14 +46,22 @@ export class UserResolver {
     @Mutation(returns => InsertionResult)
     async newUser(@Args('user') user: RegisterUserDto): Promise<InsertionResult> {
 
-        return await this.userService.new(user);
+        let result = await this.userService.new(user);
+
+        if (result.success) {
+            this.matchService.onUserCreated(result._id);
+        }
+
+        return result;
     }
 
     @UseGuards(JwtAuthGuard)
     @Mutation(returns => User)
     async updateUser(@Args('user') user: UpdateUserDto): Promise<User> {
 
-        return await this.userService.update(user);
+        let result = await this.userService.update(user);;
+        this.matchService.onUserCreated(result._id);
+        return result;
     }
 
     @ResolveField('projects', returns => [Project])

@@ -8,12 +8,16 @@ import { HardskillModule } from 'src/hardskill/hardskill.module';
 import { SoftskillModule } from 'src/softskill/softskill.module';
 import { ProjectModule } from 'src/project/project.module';
 import { ParticipationModule } from 'src/participation/participation.module';
+import { MatchModule } from 'src/match/match.module';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Opening.name, schema: OpeningSchema }]),
+  imports: [
+    MongooseModule.forFeature([{ name: Opening.name, schema: OpeningSchema }]),
     LanguageModule, HardskillModule, SoftskillModule,
     forwardRef(() => ProjectModule),
-    forwardRef(() => ParticipationModule)],
+    forwardRef(() => ParticipationModule),
+    MatchModule
+  ],
   providers: [
     OpeningService, OpeningResolver],
   exports: [OpeningService,],

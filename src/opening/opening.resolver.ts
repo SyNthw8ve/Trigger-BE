@@ -13,6 +13,7 @@ import { Softskill } from 'src/softskill/schemas/softskill.schema';
 import { Hardskill } from 'src/hardskill/schemas/hardskill.schema';
 import { Project } from 'src/project/schemas/project.schema';
 import { Participation } from 'src/participation/schemas/participation.schema';
+import { MatchService } from 'src/match/match.service';
 
 @Resolver(of => Opening)
 export class OpeningResolver {
@@ -22,12 +23,17 @@ export class OpeningResolver {
         private readonly hardskillService: HardskillService,
         private readonly softskillService: SoftskillService,
         private readonly projectService: ProjectService,
-        private readonly participationService: ParticipationService) { }
+        private readonly participationService: ParticipationService,
+        private readonly matchService: MatchService) { }
 
     @Mutation(returns => Opening)
     async createOpening(@Args('opening') opening: CreateOpeningDto): Promise<Opening> {
 
-        return await this.openingService.new(opening);
+        let result = await this.openingService.new(opening);
+
+        this.matchService.onOpeningCreated(result.id);
+
+        return result
     }
 
     @ResolveField('languages', returns => [Language])

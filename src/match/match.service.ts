@@ -17,11 +17,13 @@ export class MatchService {
     }
 
     async onUserUpdated(user_id: User['_id']): Promise<void> {
-        this.httpService.put(`${beAiConnection}/user_match/${user_id}`);
+        let resut = this.httpService.put(`${beAiConnection}/user_match/${user_id}`);
+        resut.subscribe(val => console.log(val));
     }
 
     async onUserCreated(user_id: User['_id']): Promise<void> {
-        this.httpService.post(`${beAiConnection}/user_match/${user_id}`);
+        let result = this.httpService.post(`${beAiConnection}/user_match/${user_id}`);
+        result.subscribe(val => console.log(val));
     }
 
     async onOpeningChanged(opening_id: Opening['_id']): Promise<void> {
@@ -29,7 +31,8 @@ export class MatchService {
     }
 
     async onOpeningCreated(opening_id: Opening['_id']): Promise<void> {
-        this.httpService.post(`${beAiConnection}/opening/${opening_id}`);
+        let result = this.httpService.post(`${beAiConnection}/opening/${opening_id}`);
+        result.subscribe(val => console.log(val));
     }
 
     async onOpeningRemoved(opening_id: Opening['_id']): Promise<void> {
