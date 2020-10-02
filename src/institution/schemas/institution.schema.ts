@@ -18,6 +18,10 @@ export class Institution extends Document {
     @Prop({ required: true })
     description: String;
 
+    @Field(type => String, { nullable: true })
+    @Prop({ required: false })
+    institutionalPage: String;
+
     @Field(type => String, { nullable: false })
     @Prop({ required: true })
     sector: String;
