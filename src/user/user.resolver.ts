@@ -60,7 +60,7 @@ export class UserResolver {
     async updateUser(@Args('user') user: UpdateUserDto): Promise<User> {
 
         let result = await this.userService.update(user);;
-        this.matchService.onUserCreated(result._id);
+        this.matchService.onUserUpdated(result._id);
         return result;
     }
 
