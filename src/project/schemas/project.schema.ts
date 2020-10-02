@@ -3,7 +3,6 @@ import { Prop, Schema, raw, SchemaFactory } from '@nestjs/mongoose'
 import { Document, SchemaTypes } from 'mongoose';
 import { Institution } from "src/institution/schemas/institution.schema";
 import { Locale, LocaleSchema } from "src/common/schemas/locale.schema";
-import { Phase } from "src/phase/schemas/phase.schema";
 
 import { Field, ObjectType, ID, registerEnumType, GraphQLISODateTime } from '@nestjs/graphql';
 import { Opening } from "src/opening/schemas/opening.schema";
@@ -53,15 +52,15 @@ export class Project extends Document {
     // recommendations
     
     @Field(type => [ID])
-    @Prop([{ type: SchemaTypes.ObjectId, ref: User.name }])
+    @Prop([{ type: SchemaTypes.ObjectId, ref: 'User' }])
     currentTeam: User['_id'][];
 
     @Field(type => ID)
-    @Prop({ type: SchemaTypes.ObjectId, ref: User.name })
+    @Prop({ type: SchemaTypes.ObjectId, ref: 'User' })
     manager: User['_id'];
 
     @Field(type => [ID])
-    @Prop([{ type: SchemaTypes.ObjectId, ref: User.name }])
+    @Prop([{ type: SchemaTypes.ObjectId, ref: 'User' }])
     admins: User['_id'][];
 
     @Field(type => ID, { nullable: true })

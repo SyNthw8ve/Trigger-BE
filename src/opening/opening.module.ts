@@ -7,7 +7,6 @@ import { LanguageModule } from 'src/language/language.module';
 import { HardskillModule } from 'src/hardskill/hardskill.module';
 import { SoftskillModule } from 'src/softskill/softskill.module';
 import { ProjectModule } from 'src/project/project.module';
-import { ParticipationModule } from 'src/participation/participation.module';
 import { MatchModule } from 'src/match/match.module';
 
 @Module({
@@ -15,7 +14,6 @@ import { MatchModule } from 'src/match/match.module';
     MongooseModule.forFeature([{ name: Opening.name, schema: OpeningSchema }]),
     LanguageModule, HardskillModule, SoftskillModule,
     forwardRef(() => ProjectModule),
-    forwardRef(() => ParticipationModule),
     MatchModule
   ],
   providers: [

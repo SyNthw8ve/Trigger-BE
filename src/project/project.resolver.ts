@@ -7,16 +7,13 @@ import { UserService } from '../user/user.service';
 import { User } from '../user/schemas/user.schema';
 import { InstitutionService } from '../institution/institution.service';
 import { Institution } from '../institution/schemas/institution.schema';
-import { PhaseService } from '../phase/phase.service';
-import { Phase } from '../phase/schemas/phase.schema';
 
 @Resolver(of => Project)
 export class ProjectResolver {
 
     constructor(private readonly projectService: ProjectService,
         private readonly userService: UserService,
-        private readonly institutionService: InstitutionService,
-        private readonly phaseService: PhaseService) { }
+        private readonly institutionService: InstitutionService) { }
         
     @Mutation(returns => Project)
     async newProject(@Args('project') project: CreateProjectDto): Promise<Project> {

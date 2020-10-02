@@ -5,7 +5,6 @@ import { Locale, LocaleSchema } from 'src/common/schemas/locale.schema';
 import { Hardskill, HardskillSchema } from 'src/hardskill/schemas/hardskill.schema';
 import { Language, LanguageSchema } from 'src/language/schemas/language.schema';
 import { Match } from 'src/match/schemas/match.schema';
-import { Participation } from 'src/participation/schemas/participation.schema';
 import { Project } from 'src/project/schemas/project.schema';
 import { Softskill, SoftskillSchema } from 'src/softskill/schemas/softskill.schema';
 import { User } from 'src/user/schemas/user.schema';
@@ -37,7 +36,7 @@ export class Application {
     match?: Match['_id'];
 
     @Field(type => ID, { nullable: false })
-    @Prop({ type: SchemaTypes.ObjectId, ref: User.name, required: true })
+    @Prop({ type: SchemaTypes.ObjectId, ref: 'User', required: true })
     user: User['_id'];
 }
 

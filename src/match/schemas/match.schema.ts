@@ -22,7 +22,7 @@ export class Match extends Document {
     type: MatchType;
 
     @Field(type => ID, { nullable: false })
-    @Prop({ type: SchemaTypes.ObjectId, ref: User.name, required: true })
+    @Prop({ type: SchemaTypes.ObjectId, ref: 'User', required: true })
     user: User['_id'];
 
     @Field(type => ID, { nullable: false })

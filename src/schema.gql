@@ -65,13 +65,6 @@ input CreateOpeningDto {
   softskills: [ID!]
 }
 
-input CreatePhaseDto {
-  endDate: DateTime!
-  openingsAndTasks: [OpeningTasksInput!]!
-  project: ID!
-  startDate: DateTime!
-}
-
 input CreateProjectDto {
   description: String!
   institution: ID
@@ -132,7 +125,6 @@ input LocaleInput {
 
 type Mutation {
   createOpening(opening: CreateOpeningDto!): Opening!
-  createPhase(phase: CreatePhaseDto!): Phase!
   loginEmail(user: UserValidation!): AuthResult!
   newInstitution(institution: CreateInstitutionDto!): Institution!
   newLanguage(language: CreateLanguageDto!): Language!
@@ -156,23 +148,6 @@ type Opening {
   remuneration: Float
   softskills: [Softskill!]!
   tasks: String!
-}
-
-input OpeningTasksInput {
-  opening: ID!
-  tasks: [TaskInput!]!
-}
-
-type Participation {
-  opening: ID!
-  phase: ID!
-  tasks: [Task!]!
-}
-
-type Phase {
-  endDate: DateTime!
-  participations: [Participation!]!
-  startDate: DateTime!
 }
 
 type Position {
@@ -249,16 +224,6 @@ enum Status {
   INVALID_EMAIL
   OK
   PASSWORD_NOT_MATCH
-}
-
-type Task {
-  description: String!
-  title: String!
-}
-
-input TaskInput {
-  description: String!
-  title: String!
 }
 
 input UpdateUserDto {

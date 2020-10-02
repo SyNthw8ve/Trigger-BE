@@ -1,6 +1,4 @@
 import { HardskillModule } from './hardskill/hardskill.module';
-import { ParticipationModule } from './participation/participation.module';
-import { PhaseModule } from './phase/phase.module';
 import { ProjectModule } from './project/project.module';
 import { InstitutionModule } from './institution/institution.module';
 import { CommonModule } from './common/common.module';
@@ -20,14 +18,14 @@ import { AuthModule } from './auth/auth.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { EmailModule } from './email/email.module';
 import { FlaskModule } from './flask/flask.module';
+import { OpeningModule } from './opening/opening.module';
 
 @Module({
   imports: [
     HardskillModule,
     LanguageModule,
     SoftskillModule,
-    ParticipationModule,
-    PhaseModule,
+    OpeningModule,
     ProjectModule,
     InstitutionModule,
     CommonModule,

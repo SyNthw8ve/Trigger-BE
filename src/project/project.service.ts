@@ -5,7 +5,6 @@ import { Locale } from 'src/common/schemas/locale.schema';
 import { LocationService } from 'src/common/location.service';
 import { InstitutionService } from 'src/institution/institution.service';
 import { Opening } from 'src/opening/schemas/opening.schema';
-import { Phase } from 'src/phase/schemas/phase.schema';
 import { UserService } from 'src/user/user.service';
 import { CreateProjectDto } from './dtos/create-project.dto';
 import { Project, ProjectStatus } from './schemas/project.schema';
@@ -53,12 +52,6 @@ export class ProjectService {
         }
 
         return savedProject;
-    }
-
-    async addPhase(projectId: Project['_id'], phaseId: Phase['_id']) {
-        // FIXME: handle wrong ids? 
-        const project = await this.findWithId(projectId);
-        project.save();
     }
 
     async findWithId(id: Project['_id']): Promise<Project> {

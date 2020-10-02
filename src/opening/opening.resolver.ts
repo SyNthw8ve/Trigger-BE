@@ -6,13 +6,11 @@ import { LanguageService } from 'src/language/language.service';
 import { HardskillService } from 'src/hardskill/hardskill.service';
 import { SoftskillService } from 'src/softskill/softskill.service';
 import { ProjectService } from 'src/project/project.service';
-import { ParticipationService } from 'src/participation/participation.service';
 
 import { Language } from 'src/language/schemas/language.schema';
 import { Softskill } from 'src/softskill/schemas/softskill.schema';
 import { Hardskill } from 'src/hardskill/schemas/hardskill.schema';
 import { Project } from 'src/project/schemas/project.schema';
-import { Participation } from 'src/participation/schemas/participation.schema';
 import { MatchService } from 'src/match/match.service';
 
 @Resolver(of => Opening)
@@ -23,7 +21,6 @@ export class OpeningResolver {
         private readonly hardskillService: HardskillService,
         private readonly softskillService: SoftskillService,
         private readonly projectService: ProjectService,
-        private readonly participationService: ParticipationService,
         private readonly matchService: MatchService) { }
 
     @Mutation(returns => Opening)
