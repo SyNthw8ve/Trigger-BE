@@ -26,6 +26,11 @@ export class Application {
     @Prop({ required: true })
     type: ApplicationType;
 
+    @Field(type => Boolean, { nullable: false })
+    @Prop({ required: true, default: false })
+    pinned: boolean;
+
+    // FIXME: This needs to be a <score, not match>?!
     @Field(type => ID, { nullable: true })
     @Prop({ type: SchemaTypes.ObjectId, ref: Match.name, required: true })
     match?: Match['_id'];
@@ -74,9 +79,9 @@ export class Opening extends Document {
     @Prop([Application])
     applications: Application[];
 
-    @Field(type => [ID])
-    @Prop([{ type: SchemaTypes.ObjectId, ref: 'Participation' }])
-    participations: Participation['_id'][];
+    @Field(type => String, { nullable: false })
+    @Prop({ required: true })
+    tasks: string;
 
     @Field(type => ID, { nullable: false })
     @Prop({ type: SchemaTypes.ObjectId, ref: 'Project', required: true })

@@ -6,6 +6,7 @@ import { Locale, LocaleSchema } from "src/common/schemas/locale.schema";
 import { Phase } from "src/phase/schemas/phase.schema";
 
 import { Field, ObjectType, ID, registerEnumType, GraphQLISODateTime } from '@nestjs/graphql';
+import { Opening } from "src/opening/schemas/opening.schema";
 
 export enum ProjectStatus {
     Open = "open",
@@ -30,6 +31,7 @@ export class Project extends Document {
     aliases: string[];
 
     // photos
+
     @Field(type => String, { nullable: false })
     @Prop({ required: true })
     description: string;
@@ -46,7 +48,7 @@ export class Project extends Document {
     @Prop({ required: true })
     status: ProjectStatus;
     // recommendations
-    // deadlines
+    
     @Field(type => [ID])
     @Prop([{ type: SchemaTypes.ObjectId, ref: User.name }])
     currentTeam: User['_id'][];
@@ -68,8 +70,8 @@ export class Project extends Document {
     highlighted: boolean;
 
     @Field(type => [ID])
-    @Prop([{ type: SchemaTypes.ObjectId, ref: Phase.name }])
-    phases: Phase['_id'][];
+    @Prop([{ type: SchemaTypes.ObjectId, ref: Opening.name }])
+    openings: Opening['_id'][];
 
     @Field(type => GraphQLISODateTime, { nullable: true })
     @Prop({ required: false })
