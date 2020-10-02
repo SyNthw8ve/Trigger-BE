@@ -59,10 +59,4 @@ export class OpeningResolver {
 
         return await this.projectService.findWithId(opening.project);
     }
-
-    @ResolveField('participations', returns => [Participation])
-    async getParticipations(@Parent() opening: Opening) : Promise<Participation[]> {
-
-        return await this.participationService.findManyWithId(opening.participations);
-    }
 }

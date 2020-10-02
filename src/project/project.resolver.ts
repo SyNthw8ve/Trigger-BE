@@ -54,10 +54,4 @@ export class ProjectResolver {
         return await this.institutionService.findWithId(project.institution);
     }
 
-    @ResolveField('phases', returns => [Phase])
-    async getPhases(@Parent() project: Project) : Promise<Phase[]> {
-
-        return await this.phaseService.getManyWithId(project.phases);
-    }
-
 }

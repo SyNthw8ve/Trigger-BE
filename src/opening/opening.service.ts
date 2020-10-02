@@ -19,8 +19,6 @@ export class OpeningService {
 
     async addParticipation(openingId: Opening['_id'], participationId: Participation['_id']) {
         const opening = await this.model.findById(openingId);
-        opening.participations.push(participationId);
-
         opening.save();
     }
 

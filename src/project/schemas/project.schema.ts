@@ -73,7 +73,7 @@ export class Project extends Document {
     highlighted: boolean;
 
     @Field(type => [ID])
-    @Prop([{ type: SchemaTypes.ObjectId, ref: Opening.name }])
+    @Prop([{ type: SchemaTypes.ObjectId, ref: 'Opening' }])
     openings: Opening['_id'][];
 
     @Field(type => GraphQLISODateTime, { nullable: true })

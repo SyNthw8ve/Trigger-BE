@@ -58,7 +58,6 @@ export class ProjectService {
     async addPhase(projectId: Project['_id'], phaseId: Phase['_id']) {
         // FIXME: handle wrong ids? 
         const project = await this.findWithId(projectId);
-        project.phases.push(phaseId);
         project.save();
     }
 
