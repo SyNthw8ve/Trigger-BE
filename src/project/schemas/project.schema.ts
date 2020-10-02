@@ -5,7 +5,7 @@ import { Institution } from "src/institution/schemas/institution.schema";
 import { Locale, LocaleSchema } from "src/common/schemas/locale.schema";
 import { Phase } from "src/phase/schemas/phase.schema";
 
-import { Field, ObjectType, ID, registerEnumType } from '@nestjs/graphql';
+import { Field, ObjectType, ID, registerEnumType, GraphQLISODateTime } from '@nestjs/graphql';
 
 export enum ProjectStatus {
     Open = "open",
@@ -70,6 +70,10 @@ export class Project extends Document {
     @Field(type => [ID])
     @Prop([{ type: SchemaTypes.ObjectId, ref: Phase.name }])
     phases: Phase['_id'][];
+
+    @Field(type => GraphQLISODateTime, { nullable: true })
+    @Prop({ required: false })
+    deadline?: Date;
 }
 
 export const ProjectSchema = SchemaFactory.createForClass(Project);
