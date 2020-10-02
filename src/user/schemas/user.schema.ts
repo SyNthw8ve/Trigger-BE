@@ -50,6 +50,9 @@ const ssSchema = SchemaFactory.createForClass(UserSoftskill);
 @Schema()
 export class User extends Document {
 
+    @Field(type => ID, { nullable: false })
+    _id: Document['_id'];
+
     @Field(type => String, { nullable: false })
     @Prop({ required: true })
     name: string;
