@@ -4,11 +4,13 @@
 
 type Application {
   match: ID
+  pinned: Boolean!
   type: ApplicationType!
   user: ID!
 }
 
 enum ApplicationType {
+  Invited
   Manual
   Match
 }
@@ -107,6 +109,7 @@ type InsertionResult {
 type Institution {
   creator: User!
   description: String!
+  institutionalPage: String
   location: Locale!
   name: String!
   projects: [Project!]!
@@ -149,10 +152,10 @@ type Opening {
   hardskills: [Hardskill!]!
   languages: [Language!]!
   location: Locale
-  participations: [Participation!]!
   project: Project!
   remuneration: Float
   softskills: [Softskill!]!
+  tasks: String!
 }
 
 input OpeningTasksInput {
@@ -187,12 +190,13 @@ type Project {
   admins: [User!]!
   aliases: [String!]!
   currentTeam: [User!]!
+  deadline: DateTime
   description: String!
   highlighted: Boolean!
   institution: Institution
   location: Locale
   manager: User!
-  phases: [Phase!]!
+  openings: [ID!]!
   scope: String!
   status: ProjectStatus!
   title: String!
@@ -270,6 +274,7 @@ input UpdateUserDto {
 }
 
 type User {
+  _id: ID!
   availability: Availability
   email: String!
   hardSkills: [Hardskill!]!
