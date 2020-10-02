@@ -14,6 +14,7 @@ import { ObjectType, Field, ID, Float, registerEnumType } from '@nestjs/graphql'
 
 export enum ApplicationType {
     Manual = "spontaneous",
+    Invited = "invited",
     Match = "match"
 }
 
