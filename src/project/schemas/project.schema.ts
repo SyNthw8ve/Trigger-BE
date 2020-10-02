@@ -32,6 +32,8 @@ export class Project extends Document {
 
     // photos
 
+    // logo
+
     @Field(type => String, { nullable: false })
     @Prop({ required: true })
     description: string;
@@ -47,6 +49,7 @@ export class Project extends Document {
     @Field(type => ProjectStatus, { nullable: false })
     @Prop({ required: true })
     status: ProjectStatus;
+
     // recommendations
     
     @Field(type => [ID])
