@@ -46,7 +46,7 @@ export class Application {
 export class Opening extends Document {
 
     @Field(type => ID, { nullable: false })
-    _id: any;
+    _id: Document['_id'];
 
     @Field(type => String, { nullable: false })
     @Prop({ required: true })

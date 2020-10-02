@@ -7,7 +7,7 @@ import { ObjectType, Field, ID } from '@nestjs/graphql';
 @Schema()
 export class Softskill extends Document {
     @Field(() => ID)
-    readonly _id: string;
+    _id: Document['_id'];
 
     @Field(type => String, { nullable: false })
     @Prop({ required: true })
