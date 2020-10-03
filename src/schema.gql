@@ -55,21 +55,26 @@ input CreateLanguageDto {
 }
 
 input CreateOpeningDto {
-  area: String!
   availability: AvailabilityInput!
-  hardskills: [ID!]
-  languages: [ID!]
+  endDate: DateTime!
+  hardskills: [ID!] = []
+  languages: [ID!] = []
   location: LocaleInput
-  project: ID!
+  name: String!
   remuneration: Float
-  softskills: [ID!]
+  softskills: [ID!] = []
+  startDate: DateTime!
+  tasks: String!
 }
 
 input CreateProjectDto {
+  deadline: DateTime
   description: String!
+  initialTeam: DateTime
   institution: ID
   location: LocaleInput!
   manager: ID!
+  opening_creations: [CreateOpeningDto!]!
   scope: String!
   title: String!
 }
@@ -86,6 +91,57 @@ scalar DateTime
 enum Description {
   EMAIL_IN_USE
   OK
+}
+
+type DraftCreateOpening {
+  availability: Availability
+  endDate: DateTime
+  hardskills: [ID!]
+  languages: [ID!]
+  location: Locale
+  name: String
+  remuneration: Float
+  softskills: [ID!]
+  startDate: DateTime
+  tasks: String
+}
+
+input DraftCreateOpeningDto {
+  availability: AvailabilityInput
+  endDate: DateTime
+  hardskills: [ID!]
+  languages: [ID!]
+  location: LocaleInput
+  name: String
+  remuneration: Float
+  softskills: [ID!]
+  startDate: DateTime
+  tasks: String
+}
+
+type DraftProject {
+  _id: ID!
+  deadline: DateTime
+  description: String
+  initialTeam: [User!]!
+  institution: Institution
+  location: Locale
+  manager: User!
+  opening_creations: [DraftCreateOpening!]!
+  scope: String
+  title: String
+}
+
+input DraftProjectDto {
+  deadline: DateTime
+  description: String
+  initialTeam: DateTime
+  institution: ID
+  location: LocaleInput
+  manager: ID!
+  opening_creations: [DraftCreateOpeningDto!]
+  scope: String
+  title: String
 }
 
 type Hardskill {
@@ -124,7 +180,7 @@ input LocaleInput {
 }
 
 type Mutation {
-  createOpening(opening: CreateOpeningDto!): Opening!
+  createOpening(opening: CreateOpeningDto!, project: String!): Opening!
   loginEmail(user: UserValidation!): AuthResult!
   newInstitution(institution: CreateInstitutionDto!): Institution!
   newLanguage(language: CreateLanguageDto!): Language!
@@ -133,20 +189,23 @@ type Mutation {
   newUser(user: RegisterUserDto!): InsertionResult!
   registerHardSkill(skill: CreateHardskillDto!): Hardskill!
   registerMutlipleHardSkills(skills: [CreateHardskillDto!]!): [Hardskill!]!
+  saveDraft(draft: DraftProjectDto!): DraftProject!
   updateUser(user: UpdateUserDto!): User!
 }
 
 type Opening {
   _id: ID!
   applications: [Application!]!
-  area: String!
   availability: Availability!
+  endDate: DateTime!
   hardskills: [Hardskill!]!
   languages: [Language!]!
   location: Locale
+  name: String!
   project: Project!
   remuneration: Float
   softskills: [Softskill!]!
+  startDate: DateTime!
   tasks: String!
 }
 
@@ -169,7 +228,7 @@ type Project {
   description: String!
   highlighted: Boolean!
   institution: Institution
-  location: Locale
+  location: Locale!
   manager: User!
   openings: [ID!]!
   scope: String!
@@ -187,6 +246,7 @@ type Query {
   getInstitutions: [Institution!]!
   getLanguages: [Language!]!
   getProject(id: String!): Project!
+  getProjectDraft(id: String!): DraftProject!
   getSoftskills: [Softskill!]!
   getUser(email: String!): User!
   getUsers: [User!]!
