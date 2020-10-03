@@ -20,11 +20,11 @@ export class UserSoftskill {
     softskillId: Softskill['_id'];
 
     @Field(type => Float, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: Number, required: true })
     score: number;
 
     @Field(type => Boolean, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: Boolean, required: true })
     visible: boolean;
 }
 
@@ -36,11 +36,11 @@ export class UserSoftskillInput {
     softskillId: Softskill['_id'];
 
     @Field(type => Float, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: Number, required: true })
     score: number;
 
     @Field(type => Boolean, { nullable: false })
-    @Prop({ required: true })
+    @Prop({type: Boolean, required: true })
     visible: boolean;
 }
 
@@ -54,20 +54,20 @@ export class User extends Document {
     _id: Document['_id'];
 
     @Field(type => String, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: String, required: true })
     name: string;
 
     @Field(type => String, { nullable: false })
-    @Prop({ required: true, unique: true })
+    @Prop({ type: String, required: true, unique: true })
     email: string;
 
     @Field(type => String, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: String, required: true })
     password: string;
     // photo
 
     @Field(type => ID, { nullable: true })
-    @Prop({ required: false })
+    @Prop({ type: SchemaTypes.ObjectId, ref: 'Institution' })
     institution?: Institution['_id'];
 
     @Field(type => [String])

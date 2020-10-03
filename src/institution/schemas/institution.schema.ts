@@ -11,19 +11,19 @@ import { ObjectType, Field, ID } from '@nestjs/graphql';
 export class Institution extends Document {
 
     @Field(type => String, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: String, required: true })
     name: String;
     // photo
     @Field(type => String, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: String, required: true })
     description: String;
 
     @Field(type => String, { nullable: true })
-    @Prop({ required: false })
+    @Prop({ type: String, required: false })
     institutionalPage: String;
 
     @Field(type => String, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: String, required: true })
     sector: String;
 
     @Field(type => ID, { nullable: false })

@@ -18,7 +18,7 @@ registerEnumType(MatchType, { name: 'MatchType' })
 export class Match extends Document {
 
     @Field(type => MatchType, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: MatchType, required: true })
     type: MatchType;
 
     @Field(type => ID, { nullable: false })
@@ -30,11 +30,11 @@ export class Match extends Document {
     matching: Project['_id'] | Opening['_id'];
 
     @Field(type => Boolean, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: Boolean, required: true })
     superMatch: boolean;
 
     @Field(type => Float, { nullable: false })
-    @Prop({ required: true })
+    @Prop({type: Number, required: true })
     score: number;
 }
 

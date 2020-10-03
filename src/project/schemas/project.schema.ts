@@ -22,7 +22,7 @@ export class Project extends Document {
     _id: Document['_id'];
 
     @Field(type => String, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: String, required: true })
     title: string;
 
     @Field(type => [String])
@@ -34,11 +34,11 @@ export class Project extends Document {
     // logo
 
     @Field(type => String, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: String, required: true })
     description: string;
 
     @Field(type => String, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: String, required: true })
     scope: string;
 
     @Field(type => Locale, { nullable: false })
@@ -46,7 +46,7 @@ export class Project extends Document {
     location: Locale;
 
     @Field(type => ProjectStatus, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: ProjectStatus, required: true })
     status: ProjectStatus;
 
     // recommendations
@@ -68,7 +68,7 @@ export class Project extends Document {
     institution?: Institution['id'];
 
     @Field(type => Boolean)
-    @Prop({ required: true, default: false })
+    @Prop({ type: Boolean, required: true, default: false })
     highlighted: boolean;
 
     @Field(type => [ID])
@@ -76,7 +76,7 @@ export class Project extends Document {
     openings: Opening['_id'][];
 
     @Field(type => GraphQLISODateTime, { nullable: true })
-    @Prop({ required: false })
+    @Prop({ type: Date, required: false })
     deadline?: Date;
 }
 

@@ -7,7 +7,7 @@ import { ObjectType, Field } from '@nestjs/graphql';
 export class Language extends Document {
 
     @Field(type => String, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: String, required: true })
     name: String;
 }
 

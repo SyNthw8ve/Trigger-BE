@@ -15,11 +15,11 @@ registerEnumType(AvailabilityType, { name: 'AvailabilityType' });
 export class Availability {
 
     @Field(type => AvailabilityType,{ nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: AvailabilityType, required: true })
     type: AvailabilityType;
 
     @Field(type => Float, { nullable: true })
-    @Prop({ required: false })
+    @Prop({ type: Number, required: false })
     hours?: number;
 }
 

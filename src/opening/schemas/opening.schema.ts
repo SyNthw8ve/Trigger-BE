@@ -23,11 +23,11 @@ registerEnumType(ApplicationType, { name: 'ApplicationType' });
 export class Application {
 
     @Field(type => ApplicationType, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: ApplicationType, required: true })
     type: ApplicationType;
 
     @Field(type => Boolean, { nullable: false })
-    @Prop({ required: true, default: false })
+    @Prop({ type: Boolean, required: true, default: false })
     pinned: boolean;
 
     // FIXME: This needs to be a <score, not match>?!
@@ -48,11 +48,11 @@ export class Opening extends Document {
     _id: Document['_id'];
 
     @Field(type => String, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: String, required: true })
     name: string;
 
     @Field(type => Float, { nullable: true })
-    @Prop({ required: false })
+    @Prop({ type: Number, required: false })
     remuneration?: number;
 
     @Field(type => Locale, { nullable: true })
@@ -80,15 +80,15 @@ export class Opening extends Document {
     applications: Application[];
 
     @Field(type => String, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: String, required: true })
     tasks: string;
 
     @Field(type => GraphQLISODateTime, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: Date, required: true })
     startDate: Date;
 
     @Field(type => GraphQLISODateTime, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: Date, required: true })
     endDate: Date;
 
     @Field(type => ID, { nullable: false })

@@ -6,11 +6,11 @@ import { ObjectType, Field, Float, } from "@nestjs/graphql";
 export class Position {
 
     @Field(type => Float, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: Number, required: true })
     longitude: number;
 
     @Field(type => Float, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: Number, required: true })
     latitude: number;
 }
 
@@ -21,7 +21,7 @@ const PositionSchema = SchemaFactory.createForClass(Position);
 export class Locale {
 
     @Field(type => String, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: String, required: true })
     address: string;
 
     @Field(type => Position, { nullable: false })

@@ -11,7 +11,7 @@ export class Hardskill extends Document {
     _id: Document['_id'];
 
     @Field(type => String, { nullable: false })
-    @Prop({ required: true })
+    @Prop({ type: String, required: true })
     name: String;
 }
 
