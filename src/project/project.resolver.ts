@@ -7,6 +7,7 @@ import { UserService } from '../user/user.service';
 import { User } from '../user/schemas/user.schema';
 import { InstitutionService } from '../institution/institution.service';
 import { Institution } from '../institution/schemas/institution.schema';
+import { DraftProject } from './schemas/draft-project.schema';
 
 @Resolver(of => Project)
 export class ProjectResolver {

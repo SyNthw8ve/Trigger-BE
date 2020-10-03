@@ -24,9 +24,12 @@ export class OpeningResolver {
         private readonly matchService: MatchService) { }
 
     @Mutation(returns => Opening)
-    async createOpening(@Args('opening') opening: CreateOpeningDto): Promise<Opening> {
+    async createOpening(
+        @Args('opening') opening: CreateOpeningDto,
+        @Args('project') project: String
+    ): Promise<Opening> {
 
-        let result = await this.openingService.new(opening);
+        let result = await this.openingService.new(opening, project);
 
         this.matchService.onOpeningCreated(result.id);
 
