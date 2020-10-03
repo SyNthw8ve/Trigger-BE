@@ -1,19 +1,18 @@
-import { Availability } from "src/common/schemas/availability.schema";
 import { Locale } from "src/common/schemas/locale.schema";
 import { Opening } from "../schemas/opening.schema";
 
-import { InputType, Field, ID, Float } from '@nestjs/graphql';
+import { InputType, Field, ID, Float, GraphQLISODateTime } from '@nestjs/graphql';
 import { AvailabilityInput } from "src/common/dtos/availability-input.dto";
 import { LocaleInput } from "src/common/dtos/locale-input.dto";
 
 @InputType()
 export class CreateOpeningDto {
 
-    @Field(type => ID, { nullable: false })
-    project: Opening['project'];
+    @Field(type => String, { nullable: false })
+    name: string;
 
     @Field(type => String, { nullable: false })
-    area: Opening['area'];
+    tasks: string;
 
     @Field(type => Float, { nullable: true })
     remuneration?: Opening['remuneration'];
@@ -21,15 +20,21 @@ export class CreateOpeningDto {
     @Field(type => LocaleInput, { nullable: true })
     location?: Locale;
 
-    @Field(type => [ID], { nullable: true })
-    hardskills?: Opening['hardskills'];
+    @Field(type => [ID], { nullable: false, defaultValue: [] })
+    hardskills: Opening['hardskills'];
 
-    @Field(type => [ID], { nullable: true })
-    softskills?: Opening['softskills'];
+    @Field(type => [ID], { nullable: false, defaultValue: []  })
+    softskills: Opening['softskills'];
 
-    @Field(type => [ID], { nullable: true })
-    languages?: Opening['languages'];
+    @Field(type => [ID], { nullable: false, defaultValue: []  })
+    languages: Opening['languages'];
 
     @Field(type => AvailabilityInput , { nullable: false })
-    availability: Availability;
+    availability: Opening['availability'];
+
+    @Field(type => GraphQLISODateTime, { nullable: false })
+    startDate: Opening['startDate'];
+
+    @Field(type => GraphQLISODateTime, { nullable: false })
+    endDate: Opening['endDate'];
 }
