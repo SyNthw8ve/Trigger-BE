@@ -9,7 +9,7 @@ import { Project } from 'src/project/schemas/project.schema';
 import { Softskill, SoftskillSchema } from 'src/softskill/schemas/softskill.schema';
 import { User } from 'src/user/schemas/user.schema';
 
-import { ObjectType, Field, ID, Float, registerEnumType } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Float, registerEnumType, GraphQLISODateTime } from '@nestjs/graphql';
 
 export enum ApplicationType {
     Manual = "spontaneous",
@@ -49,7 +49,7 @@ export class Opening extends Document {
 
     @Field(type => String, { nullable: false })
     @Prop({ required: true })
-    area: string;
+    name: string;
 
     @Field(type => Float, { nullable: true })
     @Prop({ required: false })
@@ -82,6 +82,14 @@ export class Opening extends Document {
     @Field(type => String, { nullable: false })
     @Prop({ required: true })
     tasks: string;
+
+    @Field(type => GraphQLISODateTime, { nullable: false })
+    @Prop({ required: true })
+    startDate: Date;
+
+    @Field(type => GraphQLISODateTime, { nullable: false })
+    @Prop({ required: true })
+    endDate: Date;
 
     @Field(type => ID, { nullable: false })
     @Prop({ type: SchemaTypes.ObjectId, ref: 'Project', required: true })
