@@ -41,9 +41,9 @@ export class Project extends Document {
     @Prop({ required: true })
     scope: string;
 
-    @Field(type => Locale, { nullable: true })
-    @Prop({ type: LocaleSchema, required: false })
-    location?: Locale;
+    @Field(type => Locale, { nullable: false })
+    @Prop({ type: LocaleSchema, required: true })
+    location: Locale;
 
     @Field(type => ProjectStatus, { nullable: false })
     @Prop({ required: true })

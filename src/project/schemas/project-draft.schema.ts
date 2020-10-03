@@ -30,9 +30,9 @@ export class ProjectDraft extends Document {
     @Prop({ required: true })
     scope: Project['scope'];
 
-    @Field(type => Locale, { nullable: true })
-    @Prop({ type: LocaleSchema, required: false })
-    location?: Project['location'];
+    @Field(type => Locale, { nullable: false })
+    @Prop({ type: LocaleSchema, required: true })
+    location: Project['location'];
 
     @Field(type => ID)
     @Prop({ type: SchemaTypes.ObjectId, ref: User.name })
