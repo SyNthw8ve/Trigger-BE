@@ -280,6 +280,14 @@ type Softskill {
   name: String!
 }
 
+type SoftSkillScale {
+  maxValue: Int!
+  maxValueDescription: String!
+  minValue: Int!
+  minValueDescription: String!
+  step: Int!
+}
+
 enum Status {
   INVALID_EMAIL
   OK
