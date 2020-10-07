@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { SoftSkillQuestions } from './schemas/soft-quiz.schema'
+import { SoftSkillQuestions } from './schemas/soft-quiz.schema';
+import { QuizAnswer } from './dtos/soft-quiz.dto';
 
 @Injectable()
 export class SoftSkillQuestionService {
@@ -16,6 +17,11 @@ export class SoftSkillQuestionService {
         this.shuffleQuiz(quiz);
 
         return quiz;
+    }
+
+    async computeQuizResults(answers: QuizAnswer[]) {
+
+        
     }
 
     private shuffleQuiz(quiz: SoftSkillQuestions[]) {
