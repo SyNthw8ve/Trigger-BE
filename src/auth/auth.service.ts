@@ -15,7 +15,7 @@ export class AuthService {
         private readonly jwtService: JwtService) { }
 
     async validateUser(toValidate: UserValidation): Promise<AuthResult> {
-        
+
         let authResult = { result: null, status: Status.INVALID_EMAIL, success: false, accessToken: null };
         const user: User = await this.userService.findWithEmail(toValidate.email);
 
@@ -27,9 +27,7 @@ export class AuthService {
 
             if (isEqual) {
 
-                const { password, ...result } = user.toObject();
-
-                authResult = { result: result, status: Status.OK, success: true, accessToken: null }
+                authResult = { result: { userId: user._id.toString() }, status: Status.OK, success: true, accessToken: null }
             }
         }
 
@@ -42,7 +40,7 @@ export class AuthService {
 
         if (authResult.success) {
 
-            const payload = { userEmail: authResult.result.email };
+            const payload = { userId: authResult.result.userId };
             authResult.accessToken = this.jwtService.sign(payload);
         }
 

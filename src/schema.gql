@@ -264,15 +264,7 @@ input RegisterUserDto {
 }
 
 type Result {
-  availability: Availability
-  email: String!
-  hardSkills: [ID!]!
-  institution: ID
-  interests: [String!]!
-  languages: [ID!]!
-  name: String!
-  projects: [ID!]!
-  softSkills: [UserSoftskill!]!
+  userId: ID!
 }
 
 type Softskill {
