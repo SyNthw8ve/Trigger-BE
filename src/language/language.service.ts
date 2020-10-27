@@ -24,4 +24,8 @@ export class LanguageService {
 
         return await this.model.find();
     }
+
+    async findWithId(id: Language['_id']): Promise<Language> {
+        return await this.model.findById(id);
+    }
 }

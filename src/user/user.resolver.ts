@@ -19,6 +19,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { MatchService } from 'src/match/match.service';
 import { UserSoftskill } from './schemas/user-softskill.schema';
 import { UserHardskill } from './schemas/user-hardskill.schema';
+import { UserLanguage } from './schemas/user-language.schema';
 
 @Resolver(of => User)
 export class UserResolver {
@@ -122,5 +123,19 @@ export class UserHardskillResolver {
     async getUserHardSkills(@Parent() hardskill: UserHardskill): Promise<Hardskill> {
 
         return await this.hardskillService.findWithId(hardskill.hardskillId);
+    }
+}
+
+@Resolver(of => UserLanguage)
+export class UserLanguageResolver {
+
+    constructor(
+        private readonly languageService: LanguageService,
+    ) { }
+
+    @ResolveField('languageId', returns => Language)
+    async getUserLanguages(@Parent() language: UserLanguage): Promise<Language> {
+
+        return await this.languageService.findWithId(language.languageId);
     }
 }
