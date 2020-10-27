@@ -3,6 +3,7 @@ import { Document, SchemaTypes } from 'mongoose';
 
 import { ObjectType, Field, ID, Float, InputType } from '@nestjs/graphql';
 import { Hardskill } from 'src/hardskill/schemas/hardskill.schema';
+import { User } from './user.schema';
 
 @ObjectType()
 @Schema()
@@ -15,6 +16,10 @@ export class UserHardskill {
     @Field(type => Float, { nullable: false })
     @Prop({ type: Number, required: true })
     score: number;
+
+    @Field(type => [ID], { nullable: false })
+    @Prop([{ type: SchemaTypes.ObjectId, ref: 'User', required: true }])
+    recommendedBy: User['_id'][];
 }
 
 export const UserHardskillSchema = SchemaFactory.createForClass(UserHardskill);
@@ -29,4 +34,8 @@ export class UserHardskillInput {
     @Field(type => Float, { nullable: false })
     @Prop({ type: Number, required: true })
     score: number;
+
+    @Field(type => [ID], { nullable: false })
+    @Prop({ type: SchemaTypes.ObjectId, ref: 'User', required: true })
+    recommendedBy: User['_id'][];
 }

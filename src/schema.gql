@@ -314,11 +314,13 @@ type User {
 
 type UserHardskill {
   hardskillId: Hardskill!
+  recommendedBy: [User!]!
   score: Float!
 }
 
 input UserHardskillInput {
   hardskillId: ID!
+  recommendedBy: [ID!]!
   score: Float!
 }
 

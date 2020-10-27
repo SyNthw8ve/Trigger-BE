@@ -100,12 +100,19 @@ export class UserHardskillResolver {
 
     constructor(
         private readonly hardskillService: HardskillService,
+        private readonly userService: UserService,
     ) { }
 
     @ResolveField('hardskillId', returns => Hardskill)
     async getUserHardSkills(@Parent() hardskill: UserHardskill): Promise<Hardskill> {
 
         return await this.hardskillService.findWithId(hardskill.hardskillId);
+    }
+
+    @ResolveField('recommendedBy', returns => [User])
+    async getRecommended(@Parent() hardskill: UserHardskill): Promise<User[]> {
+
+        return await this.userService.findManyWithId(hardskill.recommendedBy);
     }
 }
 
