@@ -1,10 +1,4 @@
 import { ObjectType, Field, ID, registerEnumType } from '@nestjs/graphql';
-import { Institution } from 'src/institution/schemas/institution.schema';
-import { Project } from 'src/project/schemas/project.schema';
-import { Hardskill } from 'src/hardskill/schemas/hardskill.schema';
-import { UserSoftskill } from 'src/user/schemas/user.schema';
-import { Language } from 'src/language/schemas/language.schema';
-import { Availability } from 'src/common/schemas/availability.schema';
 import { User } from 'src/user/schemas/user.schema';
 
 export enum Status {
