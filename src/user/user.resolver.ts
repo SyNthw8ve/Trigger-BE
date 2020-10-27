@@ -27,9 +27,6 @@ export class UserResolver {
     constructor(private readonly userService: UserService,
         private readonly projectService: ProjectService,
         private readonly institutionService: InstitutionService,
-        private readonly hardskillService: HardskillService,
-        private readonly softskillService: SoftskillService,
-        private readonly languageService: LanguageService,
         private readonly matchService: MatchService) { }
 
     //@UseGuards(JwtAuthGuard)
@@ -79,20 +76,6 @@ export class UserResolver {
 
         const institution = user.institution;
         return await this.institutionService.findWithId(institution);
-    }
-
-    @ResolveField('hardSkills', returns => [Hardskill])
-    async getUserHardSkills(@Parent() user: User): Promise<Hardskill[]> {
-
-        const hardSkills = user.hardSkills;
-        return await this.hardskillService.findManyById(hardSkills);
-    }
-
-    @ResolveField('languages', returns => [Language])
-    async getUserLanguages(@Parent() user: User): Promise<Language[]> {
-
-        const languages = user.languages;
-        return await this.languageService.findManyById(languages);
     }
 
 }

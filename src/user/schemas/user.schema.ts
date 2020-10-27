@@ -1,4 +1,4 @@
-import { Hardskill } from "src/hardskill/schemas/hardskill.schema";
+import { Hardskill, HardskillSchema } from "src/hardskill/schemas/hardskill.schema";
 
 import { Prop, Schema, raw, SchemaFactory } from '@nestjs/mongoose'
 import { Document, SchemaTypes } from 'mongoose';
@@ -10,7 +10,8 @@ import { Availability, AvailabilitySchema } from "src/common/schemas/availabilit
 
 import { ObjectType, Field, ID, Float, InputType } from '@nestjs/graphql';
 import { UserSoftskillSchema, UserSoftskill } from "./user-softskill.schema";
-// Maybe this should be called UserSoftskillResult?
+import { UserHardskill, UserHardskillSchema } from "./user-hardskill.schema";
+import { UserLanguage, UserLanguageSchema } from "./user-language.schema";
 
 @ObjectType()
 @Schema()
@@ -44,17 +45,17 @@ export class User extends Document {
     @Prop([{ type: SchemaTypes.ObjectId, ref: 'Project' }])
     projects: Project['_id'][];
 
-    @Field(type => [ID])
-    @Prop([{ type: SchemaTypes.ObjectId, ref: Hardskill.name }])
-    hardSkills: Hardskill['_id'][];
+    @Field(type => [UserHardskill])
+    @Prop([{ type: UserHardskillSchema }])
+    hardSkills: UserHardskill[];
 
     @Field(type => [UserSoftskill])
     @Prop([{ type: UserSoftskillSchema }])
     softSkills: UserSoftskill[];
 
-    @Field(type => [ID])
-    @Prop([{ type: SchemaTypes.ObjectId, ref: Language.name }])
-    languages: Language['_id'][];
+    @Field(type => [UserLanguage])
+    @Prop([{ type: UserLanguageSchema }])
+    languages: UserLanguage[];
 
     @Field(type => Availability, { nullable: true })
     @Prop({ type: AvailabilitySchema, required: false })

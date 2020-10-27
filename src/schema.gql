@@ -302,14 +302,24 @@ type User {
   _id: ID!
   availability: Availability
   email: String!
-  hardSkills: [Hardskill!]!
+  hardSkills: [UserHardskill!]!
   institution: Institution
   interests: [String!]!
-  languages: [Language!]!
+  languages: [UserLanguage!]!
   name: String!
   password: String!
   projects: [Project!]!
   softSkills: [UserSoftskill!]!
+}
+
+type UserHardskill {
+  hardskillId: Hardskill!
+  score: Float!
+}
+
+type UserLanguage {
+  languageId: Language!
+  score: Float!
 }
 
 type UserSoftskill {

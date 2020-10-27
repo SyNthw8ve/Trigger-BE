@@ -2,7 +2,7 @@ import { UserService } from './user.service';
 import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './schemas/user.schema';
-import { UserResolver, UserSoftskillResolver } from './user.resolver';
+import { UserHardskillResolver, UserLanguageResolver, UserResolver, UserSoftskillResolver } from './user.resolver';
 import { CommonModule } from 'src/common/common.module';
 import { ProjectModule } from 'src/project/project.module';
 import { InstitutionModule } from 'src/institution/institution.module';
@@ -22,7 +22,7 @@ import { MatchModule } from 'src/match/match.module';
         forwardRef(() => ProjectModule),
         MatchModule
     ],
-    providers: [UserService, UserResolver, UserSoftskillResolver],
+    providers: [UserService, UserResolver, UserSoftskillResolver, UserHardskillResolver, UserLanguageResolver],
     exports: [UserService],
 })
 export class UserModule { }
