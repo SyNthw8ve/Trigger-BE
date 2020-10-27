@@ -9,42 +9,8 @@ import { Language } from "src/language/schemas/language.schema";
 import { Availability, AvailabilitySchema } from "src/common/schemas/availability.schema";
 
 import { ObjectType, Field, ID, Float, InputType } from '@nestjs/graphql';
+import { UserSoftskillSchema, UserSoftskill } from "./user-softskill.schema";
 // Maybe this should be called UserSoftskillResult?
-
-@ObjectType()
-@Schema()
-export class UserSoftskill {
-
-    @Field(type => ID, { nullable: false })
-    @Prop({ type: SchemaTypes.ObjectId, ref: Softskill.name, required: true })
-    softskillId: Softskill['_id'];
-
-    @Field(type => Float, { nullable: false })
-    @Prop({ type: Number, required: true })
-    score: number;
-
-    @Field(type => Boolean, { nullable: false })
-    @Prop({ type: Boolean, required: true })
-    visible: boolean;
-}
-
-@InputType()
-export class UserSoftskillInput {
-
-    @Field(type => ID, { nullable: false })
-    @Prop({ type: SchemaTypes.ObjectId, ref: Softskill.name, required: true })
-    softskillId: Softskill['_id'];
-
-    @Field(type => Float, { nullable: false })
-    @Prop({ type: Number, required: true })
-    score: number;
-
-    @Field(type => Boolean, { nullable: false })
-    @Prop({type: Boolean, required: true })
-    visible: boolean;
-}
-
-const ssSchema = SchemaFactory.createForClass(UserSoftskill);
 
 @ObjectType()
 @Schema()
@@ -83,7 +49,7 @@ export class User extends Document {
     hardSkills: Hardskill['_id'][];
 
     @Field(type => [UserSoftskill])
-    @Prop([{ type: ssSchema }])
+    @Prop([{ type: UserSoftskillSchema }])
     softSkills: UserSoftskill[];
 
     @Field(type => [ID])

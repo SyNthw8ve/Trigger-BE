@@ -1,7 +1,8 @@
-import { User, UserSoftskillInput } from "../schemas/user.schema";
+import { User } from "../schemas/user.schema";
 import { AvailabilityInput } from "../../common/dtos/availability-input.dto";
 
 import { InputType, Field, ID } from '@nestjs/graphql';
+import { UserSoftskillInput } from "../schemas/user-softskill.schema";
 
 @InputType()
 export class RegisterUserDto {

@@ -2,7 +2,7 @@ import { Resolver, Query, Mutation, Args, ResolveField, Parent } from '@nestjs/g
 import { UserService } from './user.service';
 import { RegisterUserDto } from './dtos/create-User.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
-import { User, UserSoftskill } from './schemas/user.schema';
+import { User } from './schemas/user.schema';
 import { Project } from 'src/project/schemas/project.schema';
 import { ProjectService } from 'src/project/project.service';
 import { Institution } from 'src/institution/schemas/institution.schema';
@@ -17,6 +17,7 @@ import { InsertionResult } from './dtos/insertion-result.dto';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { MatchService } from 'src/match/match.service';
+import { UserSoftskill } from './schemas/user-softskill.schema';
 
 @Resolver(of => User)
 export class UserResolver {
