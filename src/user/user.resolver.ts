@@ -18,6 +18,7 @@ import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { MatchService } from 'src/match/match.service';
 import { UserSoftskill } from './schemas/user-softskill.schema';
+import { UserHardskill } from './schemas/user-hardskill.schema';
 
 @Resolver(of => User)
 export class UserResolver {
@@ -107,5 +108,19 @@ export class UserSoftskillResolver {
 
         const softSkill = softskill.softskillId;
         return await this.softskillService.findWithId(softSkill);
+    }
+}
+
+@Resolver(of => UserHardskill)
+export class UserHardskillResolver {
+
+    constructor(
+        private readonly hardskillService: HardskillService,
+    ) { }
+
+    @ResolveField('hardskillId', returns => Hardskill)
+    async getUserHardSkills(@Parent() hardskill: UserHardskill): Promise<Hardskill> {
+
+        return await this.hardskillService.findWithId(hardskill.hardskillId);
     }
 }

@@ -30,4 +30,8 @@ export class HardskillService {
 
         return await this.model.find({ _id: { $in: ids } });
     }
+
+    async findWithId(id: Hardskill['_id']): Promise<Hardskill> {
+        return await this.model.findById(id);
+    }
 }
