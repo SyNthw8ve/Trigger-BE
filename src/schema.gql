@@ -38,6 +38,15 @@ enum AvailabilityType {
   PartTime
 }
 
+type Course {
+  _id: ID!
+  name: String!
+}
+
+input CreateCourseDto {
+  name: String!
+}
+
 input CreateHardskillDto {
   name: String!
 }
@@ -87,6 +96,12 @@ input CreateSoftskillDto {
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+enum Degree {
+  BACHELOR
+  DOCTORATE
+  MASTER
+}
 
 enum Description {
   EMAIL_IN_USE
@@ -182,6 +197,7 @@ input LocaleInput {
 type Mutation {
   createOpening(opening: CreateOpeningDto!, project: String!): Opening!
   loginEmail(user: UserValidation!): AuthResult!
+  newCourse(course: CreateCourseDto!): Course!
   newInstitution(institution: CreateInstitutionDto!): Institution!
   newLanguage(language: CreateLanguageDto!): Language!
   newProject(project: CreateProjectDto!): Project!
@@ -242,6 +258,7 @@ enum ProjectStatus {
 }
 
 type Query {
+  getCourses: [Course!]!
   getHardSkills: [Hardskill!]!
   getInstitutions: [Institution!]!
   getLanguages: [Language!]!
@@ -258,6 +275,7 @@ input RegisterUserDto {
   hardSkills: [UserHardskillInput!]
   interests: [String!]
   languages: [UserLanguageInput!]
+  learnings: [UserLearningInput!]
   name: String!
   password: String!
   softSkills: [UserSoftskillInput!]
@@ -293,6 +311,7 @@ input UpdateUserDto {
   id: ID!
   interests: [String!]
   languages: [UserLanguageInput!]
+  learnings: [UserLearningInput!]
   name: String!
   password: String!
   softSkills: [UserSoftskillInput!]
@@ -306,6 +325,7 @@ type User {
   institution: Institution
   interests: [String!]!
   languages: [UserLanguage!]!
+  learnings: [UserLearning!]!
   name: String!
   password: String!
   projects: [Project!]!
@@ -332,6 +352,22 @@ type UserLanguage {
 input UserLanguageInput {
   languageId: ID!
   score: Float!
+}
+
+type UserLearning {
+  courseId: Course!
+  degree: Degree!
+  finishDate: DateTime!
+  institution: ID
+  startDate: DateTime!
+}
+
+input UserLearningInput {
+  courseId: ID!
+  degree: Degree!
+  finishDate: DateTime!
+  institution: ID
+  startDate: DateTime!
 }
 
 type UserSoftskill {

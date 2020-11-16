@@ -12,6 +12,7 @@ import { ObjectType, Field, ID, Float, InputType } from '@nestjs/graphql';
 import { UserSoftskillSchema, UserSoftskill } from "./user-softskill.schema";
 import { UserHardskill, UserHardskillSchema } from "./user-hardskill.schema";
 import { UserLanguage, UserLanguageSchema } from "./user-language.schema";
+import { UserLearning, UserLearningSchema } from "./user-learning.schema";
 
 @ObjectType()
 @Schema()
@@ -56,6 +57,10 @@ export class User extends Document {
     @Field(type => [UserLanguage])
     @Prop([{ type: UserLanguageSchema }])
     languages: UserLanguage[];
+
+    @Field(type => [UserLearning])
+    @Prop([{ type: UserLearningSchema }])
+    learnings: UserLearning[];
 
     @Field(type => Availability, { nullable: true })
     @Prop({ type: AvailabilitySchema, required: false })

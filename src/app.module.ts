@@ -20,6 +20,7 @@ import { EmailModule } from './email/email.module';
 import { FlaskModule } from './flask/flask.module';
 import { OpeningModule } from './opening/opening.module';
 import { SoftQuizModule } from './soft-quiz/soft-quiz.module';
+import { CourseModule } from './course/course.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { SoftQuizModule } from './soft-quiz/soft-quiz.module';
     NotificationsModule,
     EmailModule,
     FlaskModule,
+    CourseModule,
     SoftQuizModule],
   providers: [AppService, AppResolver],
 })

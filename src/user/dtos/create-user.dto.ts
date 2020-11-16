@@ -5,6 +5,7 @@ import { InputType, Field, ID } from '@nestjs/graphql';
 import { UserSoftskillInput } from "../schemas/user-softskill.schema";
 import { UserHardskillInput } from "../schemas/user-hardskill.schema";
 import { UserLanguageInput } from "../schemas/user-language.schema";
+import { UserLearning, UserLearningInput } from "../schemas/user-learning.schema";
 
 @InputType()
 export class RegisterUserDto {
@@ -32,4 +33,7 @@ export class RegisterUserDto {
 
     @Field(type => [String], { nullable: true })
     readonly interests?: User['interests'];
+
+    @Field(type => [UserLearningInput], { nullable: true })
+    readonly learnings?: UserLearningInput[];
 }

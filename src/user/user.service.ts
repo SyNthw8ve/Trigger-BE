@@ -41,6 +41,8 @@ export class UserService {
                 
                 return { success: false, description: Description.EMAIL_IN_USE, _id: null };
             }
+
+            console.error(err);
         }
 
     }

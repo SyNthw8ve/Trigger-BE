@@ -20,6 +20,9 @@ import { MatchService } from 'src/match/match.service';
 import { UserSoftskill } from './schemas/user-softskill.schema';
 import { UserHardskill } from './schemas/user-hardskill.schema';
 import { UserLanguage } from './schemas/user-language.schema';
+import { UserLearning } from './schemas/user-learning.schema';
+import { CourseService } from 'src/course/course.service';
+import { Course } from 'src/course/schemas/course.schema';
 
 @Resolver(of => User)
 export class UserResolver {
@@ -127,5 +130,19 @@ export class UserLanguageResolver {
     async getUserLanguages(@Parent() language: UserLanguage): Promise<Language> {
 
         return await this.languageService.findWithId(language.languageId);
+    }
+}
+
+@Resolver(of => UserLearning)
+export class UserLearningResolver {
+
+    constructor(
+        private readonly courseService: CourseService,
+    ) { }
+
+    @ResolveField('courseId', returns => Course)
+    async getCourse(@Parent() learning: UserLearning): Promise<Course> {
+
+        return await this.courseService.findWithId(learning.courseId);
     }
 }
