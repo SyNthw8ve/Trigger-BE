@@ -127,10 +127,13 @@ export class UserLanguageResolver {
         private readonly languageService: LanguageService,
     ) { }
 
-    @ResolveField('languageId', returns => Language)
+    @ResolveField('languageId', returns => Language, { nullable: true })
     async getUserLanguages(@Parent() language: UserLanguage): Promise<Language> {
 
-        return await this.languageService.findWithId(language.languageId);
+        if (language.languageId) {
+            return await this.languageService.findWithId(language.languageId);
+        }
+        return null;
     }
 }
 

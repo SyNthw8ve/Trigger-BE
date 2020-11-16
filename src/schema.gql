@@ -61,6 +61,10 @@ input CreateInstitutionDto {
 
 input CreateLanguageDto {
   name: String!
+  readingLevels: [LanguageLevelInput!]!
+  speakingLevels: [LanguageLevelInput!]!
+  understandingLevels: [LanguageLevelInput!]!
+  writingLevels: [LanguageLevelInput!]!
 }
 
 input CreateOpeningDto {
@@ -181,6 +185,20 @@ type Institution {
 }
 
 type Language {
+  name: String!
+  readingLevels: [LanguageLevel!]!
+  speakingLevels: [LanguageLevel!]!
+  understandingLevels: [LanguageLevel!]!
+  writingLevels: [LanguageLevel!]!
+}
+
+type LanguageLevel {
+  description: String!
+  name: String!
+}
+
+input LanguageLevelInput {
+  description: String!
   name: String!
 }
 
@@ -364,7 +382,7 @@ input UserHardskillInput {
 }
 
 type UserLanguage {
-  languageId: Language!
+  languageId: Language
   score: Float!
 }
 
