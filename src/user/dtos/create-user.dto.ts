@@ -6,6 +6,7 @@ import { UserSoftskillInput } from "../schemas/user-softskill.schema";
 import { UserHardskillInput } from "../schemas/user-hardskill.schema";
 import { UserLanguageInput } from "../schemas/user-language.schema";
 import { UserLearning, UserLearningInput } from "../schemas/user-learning.schema";
+import { UserExperienceInput } from "../schemas/user-experience.schema";
 
 @InputType()
 export class RegisterUserDto {
@@ -36,4 +37,7 @@ export class RegisterUserDto {
 
     @Field(type => [UserLearningInput], { nullable: true })
     readonly learnings?: UserLearningInput[];
+
+    @Field(type => [UserExperienceInput], { nullable: true })
+    readonly experience?: UserExperienceInput[];
 }

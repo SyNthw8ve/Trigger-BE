@@ -23,6 +23,7 @@ import { UserLanguage } from './schemas/user-language.schema';
 import { UserLearning } from './schemas/user-learning.schema';
 import { CourseService } from 'src/course/course.service';
 import { Course } from 'src/course/schemas/course.schema';
+import { UserExperience } from './schemas/user-experience.schema';
 
 @Resolver(of => User)
 export class UserResolver {
@@ -144,5 +145,22 @@ export class UserLearningResolver {
     async getCourse(@Parent() learning: UserLearning): Promise<Course> {
 
         return await this.courseService.findWithId(learning.courseId);
+    }
+}
+
+@Resolver(of => UserExperience)
+export class UserExperienceResolver {
+
+    constructor(
+        private readonly institutionService: InstitutionService,
+    ) { }
+
+    @ResolveField('company', returns => Institution, { nullable: true })
+    async getCourse(@Parent() experience: UserExperience): Promise<Institution | null> {
+        if (experience.company) {
+            return await this.institutionService.findWithId(experience.company);
+        }
+
+        return null;
     }
 }

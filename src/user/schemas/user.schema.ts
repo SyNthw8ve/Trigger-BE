@@ -13,6 +13,7 @@ import { UserSoftskillSchema, UserSoftskill } from "./user-softskill.schema";
 import { UserHardskill, UserHardskillSchema } from "./user-hardskill.schema";
 import { UserLanguage, UserLanguageSchema } from "./user-language.schema";
 import { UserLearning, UserLearningSchema } from "./user-learning.schema";
+import { UserExperience, UserExperienceSchema } from "./user-experience.schema";
 
 @ObjectType()
 @Schema()
@@ -61,6 +62,10 @@ export class User extends Document {
     @Field(type => [UserLearning])
     @Prop([{ type: UserLearningSchema }])
     learnings: UserLearning[];
+
+    @Field(type => [UserExperience])
+    @Prop([{ type: UserExperienceSchema }])
+    experience: UserExperience[];
 
     @Field(type => Availability, { nullable: true })
     @Prop({ type: AvailabilitySchema, required: false })

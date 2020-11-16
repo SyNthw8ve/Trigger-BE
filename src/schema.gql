@@ -272,6 +272,7 @@ type Query {
 input RegisterUserDto {
   availability: AvailabilityInput
   email: String!
+  experience: [UserExperienceInput!]
   hardSkills: [UserHardskillInput!]
   interests: [String!]
   languages: [UserLanguageInput!]
@@ -307,6 +308,7 @@ enum Status {
 input UpdateUserDto {
   availability: AvailabilityInput
   email: String!
+  experience: [UserExperienceInput!]
   hardSkills: [UserHardskillInput!]
   id: ID!
   interests: [String!]
@@ -321,6 +323,7 @@ type User {
   _id: ID!
   availability: Availability
   email: String!
+  experience: [UserExperience!]!
   hardSkills: [UserHardskill!]!
   institution: Institution
   interests: [String!]!
@@ -330,6 +333,22 @@ type User {
   password: String!
   projects: [Project!]!
   softSkills: [UserSoftskill!]!
+}
+
+type UserExperience {
+  company: Institution
+  finishDate: DateTime
+  location: Locale!
+  role: String!
+  startDate: DateTime!
+}
+
+input UserExperienceInput {
+  company: ID
+  finishDate: DateTime
+  location: LocaleInput!
+  role: String!
+  startDate: DateTime!
 }
 
 type UserHardskill {

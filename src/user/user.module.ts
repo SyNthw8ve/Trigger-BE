@@ -2,7 +2,7 @@ import { UserService } from './user.service';
 import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './schemas/user.schema';
-import { UserHardskillResolver, UserLanguageResolver, UserLearningResolver, UserResolver, UserSoftskillResolver } from './user.resolver';
+import { UserExperienceResolver, UserHardskillResolver, UserLanguageResolver, UserLearningResolver, UserResolver, UserSoftskillResolver } from './user.resolver';
 import { CommonModule } from 'src/common/common.module';
 import { ProjectModule } from 'src/project/project.module';
 import { InstitutionModule } from 'src/institution/institution.module';
@@ -15,8 +15,8 @@ import { CourseModule } from 'src/course/course.module';
 @Module({
     imports: [
         MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
-        CommonModule, 
-        forwardRef(() =>InstitutionModule),
+        CommonModule,
+        forwardRef(() => InstitutionModule),
         HardskillModule,
         SoftskillModule,
         LanguageModule,
@@ -24,7 +24,7 @@ import { CourseModule } from 'src/course/course.module';
         MatchModule,
         CourseModule
     ],
-    providers: [UserService, UserResolver, UserSoftskillResolver, UserHardskillResolver, UserLanguageResolver, UserLearningResolver],
+    providers: [UserService, UserResolver, UserSoftskillResolver, UserHardskillResolver, UserLanguageResolver, UserLearningResolver, UserExperienceResolver],
     exports: [UserService],
 })
 export class UserModule { }
