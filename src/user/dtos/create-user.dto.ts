@@ -27,7 +27,7 @@ export class RegisterUserDto {
     readonly softSkills?: User['softSkills'];
 
     @Field(type => [UserLanguageInput], { nullable: true })
-    readonly languages?: User['languages'];
+    readonly languages?: UserLanguageInput[];
 
     @Field(type => AvailabilityInput, { nullable: true })
     readonly availability?: User['availability'];
