@@ -383,12 +383,18 @@ input UserHardskillInput {
 
 type UserLanguage {
   languageId: Language
-  score: Float!
+  readingLevel: String!
+  speakingLevel: String!
+  understandingLevel: String!
+  writingLevel: String!
 }
 
 input UserLanguageInput {
   languageId: ID!
-  score: Float!
+  readingLevel: String!
+  speakingLevel: String!
+  understandingLevel: String!
+  writingLevel: String!
 }
 
 type UserLearning {
