@@ -8,7 +8,7 @@ import { Softskill } from "src/softskill/schemas/softskill.schema";
 import { Language } from "src/language/schemas/language.schema";
 import { Availability, AvailabilitySchema } from "src/common/schemas/availability.schema";
 
-import { ObjectType, Field, ID, Float, InputType } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Float, InputType, GraphQLISODateTime } from '@nestjs/graphql';
 import { UserSoftskillSchema, UserSoftskill } from "./user-softskill.schema";
 import { UserHardskill, UserHardskillSchema } from "./user-hardskill.schema";
 import { UserLanguage, UserLanguageSchema } from "./user-language.schema";
@@ -27,6 +27,22 @@ export class User extends Document {
     name: string;
 
     @Field(type => String, { nullable: false })
+    @Prop({ type: String, required: true })
+    lastName: string;
+
+    @Field(type => GraphQLISODateTime, { nullable: false })
+    @Prop({ type: Date, required: true })
+    dateOfBirth: Date;
+
+    @Field(type => String, { nullable: false })
+    @Prop({ type: String, required: true })
+    city: string;
+
+    @Field(type => String, { nullable: false })
+    @Prop({ type: String, required: true })
+    country: string;
+
+    @Field(type => String, { nullable: false })
     @Prop({ type: String, required: true, unique: true })
     email: string;
 
@@ -38,6 +54,10 @@ export class User extends Document {
     @Field(type => ID, { nullable: true })
     @Prop({ type: SchemaTypes.ObjectId, ref: 'Institution' })
     institution?: Institution['_id'];
+
+    @Field(type => String, { nullable: true })
+    @Prop({ type: String, required: false })
+    currentFunction?: string;
 
     @Field(type => [String])
     @Prop([String])

@@ -340,12 +340,17 @@ input UpdateUserDto {
 type User {
   _id: ID!
   availability: Availability
+  city: String!
+  country: String!
+  currentFunction: String
+  dateOfBirth: DateTime!
   email: String!
   experience: [UserExperience!]!
   hardSkills: [UserHardskill!]!
   institution: Institution
   interests: [String!]!
   languages: [UserLanguage!]!
+  lastName: String!
   learnings: [UserLearning!]!
   name: String!
   password: String!
