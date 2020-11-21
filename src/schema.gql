@@ -38,6 +38,40 @@ enum AvailabilityType {
   PartTime
 }
 
+type ConfirmationData {
+  confirmed: Boolean!
+  correctCode: String!
+  phoneNumber: String
+  requestType: ConfirmationType!
+}
+
+enum ConfirmationDescription {
+  AlreadyConfirmed
+  Ok
+  Wrong
+}
+
+type ConfirmationResult {
+  description: ConfirmationDescription!
+  present: Boolean!
+}
+
+enum ConfirmationType {
+  Email
+  Phone
+}
+
+input ConfirmationUserDto {
+  confirmationData: String!
+  userId: ID!
+}
+
+input ConfirmationUserRequestDto {
+  confirmationType: ConfirmationType!
+  phoneNumber: String
+  userId: ID!
+}
+
 type Course {
   _id: ID!
   name: String!
@@ -110,6 +144,7 @@ enum Degree {
 enum Description {
   EMAIL_IN_USE
   OK
+  OK_BUT_INVALID_CODE
 }
 
 type DraftCreateOpening {
@@ -213,6 +248,8 @@ input LocaleInput {
 }
 
 type Mutation {
+  communicateConfirmation(confirmation: ConfirmationUserDto!): ConfirmationResult!
+  communicateConfirmationRequest(confirmationRequest: ConfirmationUserRequestDto!): Boolean!
   createOpening(opening: CreateOpeningDto!, project: String!): Opening!
   loginEmail(user: UserValidation!): AuthResult!
   newCourse(course: CreateCourseDto!): Course!
@@ -220,7 +257,7 @@ type Mutation {
   newLanguage(language: CreateLanguageDto!): Language!
   newProject(project: CreateProjectDto!): Project!
   newSoftskill(softskill: CreateSoftskillDto!): Softskill!
-  newUser(user: RegisterUserDto!): InsertionResult!
+  newUser(user: RegisterEmailUserDto!): InsertionResult!
   registerHardSkill(skill: CreateHardskillDto!): Hardskill!
   registerMutlipleHardSkills(skills: [CreateHardskillDto!]!): [Hardskill!]!
   saveDraft(draft: DraftProjectDto!): DraftProject!
@@ -287,17 +324,10 @@ type Query {
   getUsers: [User!]!
 }
 
-input RegisterUserDto {
-  availability: AvailabilityInput
+input RegisterEmailUserDto {
   email: String!
-  experience: [UserExperienceInput!]
-  hardSkills: [UserHardskillInput!]
-  interests: [String!]
-  languages: [UserLanguageInput!]
-  learnings: [UserLearningInput!]
-  name: String!
+  emailCode: String
   password: String!
-  softSkills: [UserSoftskillInput!]
 }
 
 type Result {
@@ -325,37 +355,43 @@ enum Status {
 
 input UpdateUserDto {
   availability: AvailabilityInput
-  email: String!
+  city: String
+  country: String
+  currentFunction: String
+  dateOfBirth: DateTime
+  email: String
   experience: [UserExperienceInput!]
   hardSkills: [UserHardskillInput!]
   id: ID!
+  institution: ID
   interests: [String!]
   languages: [UserLanguageInput!]
+  lastName: String
   learnings: [UserLearningInput!]
-  name: String!
-  password: String!
-  softSkills: [UserSoftskillInput!]
+  name: String
+  password: String
 }
 
 type User {
   _id: ID!
   availability: Availability
-  city: String!
-  country: String!
+  city: String
+  confirmationData: ConfirmationData
+  country: String
   currentFunction: String
-  dateOfBirth: DateTime!
+  dateOfBirth: DateTime
   email: String!
-  experience: [UserExperience!]!
-  hardSkills: [UserHardskill!]!
+  experience: [UserExperience!]
+  hardSkills: [UserHardskill!]
   institution: Institution
-  interests: [String!]!
-  languages: [UserLanguage!]!
-  lastName: String!
-  learnings: [UserLearning!]!
-  name: String!
+  interests: [String!]
+  languages: [UserLanguage!]
+  lastName: String
+  learnings: [UserLearning!]
+  name: String
   password: String!
   projects: [Project!]!
-  softSkills: [UserSoftskill!]!
+  softSkills: [UserSoftskill!]
 }
 
 type UserExperience {
@@ -421,12 +457,6 @@ input UserLearningInput {
 type UserSoftskill {
   score: Float!
   softskillId: Softskill!
-  visible: Boolean!
-}
-
-input UserSoftskillInput {
-  score: Float!
-  softskillId: ID!
   visible: Boolean!
 }
 

@@ -1,6 +1,5 @@
 import { Resolver, Query, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql';
 import { UserService } from './user.service';
-import { RegisterUserDto } from './dtos/create-User.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { User } from './schemas/user.schema';
 import { Project } from 'src/project/schemas/project.schema';
@@ -24,6 +23,10 @@ import { UserLearning } from './schemas/user-learning.schema';
 import { CourseService } from 'src/course/course.service';
 import { Course } from 'src/course/schemas/course.schema';
 import { UserExperience } from './schemas/user-experience.schema';
+import { RegisterEmailUserDto } from './dtos/register-email-user.dto';
+import { ConfirmationUserRequestDto } from './dtos/confirmation-user-request.dto';
+import { ConfirmationUserDto } from './dtos/confirmation-user.dto';
+import { ConfirmationResult } from './dtos/confirmation-result.dto';
 
 @Resolver(of => User)
 export class UserResolver {
@@ -48,7 +51,7 @@ export class UserResolver {
     }
 
     @Mutation(returns => InsertionResult)
-    async newUser(@Args('user') user: RegisterUserDto): Promise<InsertionResult> {
+    async newUser(@Args('user') user: RegisterEmailUserDto): Promise<InsertionResult> {
 
         let result = await this.userService.new(user);
 
@@ -59,11 +62,23 @@ export class UserResolver {
         return result;
     }
 
-    @UseGuards(JwtAuthGuard)
+    @Mutation(returns => Boolean)
+    async communicateConfirmationRequest(@Args('confirmationRequest') confirmationRequest: ConfirmationUserRequestDto): Promise<Boolean> {
+        this.userService.attendToConfirmationRequest(confirmationRequest);
+        // FIXME: think about ways it could fail
+        return true;
+    }
+
+    @Mutation(returns => ConfirmationResult)
+    async communicateConfirmation(@Args('confirmation') confirmation: ConfirmationUserDto): Promise<ConfirmationResult> {
+        return this.userService.attendToConfirmation(confirmation);
+    }
+
+    // @UseGuards(JwtAuthGuard)
     @Mutation(returns => User)
     async updateUser(@Args('user') user: UpdateUserDto): Promise<User> {
 
-        let result = await this.userService.update(user);;
+        let result = await this.userService.update(user);
         this.matchService.onUserUpdated(result._id);
         return result;
     }

@@ -49,10 +49,4 @@ export class InstitutionService {
         }
     }
 
-    // async update(updateUserDto: UpdateUserDto): Promise<void> {
-    //     // TODO: validate this
-    //     let { id, ...updateObj } = updateUserDto;
-    //     await this.userModel.updateOne({ _id: id }, updateObj);
-    // }
-
 }

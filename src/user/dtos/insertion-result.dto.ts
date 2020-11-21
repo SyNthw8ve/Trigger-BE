@@ -2,9 +2,9 @@ import { ObjectType, Field, registerEnumType, ID } from '@nestjs/graphql';
 import { User } from '../schemas/user.schema';
 
 export enum Description {
-
     OK,
-    EMAIL_IN_USE
+    OK_BUT_INVALID_CODE,
+    EMAIL_IN_USE,
 }
 
 registerEnumType(Description, { name: 'Description' });

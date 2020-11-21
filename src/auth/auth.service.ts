@@ -23,6 +23,9 @@ export class AuthService {
 
             authResult = { result: null, status: Status.PASSWORD_NOT_MATCH, success: false, accessToken: null }
 
+            console.log(toValidate.password);
+            console.log(user.password);
+
             const isEqual = await compare(toValidate.password, user.password)
 
             if (isEqual) {

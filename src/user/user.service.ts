@@ -3,13 +3,16 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { User } from './schemas/user.schema';
-import { RegisterUserDto } from './dtos/create-User.dto';
+import { ConfirmationData, User } from './schemas/user.schema';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { InsertionResult, Description } from './dtos/insertion-result.dto';
 import { Project } from 'src/project/schemas/project.schema';
 
 import { genSalt, hash } from 'bcrypt';
+import { RegisterEmailUserDto } from './dtos/register-email-user.dto';
+import { ConfirmationType, ConfirmationUserRequestDto } from './dtos/confirmation-user-request.dto';
+import { ConfirmationUserDto } from './dtos/confirmation-user.dto';
+import { ConfirmationDescription, ConfirmationResult } from './dtos/confirmation-result.dto';
 
 
 @Injectable()
@@ -17,18 +20,30 @@ export class UserService {
 
     saltRounds = 10;
 
-    constructor(@InjectModel(User.name) private userModel: Model<User>) { }
+    constructor(
+        @InjectModel(User.name) private userModel: Model<User>,
+    ) { }
 
-    async new(registerUserDto: RegisterUserDto): Promise<InsertionResult> {
+    async hashPassword(plain: string): Promise<string> {
+        const salt = await genSalt(this.saltRounds);
+        return await hash(plain, salt);
+    }
+
+    async new(registerUserDto: RegisterEmailUserDto): Promise<InsertionResult> {
 
         try {
-
             const { password, ...userData } = registerUserDto;
 
-            const salt = await genSalt(this.saltRounds);
-            const hashedPassword = await hash(password, salt);
+            const encryptedPassword = this.hashPassword(password);
 
-            const createdUser = new this.userModel({ ...userData, password: hashedPassword });
+            // TODO: what do we do with emailCode?
+
+            const createdUser = new this.userModel(
+                {
+                    email: userData.email,
+                    password: encryptedPassword
+                }
+            );
 
             await createdUser.save();
 
@@ -38,7 +53,7 @@ export class UserService {
         catch (err) {
 
             if (err.code == 11000) {
-                
+
                 return { success: false, description: Description.EMAIL_IN_USE, _id: null };
             }
 
@@ -47,9 +62,82 @@ export class UserService {
 
     }
 
+    async attendToConfirmationRequest(confirmationRequest: ConfirmationUserRequestDto): Promise<void> {
+        const id = confirmationRequest.userId;
+
+        let user = await this.findWithId(id);
+
+        let correctCode: string;
+
+        // FIXME: implement this
+
+        switch (confirmationRequest.confirmationType) {
+            case ConfirmationType.Email:
+                correctCode = "9165";
+                break;
+
+            case ConfirmationType.Phone:
+                correctCode = "0505";
+                break;
+        }
+
+        user.confirmationData = {
+            correctCode,
+            requestType: confirmationRequest.confirmationType,
+            confirmed: false
+        };
+
+        if (confirmationRequest.phoneNumber) {
+            user.confirmationData.phoneNumber = confirmationRequest.phoneNumber;
+        }
+
+        await user.save();
+    }
+
+    async confirmEmail(confirmationData: ConfirmationData, confirmation: ConfirmationUserDto): Promise<boolean> {
+        return confirmationData.correctCode == confirmation.confirmationData
+    }
+
+    async confirmPhone(confirmationData: ConfirmationData, confirmation: ConfirmationUserDto): Promise<boolean> {
+        return confirmationData.correctCode == confirmation.confirmationData;
+    }
+
+    async attendToConfirmation(confirmation: ConfirmationUserDto): Promise<ConfirmationResult> {
+        const id = confirmation.userId;
+
+        let user = await this.findWithId(id);
+
+        if (user.confirmationData.confirmed) {
+            return { description: ConfirmationDescription.AlreadyConfirmed, present: true };
+        }
+
+        // TODO: implement well
+        if (user.confirmationData) {
+            switch (user.confirmationData.requestType) {
+                case ConfirmationType.Email:
+                    user.confirmationData.confirmed = await this.confirmEmail(user.confirmationData, confirmation);
+                    break;
+                case ConfirmationType.Phone:
+                    user.confirmationData.confirmed = await this.confirmPhone(user.confirmationData, confirmation);
+                    break;
+            }
+        }
+
+        if (user.confirmationData.confirmed) {
+            await user.save();
+            return { description: ConfirmationDescription.Ok, present: true };
+        }
+
+        return { description: ConfirmationDescription.Wrong, present: false };
+    }
+
     async update(updateUserDto: UpdateUserDto): Promise<User> {
-        // TODO: validate this
         let { id, ...updateObj } = updateUserDto;
+
+        if (updateObj.password) {
+            updateObj.password = await this.hashPassword(updateObj.password);
+        }
+
         return await this.userModel.findByIdAndUpdate({ _id: id }, updateObj, { useFindAndModify: false });
     }
 

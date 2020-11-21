@@ -1,19 +1,39 @@
-import { Hardskill, HardskillSchema } from "src/hardskill/schemas/hardskill.schema";
-
 import { Prop, Schema, raw, SchemaFactory } from '@nestjs/mongoose'
 import { Document, SchemaTypes } from 'mongoose';
 import { Institution } from "src/institution/schemas/institution.schema";
 import { Project } from "src/project/schemas/project.schema";
-import { Softskill } from "src/softskill/schemas/softskill.schema";
-import { Language } from "src/language/schemas/language.schema";
 import { Availability, AvailabilitySchema } from "src/common/schemas/availability.schema";
 
-import { ObjectType, Field, ID, Float, InputType, GraphQLISODateTime } from '@nestjs/graphql';
+import { ObjectType, Field, ID, GraphQLISODateTime, createUnionType, Union } from '@nestjs/graphql';
 import { UserSoftskillSchema, UserSoftskill } from "./user-softskill.schema";
 import { UserHardskill, UserHardskillSchema } from "./user-hardskill.schema";
 import { UserLanguage, UserLanguageSchema } from "./user-language.schema";
 import { UserLearning, UserLearningSchema } from "./user-learning.schema";
 import { UserExperience, UserExperienceSchema } from "./user-experience.schema";
+import { ConfirmationType } from '../dtos/confirmation-user-request.dto';
+
+@ObjectType()
+@Schema()
+export class ConfirmationData {
+
+    @Field(type => ConfirmationType, { nullable: false })
+    @Prop({ type: ConfirmationType, required: true })
+    requestType: ConfirmationType;
+
+    @Field(type => String, { nullable: true })
+    @Prop({ type: String, required: false })
+    phoneNumber?: string;
+
+    @Field(type => String, { nullable: false })
+    @Prop({ type: String, required: true })
+    correctCode: string;
+
+    @Field(type => Boolean, { nullable: false })
+    @Prop({ type: Boolean, required: false, default: false })
+    confirmed: boolean;
+}
+
+export const ConfirmationDataSchema = SchemaFactory.createForClass(ConfirmationData);
 
 @ObjectType()
 @Schema()
@@ -22,25 +42,29 @@ export class User extends Document {
     @Field(type => ID, { nullable: false })
     _id: Document['_id'];
 
-    @Field(type => String, { nullable: false })
-    @Prop({ type: String, required: true })
-    name: string;
+    @Field(type => ConfirmationData, { nullable: true })
+    @Prop({ type: ConfirmationDataSchema, required: false })
+    confirmationData?: ConfirmationData;
 
-    @Field(type => String, { nullable: false })
-    @Prop({ type: String, required: true })
-    lastName: string;
+    @Field(type => String, { nullable: true })
+    @Prop({ type: String, required: false })
+    name?: string;
 
-    @Field(type => GraphQLISODateTime, { nullable: false })
-    @Prop({ type: Date, required: true })
-    dateOfBirth: Date;
+    @Field(type => String, { nullable: true })
+    @Prop({ type: String, required: false })
+    lastName?: string;
 
-    @Field(type => String, { nullable: false })
-    @Prop({ type: String, required: true })
-    city: string;
+    @Field(type => GraphQLISODateTime, { nullable: true })
+    @Prop({ type: Date, required: false })
+    dateOfBirth?: Date;
 
-    @Field(type => String, { nullable: false })
-    @Prop({ type: String, required: true })
-    country: string;
+    @Field(type => String, { nullable: true })
+    @Prop({ type: String, required: false })
+    city?: string;
+
+    @Field(type => String, { nullable: true })
+    @Prop({ type: String, required: false })
+    country?: string;
 
     @Field(type => String, { nullable: false })
     @Prop({ type: String, required: true, unique: true })
@@ -49,43 +73,44 @@ export class User extends Document {
     @Field(type => String, { nullable: false })
     @Prop({ type: String, required: true })
     password: string;
+
     // photo
 
     @Field(type => ID, { nullable: true })
-    @Prop({ type: SchemaTypes.ObjectId, ref: 'Institution' })
+    @Prop({ type: SchemaTypes.ObjectId, ref: 'Institution', required: false })
     institution?: Institution['_id'];
 
     @Field(type => String, { nullable: true })
     @Prop({ type: String, required: false })
     currentFunction?: string;
 
-    @Field(type => [String])
-    @Prop([String])
-    interests: String[];
+    @Field(type => [String], { nullable: true })
+    @Prop([{ type: String, required: false }])
+    interests?: String[];
 
-    @Field(type => [ID])
-    @Prop([{ type: SchemaTypes.ObjectId, ref: 'Project' }])
-    projects: Project['_id'][];
+    @Field(type => [ID], { nullable: true })
+    @Prop([{ type: SchemaTypes.ObjectId, ref: 'Project', required: false }])
+    projects?: Project['_id'][];
 
-    @Field(type => [UserHardskill])
-    @Prop([{ type: UserHardskillSchema }])
-    hardSkills: UserHardskill[];
+    @Field(type => [UserHardskill], { nullable: true })
+    @Prop([{ type: UserHardskillSchema, required: false }])
+    hardSkills?: UserHardskill[];
 
-    @Field(type => [UserSoftskill])
-    @Prop([{ type: UserSoftskillSchema }])
-    softSkills: UserSoftskill[];
+    @Field(type => [UserSoftskill], { nullable: true })
+    @Prop([{ type: UserSoftskillSchema, required: false }])
+    softSkills?: UserSoftskill[];
 
-    @Field(type => [UserLanguage])
-    @Prop([{ type: UserLanguageSchema }])
-    languages: UserLanguage[];
+    @Field(type => [UserLanguage], { nullable: true })
+    @Prop([{ type: UserLanguageSchema, required: false }])
+    languages?: UserLanguage[];
 
-    @Field(type => [UserLearning])
-    @Prop([{ type: UserLearningSchema }])
-    learnings: UserLearning[];
+    @Field(type => [UserLearning], { nullable: true })
+    @Prop([{ type: UserLearningSchema, required: false }])
+    learnings?: UserLearning[];
 
-    @Field(type => [UserExperience])
-    @Prop([{ type: UserExperienceSchema }])
-    experience: UserExperience[];
+    @Field(type => [UserExperience], { nullable: true })
+    @Prop([{ type: UserExperienceSchema, required: false }])
+    experience?: UserExperience[];
 
     @Field(type => Availability, { nullable: true })
     @Prop({ type: AvailabilitySchema, required: false })
