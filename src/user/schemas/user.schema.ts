@@ -4,13 +4,24 @@ import { Institution } from "src/institution/schemas/institution.schema";
 import { Project } from "src/project/schemas/project.schema";
 import { Availability, AvailabilitySchema } from "src/common/schemas/availability.schema";
 
-import { ObjectType, Field, ID, GraphQLISODateTime, createUnionType, Union } from '@nestjs/graphql';
+import { ObjectType, Field, ID, GraphQLISODateTime, createUnionType, Union, registerEnumType } from '@nestjs/graphql';
 import { UserSoftskillSchema, UserSoftskill } from "./user-softskill.schema";
 import { UserHardskill, UserHardskillSchema } from "./user-hardskill.schema";
 import { UserLanguage, UserLanguageSchema } from "./user-language.schema";
 import { UserLearning, UserLearningSchema } from "./user-learning.schema";
 import { UserExperience, UserExperienceSchema } from "./user-experience.schema";
 import { ConfirmationType } from '../dtos/confirmation-user-request.dto';
+
+export enum RegistrationStep {
+
+    None,
+    RequestedConfirmation,
+    DidConfirmation,
+    DidProfile,
+    DidSoftSkills,
+}
+
+registerEnumType(RegistrationStep, { name: 'RegistrationStep' });
 
 @ObjectType()
 @Schema()
@@ -41,6 +52,10 @@ export class User extends Document {
 
     @Field(type => ID, { nullable: false })
     _id: Document['_id'];
+
+    @Field(type => RegistrationStep, { nullable: false })
+    @Prop({ type: RegistrationStep, required: true })
+    registrationStep: RegistrationStep;
 
     @Field(type => ConfirmationData, { nullable: true })
     @Prop({ type: ConfirmationDataSchema, required: false })
