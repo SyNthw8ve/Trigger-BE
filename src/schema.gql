@@ -38,6 +38,10 @@ enum AvailabilityType {
   PartTime
 }
 
+input CommunicateUserFinishedProfileDto {
+  id: ID!
+}
+
 type ConfirmationData {
   confirmed: Boolean!
   correctCode: String!
@@ -250,6 +254,7 @@ input LocaleInput {
 type Mutation {
   communicateConfirmation(confirmation: ConfirmationUserDto!): ConfirmationResult!
   communicateConfirmationRequest(confirmationRequest: ConfirmationUserRequestDto!): Boolean!
+  communicateFinishedProfile(user: CommunicateUserFinishedProfileDto!): Boolean!
   createOpening(opening: CreateOpeningDto!, project: String!): Opening!
   loginEmail(user: UserValidation!): AuthResult!
   newCourse(course: CreateCourseDto!): Course!
@@ -330,6 +335,14 @@ input RegisterEmailUserDto {
   password: String!
 }
 
+enum RegistrationStep {
+  DidConfirmation
+  DidProfile
+  DidSoftSkills
+  None
+  RequestedConfirmation
+}
+
 type Result {
   userId: ID!
 }
@@ -391,6 +404,7 @@ type User {
   name: String
   password: String!
   projects: [Project!]!
+  registrationStep: RegistrationStep!
   softSkills: [UserSoftskill!]
 }
 

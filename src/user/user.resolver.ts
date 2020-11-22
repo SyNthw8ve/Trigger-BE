@@ -27,6 +27,7 @@ import { RegisterEmailUserDto } from './dtos/register-email-user.dto';
 import { ConfirmationUserRequestDto } from './dtos/confirmation-user-request.dto';
 import { ConfirmationUserDto } from './dtos/confirmation-user.dto';
 import { ConfirmationResult } from './dtos/confirmation-result.dto';
+import { CommunicateUserFinishedProfileDto } from './dtos/user-finished-profile';
 
 @Resolver(of => User)
 export class UserResolver {
@@ -72,7 +73,14 @@ export class UserResolver {
         return this.userService.attendToConfirmation(confirmation);
     }
 
-    // @UseGuards(JwtAuthGuard)
+    //@UseGuards(LocalAuthGuard)
+    @Mutation(returns => Boolean)
+    async communicateFinishedProfile(@Args('user') user: CommunicateUserFinishedProfileDto): Promise<boolean> {
+        let result = await this.userService.attendToUserFinishedProfile(user);
+        return result;
+    }
+
+    //@UseGuards(LocalAuthGuard)
     @Mutation(returns => User)
     async updateUser(@Args('user') user: UpdateUserDto): Promise<User> {
 

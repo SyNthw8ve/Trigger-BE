@@ -3,7 +3,7 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { ConfirmationData, User } from './schemas/user.schema';
+import { ConfirmationData, RegistrationStep, User } from './schemas/user.schema';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { InsertionResult, Description } from './dtos/insertion-result.dto';
 import { Project } from 'src/project/schemas/project.schema';
@@ -13,6 +13,7 @@ import { RegisterEmailUserDto } from './dtos/register-email-user.dto';
 import { ConfirmationType, ConfirmationUserRequestDto } from './dtos/confirmation-user-request.dto';
 import { ConfirmationUserDto } from './dtos/confirmation-user.dto';
 import { ConfirmationDescription, ConfirmationResult } from './dtos/confirmation-result.dto';
+import { CommunicateUserFinishedProfileDto } from './dtos/user-finished-profile';
 
 
 @Injectable()
@@ -36,12 +37,11 @@ export class UserService {
 
             const encryptedPassword = this.hashPassword(password);
 
-            // TODO: what do we do with emailCode?
-
             const createdUser = new this.userModel(
                 {
                     email: userData.email,
-                    password: encryptedPassword
+                    password: encryptedPassword,
+                    registrationStep: RegistrationStep.None,
                 }
             );
 
@@ -62,7 +62,7 @@ export class UserService {
 
     }
 
-    async attendToConfirmationRequest(confirmationRequest: ConfirmationUserRequestDto): Promise<void> {
+    async attendToConfirmationRequest(confirmationRequest: ConfirmationUserRequestDto): Promise<Boolean> {
         const id = confirmationRequest.userId;
 
         let user = await this.findWithId(id);
@@ -91,7 +91,12 @@ export class UserService {
             user.confirmationData.phoneNumber = confirmationRequest.phoneNumber;
         }
 
+        user.registrationStep = RegistrationStep.RequestedConfirmation;
+
         await user.save();
+
+        // FIXME: think about ways it could fail
+        return true;
     }
 
     async confirmEmail(confirmationData: ConfirmationData, confirmation: ConfirmationUserDto): Promise<boolean> {
@@ -124,6 +129,7 @@ export class UserService {
         }
 
         if (user.confirmationData.confirmed) {
+            user.registrationStep = RegistrationStep.DidConfirmation;
             await user.save();
             return { description: ConfirmationDescription.Ok, present: true };
         }
@@ -139,6 +145,14 @@ export class UserService {
         }
 
         return await this.userModel.findByIdAndUpdate({ _id: id }, updateObj, { useFindAndModify: false });
+    }
+
+    async attendToUserFinishedProfile(dto: CommunicateUserFinishedProfileDto): Promise<boolean> {
+        let updateObj = {
+            registrationStep: RegistrationStep.DidProfile
+        };
+
+        return await this.userModel.findByIdAndUpdate({ _id: dto.id }, updateObj, { useFindAndModify: false }) != null;
     }
 
     async addProject(managerId: User['_id'], projectId: Project['_id']) {
