@@ -2,38 +2,49 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { SoftSkillQuestion } from './schemas/soft-quiz.schema';
+import { QuestionType, SoftSkillQuestion } from './schemas/soft-quiz.schema';
 import { QuizAnswer } from './dtos/soft-quiz.dto';
+import { SoftQuizRequest } from './dtos/soft-quiz-request.dto';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class SoftSkillQuestionService {
 
-    constructor(@InjectModel(SoftSkillQuestion.name) private questionModel: Model<SoftSkillQuestion>) { }
+    constructor(
+        @InjectModel(SoftSkillQuestion.name) private questionModel: Model<SoftSkillQuestion>,
+        private userService: UserService
+    ) { }
 
-    async getQuiz(): Promise<SoftSkillQuestion[]> {
-
-        const quiz = await this.questionModel.find();
+    async generateAndSetQuizForUser(parameters: SoftQuizRequest): Promise<SoftSkillQuestion[]> {
+        const quiz = await this.createQuizForUser(parameters);
         
-        this.shuffleQuiz(quiz);
+        this.userService.setQuizData(parameters.user_id, quiz);
+
+        return quiz;
+    }
+
+    async createQuizForUser(questionParameters: SoftQuizRequest): Promise<SoftSkillQuestion[]> {
+        let quiz = [];
+
+        for (let questionTypeParameters of questionParameters.questionParameters) {
+
+            const questionType = questionTypeParameters.questionType;
+            const numberOfQuestions = questionTypeParameters.count;
+
+            const questionsOfThisType = await this.questionModel.aggregate(
+                [
+                    { $match: { questionType: { $eq: questionType } } },
+                    { $sample: { size: numberOfQuestions } }
+                ]
+            );
+            quiz.push(...questionsOfThisType);
+        }
 
         return quiz;
     }
 
     async computeQuizResults(answers: QuizAnswer[]) {
 
-        
-    }
 
-    private shuffleQuiz(quiz: SoftSkillQuestion[]) {
-
-
-        for(let i = quiz.length - 1; i > 0; i--) {
-
-            const j = Math.floor(Math.random() * i);
-            const temp = quiz[i];
-
-            quiz[i] = quiz[j];
-            quiz[j] = temp; 
-        }
     }
 }

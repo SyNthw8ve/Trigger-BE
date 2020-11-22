@@ -256,6 +256,7 @@ type Mutation {
   communicateConfirmationRequest(confirmationRequest: ConfirmationUserRequestDto!): Boolean!
   communicateFinishedProfile(user: CommunicateUserFinishedProfileDto!): Boolean!
   createOpening(opening: CreateOpeningDto!, project: String!): Opening!
+  generateAndSetQuizForUser(parameters: SoftQuizRequest!): [SoftSkillQuestion!]!
   loginEmail(user: UserValidation!): AuthResult!
   newCourse(course: CreateCourseDto!): Course!
   newInstitution(institution: CreateInstitutionDto!): Institution!
@@ -329,6 +330,17 @@ type Query {
   getUsers: [User!]!
 }
 
+enum QuestionType {
+  Activity
+  Evalulation
+  Potency
+}
+
+input QuestionTypeParameters {
+  count: Int!
+  questionType: QuestionType!
+}
+
 input RegisterEmailUserDto {
   email: String!
   emailCode: String
@@ -347,9 +359,27 @@ type Result {
   userId: ID!
 }
 
+input SoftQuizRequest {
+  questionParameters: [QuestionTypeParameters!]!
+  user_id: ID!
+}
+
 type Softskill {
   _id: ID!
   name: String!
+}
+
+type SoftSkillQuestion {
+  _id: ID!
+  question: String!
+  questionGroup: String!
+  questionScale: SoftSkillScale!
+  questionType: QuestionType!
+}
+
+type SoftSkillQuizData {
+  answered: [Int!]!
+  questions: [ID!]!
 }
 
 type SoftSkillScale {
@@ -405,6 +435,7 @@ type User {
   password: String!
   projects: [Project!]!
   registrationStep: RegistrationStep!
+  softSkillQuizData: SoftSkillQuizData!
   softSkills: [UserSoftskill!]
 }
 

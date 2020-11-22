@@ -4,13 +4,14 @@ import { Institution } from "src/institution/schemas/institution.schema";
 import { Project } from "src/project/schemas/project.schema";
 import { Availability, AvailabilitySchema } from "src/common/schemas/availability.schema";
 
-import { ObjectType, Field, ID, GraphQLISODateTime, createUnionType, Union, registerEnumType } from '@nestjs/graphql';
+import { ObjectType, Field, ID, GraphQLISODateTime, createUnionType, Union, registerEnumType, Int } from '@nestjs/graphql';
 import { UserSoftskillSchema, UserSoftskill } from "./user-softskill.schema";
 import { UserHardskill, UserHardskillSchema } from "./user-hardskill.schema";
 import { UserLanguage, UserLanguageSchema } from "./user-language.schema";
 import { UserLearning, UserLearningSchema } from "./user-learning.schema";
 import { UserExperience, UserExperienceSchema } from "./user-experience.schema";
 import { ConfirmationType } from '../dtos/confirmation-user-request.dto';
+import { SoftSkillQuestion } from 'src/soft-quiz/schemas/soft-quiz.schema';
 
 export enum RegistrationStep {
 
@@ -48,6 +49,18 @@ export const ConfirmationDataSchema = SchemaFactory.createForClass(ConfirmationD
 
 @ObjectType()
 @Schema()
+export class SoftSkillQuizData {
+    @Field(type => [ID], { nullable: false })
+    @Prop([{ type: SchemaTypes.ObjectId, ref: SoftSkillQuestion.name, required: true }])
+    questions: SoftSkillQuestion['_id'][];
+
+    @Field(type => [Int], { nullable: false })
+    @Prop([{ type: Number, required: false }])
+    answered: (number | null)[];
+}
+
+@ObjectType()
+@Schema()
 export class User extends Document {
 
     @Field(type => ID, { nullable: false })
@@ -60,6 +73,10 @@ export class User extends Document {
     @Field(type => ConfirmationData, { nullable: true })
     @Prop({ type: ConfirmationDataSchema, required: false })
     confirmationData?: ConfirmationData;
+
+    @Field(type => SoftSkillQuizData, { nullable: false })
+    @Prop({ type: SoftSkillQuizData, required: true })
+    softSkillQuizData?: SoftSkillQuizData;
 
     @Field(type => String, { nullable: true })
     @Prop({ type: String, required: false })

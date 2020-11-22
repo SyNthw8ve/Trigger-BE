@@ -14,6 +14,7 @@ import { ConfirmationType, ConfirmationUserRequestDto } from './dtos/confirmatio
 import { ConfirmationUserDto } from './dtos/confirmation-user.dto';
 import { ConfirmationDescription, ConfirmationResult } from './dtos/confirmation-result.dto';
 import { CommunicateUserFinishedProfileDto } from './dtos/user-finished-profile';
+import { SoftSkillQuestion } from 'src/soft-quiz/schemas/soft-quiz.schema';
 
 
 @Injectable()
@@ -169,6 +170,18 @@ export class UserService {
     async findWithId(id: User['_id']): Promise<User> {
 
         return await this.userModel.findById(id);
+    }
+
+    async setQuizData(id: User['_id'], quiz: SoftSkillQuestion[]): Promise<void> {
+
+        const user = await this.userModel.findById(id);
+
+        user.softSkillQuizData = {
+            questions: quiz.map(sq => sq._id),
+            answered: new Array(quiz.length).fill(null)
+        }
+
+        await user.save();
     }
 
     async findWithEmail(email: string): Promise<User> {

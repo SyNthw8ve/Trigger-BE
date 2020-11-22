@@ -4,9 +4,9 @@ import { Document, SchemaTypes } from 'mongoose';
 import { Field, ObjectType, ID, registerEnumType, Int } from '@nestjs/graphql';
 
 export enum QuestionType {
-    Eval = "evaluation",
-    Potency = "potency",
-    Activity = "activity"
+    Evalulation,
+    Potency,
+    Activity,
 }
 
 registerEnumType(QuestionType, { name: 'QuestionType' });
@@ -16,23 +16,23 @@ registerEnumType(QuestionType, { name: 'QuestionType' });
 class SoftSkillScale {
 
     @Field(type => Int, { nullable: false })
-    @Prop({ type: Number, required: true})
+    @Prop({ type: Number, required: true })
     minValue: number;
 
     @Field(type => Int, { nullable: false })
-    @Prop({ type: Number, required: true})
+    @Prop({ type: Number, required: true })
     maxValue: number;
 
     @Field(type => Int, { nullable: false })
-    @Prop({ type: Number, required: true})
+    @Prop({ type: Number, required: true })
     step: number;
 
     @Field(type => String, { nullable: false })
-    @Prop({ type: String, required: true})
+    @Prop({ type: String, required: true })
     minValueDescription: String;
 
     @Field(type => String, { nullable: false })
-    @Prop({ type: String, required: true})
+    @Prop({ type: String, required: true })
     maxValueDescription: String;
 }
 
@@ -51,6 +51,7 @@ export class SoftSkillQuestion extends Document {
     @Prop({ type: QuestionType, required: true })
     questionType: QuestionType;
 
+    // TODO: What is this?
     @Field(type => String, { nullable: false })
     @Prop({ type: String, required: true })
     questionGroup: String;
