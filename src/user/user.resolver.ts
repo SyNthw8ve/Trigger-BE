@@ -64,9 +64,7 @@ export class UserResolver {
 
     @Mutation(returns => Boolean)
     async communicateConfirmationRequest(@Args('confirmationRequest') confirmationRequest: ConfirmationUserRequestDto): Promise<Boolean> {
-        this.userService.attendToConfirmationRequest(confirmationRequest);
-        // FIXME: think about ways it could fail
-        return true;
+        return this.userService.attendToConfirmationRequest(confirmationRequest);
     }
 
     @Mutation(returns => ConfirmationResult)
