@@ -1,15 +1,15 @@
 import { Resolver, Query, Mutation, Args, Parent, ID, ResolveField } from '@nestjs/graphql';
 
-import { SoftSkillQuestions } from './schemas/soft-quiz.schema';
+import { SoftSkillQuestion } from './schemas/soft-quiz.schema';
 import { SoftSkillQuestionService } from './soft-quiz.service';
 
-@Resolver(of => SoftSkillQuestions)
+@Resolver(of => SoftSkillQuestion)
 export class SoftSkillQuestionsResolver {
 
     constructor(private quizService: SoftSkillQuestionService) { }
 
-    @Query(returns => [SoftSkillQuestions])
-    async getQuiz() : Promise<SoftSkillQuestions[]> {
+    @Query(returns => [SoftSkillQuestion])
+    async getQuiz(): Promise<SoftSkillQuestion[]> {
 
         return await this.quizService.getQuiz();
     }

@@ -38,7 +38,7 @@ class SoftSkillScale {
 
 @ObjectType()
 @Schema()
-export class SoftSkillQuestions extends Document {
+export class SoftSkillQuestion extends Document {
 
     @Field(type => ID, { nullable: false })
     _id: Document['_id'];
@@ -60,4 +60,4 @@ export class SoftSkillQuestions extends Document {
     questionScale: SoftSkillScale;
 }
 
-export const SoftSkillQuestionSchema = SchemaFactory.createForClass(SoftSkillQuestions);
+export const SoftSkillQuestionSchema = SchemaFactory.createForClass(SoftSkillQuestion);
