@@ -62,11 +62,11 @@ export class User extends Document {
     @Prop({ type: ConfirmationDataSchema, required: false })
     confirmationData?: ConfirmationData;
 
-    @Field(type => [Int], { nullable: true })
+    @Field(type => [Int], { nullable: 'itemsAndList' })
     @Prop([{ type: Number, required: false }])
     softSkillQuizAnswers?: (number | null)[];
 
-    @Field(type => [ID], { nullable: true })
+    @Field(type => [ID], { nullable: 'itemsAndList' })
     @Prop([{ type: SchemaTypes.ObjectId, ref: SoftSkillQuestion.name, required: false }])
     softSkillQuizQuestions?: SoftSkillQuestion['_id'][];
 

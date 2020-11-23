@@ -431,8 +431,8 @@ type User {
   password: String!
   projects: [Project!]!
   registrationStep: RegistrationStep!
-  softSkillQuizAnswers: [Int!]
-  softSkillQuizQuestions: [ID!]
+  softSkillQuizAnswers: [Int]
+  softSkillQuizQuestions: [ID]
   softSkills: [UserSoftskill!]
 }
 

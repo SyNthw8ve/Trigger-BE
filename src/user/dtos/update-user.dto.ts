@@ -1,7 +1,7 @@
 import { User } from "../schemas/user.schema";
 import { AvailabilityInput } from "../../common/dtos/availability-input.dto";
 
-import { InputType, Field, ID, GraphQLISODateTime } from '@nestjs/graphql';
+import { InputType, Field, ID, GraphQLISODateTime, Int } from '@nestjs/graphql';
 import { UserHardskillInput } from "../schemas/user-hardskill.schema";
 import { UserLanguageInput } from "../schemas/user-language.schema";
 import { UserLearningInput } from "../schemas/user-learning.schema";
@@ -57,4 +57,7 @@ export class UpdateUserDto {
 
     @Field(type => AvailabilityInput, { nullable: true })
     readonly availability?: AvailabilityInput;
+
+    @Field(type => [Int], { nullable: true })
+    readonly softSkillQuizAnswers?: (number | null)[];
 }
