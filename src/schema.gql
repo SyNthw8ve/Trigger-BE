@@ -377,11 +377,6 @@ type SoftSkillQuestion {
   questionType: QuestionType!
 }
 
-type SoftSkillQuizData {
-  answered: [Int!]!
-  questions: [ID!]!
-}
-
 type SoftSkillScale {
   maxValue: Int!
   maxValueDescription: String!
@@ -413,6 +408,7 @@ input UpdateUserDto {
   learnings: [UserLearningInput!]
   name: String
   password: String
+  softSkillQuizAnswers: [Int!]
 }
 
 type User {
@@ -435,7 +431,8 @@ type User {
   password: String!
   projects: [Project!]!
   registrationStep: RegistrationStep!
-  softSkillQuizData: SoftSkillQuizData!
+  softSkillQuizAnswers: [Int!]
+  softSkillQuizQuestions: [ID!]
   softSkills: [UserSoftskill!]
 }
 

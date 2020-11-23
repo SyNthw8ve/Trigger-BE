@@ -176,10 +176,8 @@ export class UserService {
 
         const user = await this.userModel.findById(id);
 
-        user.softSkillQuizData = {
-            questions: quiz.map(sq => sq._id),
-            answered: new Array(quiz.length).fill(null)
-        }
+        user.softSkillQuizQuestions = quiz.map(sq => sq._id);
+        user.softSkillQuizAnswers = new Array(quiz.length).fill(null);
 
         await user.save();
     }

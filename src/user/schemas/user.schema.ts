@@ -49,18 +49,6 @@ export const ConfirmationDataSchema = SchemaFactory.createForClass(ConfirmationD
 
 @ObjectType()
 @Schema()
-export class SoftSkillQuizData {
-    @Field(type => [ID], { nullable: false })
-    @Prop([{ type: SchemaTypes.ObjectId, ref: SoftSkillQuestion.name, required: true }])
-    questions: SoftSkillQuestion['_id'][];
-
-    @Field(type => [Int], { nullable: false })
-    @Prop([{ type: Number, required: false }])
-    answered: (number | null)[];
-}
-
-@ObjectType()
-@Schema()
 export class User extends Document {
 
     @Field(type => ID, { nullable: false })
@@ -74,9 +62,13 @@ export class User extends Document {
     @Prop({ type: ConfirmationDataSchema, required: false })
     confirmationData?: ConfirmationData;
 
-    @Field(type => SoftSkillQuizData, { nullable: false })
-    @Prop({ type: SoftSkillQuizData, required: true })
-    softSkillQuizData?: SoftSkillQuizData;
+    @Field(type => [Int], { nullable: true })
+    @Prop([{ type: Number, required: false }])
+    softSkillQuizAnswers?: (number | null)[];
+
+    @Field(type => [ID], { nullable: true })
+    @Prop([{ type: SchemaTypes.ObjectId, ref: SoftSkillQuestion.name, required: false }])
+    softSkillQuizQuestions?: SoftSkillQuestion['_id'][];
 
     @Field(type => String, { nullable: true })
     @Prop({ type: String, required: false })
