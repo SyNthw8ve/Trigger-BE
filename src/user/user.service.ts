@@ -36,7 +36,7 @@ export class UserService {
         try {
             const { password, ...userData } = registerUserDto;
 
-            const encryptedPassword = this.hashPassword(password);
+            const encryptedPassword = await this.hashPassword(password);
 
             const createdUser = new this.userModel(
                 {
