@@ -63,6 +63,20 @@ export class UserService {
 
     }
 
+    async generatePhoneConfirmationCode(phoneCodeLength: number): Promise<string> {
+        let digits = []
+        for (let i = 0; i < phoneCodeLength; i++) {
+            let digit = Math.floor(Math.random() * 11);
+            digits.push(digit.toString());
+        }
+
+        return digits.join("");
+    }
+
+    async generateEmailConfirmationCode(email: string): Promise<string> {
+        return hash(email);
+    }
+
     async attendToConfirmationRequest(confirmationRequest: ConfirmationUserRequestDto): Promise<Boolean> {
         const id = confirmationRequest.userId;
 
@@ -70,15 +84,15 @@ export class UserService {
 
         let correctCode: string;
 
-        // FIXME: implement this
+        //FIXME: Send to user
 
         switch (confirmationRequest.confirmationType) {
             case ConfirmationType.Email:
-                correctCode = "9165";
+                correctCode = await this.generateEmailConfirmationCode(user.email);
                 break;
 
             case ConfirmationType.Phone:
-                correctCode = "0505";
+                correctCode = await this.generatePhoneConfirmationCode(6);
                 break;
         }
 
