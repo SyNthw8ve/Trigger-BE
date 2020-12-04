@@ -16,6 +16,10 @@ export class MatchService {
         console.log(`Matches of ${user_id} have been created!`);
     }
 
+    async onUserScoreCalculated(user_id: User['_id'], opening_id: Opening['_id']) {
+        console.log(`Score between ${user_id} and ${opening_id} has been calculated!`);
+    }
+
     async onUserUpdated(user_id: User['_id']): Promise<void> {
         let resut = this.httpService.put(`${beAiConnection}/user_match/${user_id}`);
         resut.subscribe(val => console.log(val));

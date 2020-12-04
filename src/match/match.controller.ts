@@ -18,4 +18,10 @@ export class MatchController {
         return `We acknowledge you have updated matches of user id ${id}`;
     }
 
+    @Post('/user_score/:user_id/:opening_id')
+    async onNofifyUserScoreCalculated(@Param('user_id') user_id, @Param('opening_id') opening_id): Promise<string> {
+        this.matchService.onUserScoreCalculated(user_id, opening_id);
+        return `We acknowledge you have calculated the score between user id ${user_id} and ${opening_id}`;
+    }
+
 }
