@@ -11,6 +11,7 @@ import { LanguageModule } from 'src/language/language.module';
 import { SoftskillModule } from 'src/softskill/softskill.module';
 import { MatchModule } from 'src/match/match.module';
 import { CourseModule } from 'src/course/course.module';
+import { EmailModule } from 'src/email/email.module';
 
 @Module({
     imports: [
@@ -22,7 +23,8 @@ import { CourseModule } from 'src/course/course.module';
         LanguageModule,
         forwardRef(() => ProjectModule),
         MatchModule,
-        CourseModule
+        CourseModule,
+        EmailModule
     ],
     providers: [UserService, UserResolver, UserSoftskillResolver, UserHardskillResolver, UserLanguageResolver, UserLearningResolver, UserExperienceResolver],
     exports: [UserService],

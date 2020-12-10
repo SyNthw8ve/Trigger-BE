@@ -15,6 +15,7 @@ import { ConfirmationUserDto } from './dtos/confirmation-user.dto';
 import { ConfirmationDescription, ConfirmationResult } from './dtos/confirmation-result.dto';
 import { CommunicateUserFinishedProfileDto } from './dtos/user-finished-profile';
 import { SoftSkillQuestion } from 'src/soft-quiz/schemas/soft-quiz.schema';
+import { EmailService } from 'src/email/email.service';
 
 
 @Injectable()
@@ -24,6 +25,7 @@ export class UserService {
 
     constructor(
         @InjectModel(User.name) private userModel: Model<User>,
+        private readonly emailService: EmailService
     ) { }
 
     async hashPassword(plain: string): Promise<string> {
@@ -85,11 +87,10 @@ export class UserService {
 
         let correctCode: string;
 
-        //FIXME: Send to user
-
         switch (confirmationRequest.confirmationType) {
             case ConfirmationType.Email:
                 correctCode = await this.generateEmailConfirmationCode(user.email);
+                await this.emailService.scheduleConfirmationEmail(correctCode);
                 break;
 
             case ConfirmationType.Phone:
