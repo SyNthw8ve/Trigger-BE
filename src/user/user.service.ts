@@ -74,7 +74,8 @@ export class UserService {
     }
 
     async generateEmailConfirmationCode(email: string): Promise<string> {
-        return hash(email);
+        const salt = await genSalt(this.saltRounds);
+        return hash(email, salt);
     }
 
     async attendToConfirmationRequest(confirmationRequest: ConfirmationUserRequestDto): Promise<Boolean> {
