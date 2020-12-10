@@ -1,3 +1,4 @@
+import { Get } from '@nestjs/common';
 import { Controller, Param, Post } from '@nestjs/common';
 import { MatchService } from './match.service';
 
@@ -6,7 +7,7 @@ export class MatchController {
 
     constructor(private readonly matchService: MatchService) { }
 
-    @Post('/user_created/:id')
+    @Get('/user_created/:id')
     async communicateMatchesUserCreated(@Param('id') id): Promise<string> {
         this.matchService.attendToMatchesOfUserCreated(id);
         return `We acknowledge you have done matches of user id ${id}`;
