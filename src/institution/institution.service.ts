@@ -28,7 +28,7 @@ export class InstitutionService {
         const institution = await this.model.findById(institutionId);
         institution.projects.push(projectId);
 
-        institution.save();
+        await institution.save();
     }
 
     async getInstitutions() : Promise<Institution[]> {
