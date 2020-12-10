@@ -4,8 +4,13 @@ import { Job } from 'bull';
 @Processor('email')
 export class EmailConsumer {
 
-    @Process()
+    @Process('invite')
     async sendInviteEmail(job: Job<unknown>) {
+
+    }
+
+    @Process('confirmation')
+    async sendConfirmationEmail(job: Job<unknown>) {
 
     }
 }
