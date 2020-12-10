@@ -7,20 +7,20 @@ export class MatchController {
     constructor(private readonly matchService: MatchService) { }
 
     @Post('/user_created/:id')
-    async onNofifyMatchesUserCreated(@Param('id') id): Promise<string> {
-        this.matchService.onMatchesOfUserCreated(id);
+    async communicateMatchesUserCreated(@Param('id') id): Promise<string> {
+        this.matchService.attendToMatchesOfUserCreated(id);
         return `We acknowledge you have done matches of user id ${id}`;
     }
 
     @Post('/user_updated/:id')
-    async onNofifyMatchesUserUpdated(@Param('id') id): Promise<string> {
-        this.matchService.onMatchesOfUserUpdated(id);
+    async communicateMatchesUserUpdated(@Param('id') id): Promise<string> {
+        this.matchService.attendToMatchesOfUserUpdated(id);
         return `We acknowledge you have updated matches of user id ${id}`;
     }
 
     @Post('/user_score/:user_id/:opening_id')
-    async onNofifyUserScoreCalculated(@Param('user_id') user_id, @Param('opening_id') opening_id): Promise<string> {
-        this.matchService.onUserScoreCalculated(user_id, opening_id);
+    async communicateUserScoreCalculated(@Param('user_id') user_id, @Param('opening_id') opening_id): Promise<string> {
+        this.matchService.attendToUserScoreCalculated(user_id, opening_id);
         return `We acknowledge you have calculated the score between user id ${user_id} and ${opening_id}`;
     }
 
