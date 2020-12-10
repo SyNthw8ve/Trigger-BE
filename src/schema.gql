@@ -255,12 +255,12 @@ type Mutation {
   communicateConfirmation(confirmation: ConfirmationUserDto!): ConfirmationResult!
   communicateConfirmationRequest(confirmationRequest: ConfirmationUserRequestDto!): Boolean!
   communicateFinishedProfile(user: CommunicateUserFinishedProfileDto!): Boolean!
-  createOpening(opening: CreateOpeningDto!, project: String!): Opening!
   generateAndSetQuizForUser(parameters: SoftQuizRequest!): [SoftSkillQuestion!]!
   loginEmail(user: UserValidation!): AuthResult!
   newCourse(course: CreateCourseDto!): Course!
   newInstitution(institution: CreateInstitutionDto!): Institution!
   newLanguage(language: CreateLanguageDto!): Language!
+  newOpening(opening: CreateOpeningDto!, project: String!): Opening!
   newProject(project: CreateProjectDto!): Project!
   newSoftskill(softskill: CreateSoftskillDto!): Softskill!
   newUser(user: RegisterEmailUserDto!): InsertionResult!
