@@ -10,7 +10,6 @@ export class LanguageService {
     constructor(@InjectModel(Language.name) private model: Model<Language>) { }
 
     async new(createDto: CreateLanguageDto): Promise<Language> {
-        // TODO: validate this
         const language = new this.model(createDto);
         return language.save();
     }
