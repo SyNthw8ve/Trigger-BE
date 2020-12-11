@@ -35,8 +35,8 @@ import { CourseModule } from './course/course.module';
     MongooseModule.forRoot(connectionString),
     GraphQLModule.forRoot(
       {
-        debug: true, 
-        playground: true, 
+        debug: true,
+        playground: true,
         autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
         sortSchema: true,
         context: ({ req }) => ({ req }),

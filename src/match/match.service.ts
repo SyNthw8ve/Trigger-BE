@@ -8,17 +8,17 @@ export class MatchService {
 
     constructor(private readonly flaskService: FlaskService) { }
 
-    async attendToMatchesOfUserUpdated(user_id: User['_id']): Promise<void> {
+    async reactToMatchesOfUserUpdated(user_id: User['_id']): Promise<void> {
         console.info(`Matches of ${user_id} have been updated!`);
         // TODO: ...here? remove other matches?
         // TODO: ...notifications too?
     }
 
-    async attendToMatchesOfUserCreated(user_id: User['_id']): Promise<void> {
+    async reactToMatchesOfUserCreated(user_id: User['_id']): Promise<void> {
         console.info(`Matches of ${user_id} have been created!`);
     }
 
-    async attendToUserScoreCalculated(user_id: User['_id'], opening_id: Opening['_id']) {
+    async reactToUserScoreCalculated(user_id: User['_id'], opening_id: Opening['_id']) {
         console.info(`Score between ${user_id} and ${opening_id} has been calculated!`);
         // TODO: ...notification here?
     }
