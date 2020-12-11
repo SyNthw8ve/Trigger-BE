@@ -30,10 +30,13 @@ export class Application {
     @Prop({ type: Boolean, required: true, default: false })
     pinned: boolean;
 
-    // FIXME: This needs to be a <score, not match>?!
     @Field(type => ID, { nullable: true })
     @Prop({ type: SchemaTypes.ObjectId, ref: Match.name, required: false })
     match?: Match['_id'];
+
+    @Field(type => Float, { nullable: true })
+    @Prop({ type: Number, required: false })
+    not_match_score?: number;
 
     @Field(type => ID, { nullable: false })
     @Prop({ type: SchemaTypes.ObjectId, ref: 'User', required: true })
