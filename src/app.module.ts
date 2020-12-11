@@ -1,3 +1,4 @@
+import { ServermatchModule } from './servermatch/servermatch.module';
 import { HardskillModule } from './hardskill/hardskill.module';
 import { ProjectModule } from './project/project.module';
 import { InstitutionModule } from './institution/institution.module';
@@ -8,7 +9,6 @@ import { AppResolver } from './app.resolver';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { GraphQLModule } from '@nestjs/graphql';
-import { BullModule } from '@nestjs/bull';
 
 import { connectionString } from './config'
 import { LanguageModule } from './language/language.module';
@@ -24,6 +24,7 @@ import { CourseModule } from './course/course.module';
 
 @Module({
   imports: [
+    ServermatchModule,
     HardskillModule,
     LanguageModule,
     SoftskillModule,
