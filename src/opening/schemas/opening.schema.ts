@@ -32,7 +32,7 @@ export class Application {
 
     // FIXME: This needs to be a <score, not match>?!
     @Field(type => ID, { nullable: true })
-    @Prop({ type: SchemaTypes.ObjectId, ref: Match.name, required: true })
+    @Prop({ type: SchemaTypes.ObjectId, ref: Match.name, required: false })
     match?: Match['_id'];
 
     @Field(type => ID, { nullable: false })
