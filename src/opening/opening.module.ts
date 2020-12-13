@@ -8,16 +8,22 @@ import { HardskillModule } from 'src/hardskill/hardskill.module';
 import { SoftskillModule } from 'src/softskill/softskill.module';
 import { ProjectModule } from 'src/project/project.module';
 import { MatchModule } from 'src/match/match.module';
+import { ApplyScore, ApplyScoreSchema } from './schemas/apply-score.schema';
+import { ApplyScoreService } from './apply-score.service';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Opening.name, schema: OpeningSchema }]),
-    LanguageModule, HardskillModule, SoftskillModule,
+    MongooseModule.forFeature([
+      { name: Opening.name, schema: OpeningSchema },
+      { name: ApplyScore.name, schema: ApplyScoreSchema },
+    ]),
+    LanguageModule,
+    HardskillModule,
+    SoftskillModule,
     forwardRef(() => ProjectModule),
     MatchModule
   ],
-  providers: [
-    OpeningService, OpeningResolver],
+  providers: [OpeningService, OpeningResolver, ApplyScoreService],
   exports: [OpeningService,],
 })
 export class OpeningModule { }
