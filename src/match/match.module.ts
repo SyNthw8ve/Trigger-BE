@@ -1,4 +1,3 @@
-import { MatchController } from './match.controller';
 import { MatchService } from './match.service';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -14,7 +13,6 @@ import { ServerMatch, ServerMatchSchema } from './schemas/server-match.schema';
     ]),
     FlaskModule,
   ],
-  controllers: [MatchController,],
   providers: [MatchService,],
   exports: [MatchService],
 })

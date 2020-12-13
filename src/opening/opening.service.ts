@@ -10,7 +10,21 @@ import { Opening } from './schemas/opening.schema';
 @Injectable()
 export class OpeningService {
 
-    constructor(@InjectModel(Opening.name) private model: Model<Opening>) { }
+    constructor(@InjectModel(Opening.name) private openingModel: Model<Opening>,
+        @InjectModel(ApplyScore.name) private applyScoreModel: Model<ApplyScore>,) { }
+
+
+    async reactToUserScoreCalculated(apply_score_id: ApplyScore['_id']) {
+        let applyScore = await this.applyScoreModel.findById(apply_score_id);
+        //TODO: availability? change the score in some way?     
+        //TODO: notifications
+
+        let opening = await this.openingModel.findById(applyScore.opening_id);
+        let application = opening.applications.find((application) => application.user == applyScore.user_id);
+        application.not_match_score = applyScore.score;
+
+        await opening.save();
+    }
 
     async new(createDto: CreateOpeningDto, project: Project['_id']): Promise<Opening> {
         // TODO: validate this
@@ -20,20 +34,9 @@ export class OpeningService {
             ...createDto
         }
 
-        const created = new this.model(data);
+        const created = new this.openingModel(data);
 
         return created.save();
-    }
-
-    async addApplyScoreToApplication(applyScore: ApplyScore) {
-        //FIXME: Should we pass the whole ApplyScore object?
-        //TODO: notifications
-
-        let opening = await this.model.findById(applyScore.opening_id);
-        let application = opening.applications.find((application) => application.user == applyScore.user_id);
-        application.not_match_score = applyScore.score;
-
-        await opening.save();
     }
 
     async addMatchInformationToApplication() {

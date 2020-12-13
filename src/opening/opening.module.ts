@@ -9,7 +9,6 @@ import { SoftskillModule } from 'src/softskill/softskill.module';
 import { ProjectModule } from 'src/project/project.module';
 import { MatchModule } from 'src/match/match.module';
 import { ApplyScore, ApplyScoreSchema } from './schemas/apply-score.schema';
-import { ApplyScoreService } from './apply-score.service';
 
 @Module({
   imports: [
@@ -21,9 +20,9 @@ import { ApplyScoreService } from './apply-score.service';
     HardskillModule,
     SoftskillModule,
     forwardRef(() => ProjectModule),
-    MatchModule
+    forwardRef(() => MatchModule),
   ],
-  providers: [OpeningService, OpeningResolver, ApplyScoreService],
+  providers: [OpeningService, OpeningResolver],
   exports: [OpeningService,],
 })
 export class OpeningModule { }
