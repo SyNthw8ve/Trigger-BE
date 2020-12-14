@@ -4,6 +4,7 @@
 
 type Application {
   match: ID
+  not_match_score: Float
   pinned: Boolean!
   type: ApplicationType!
   user: ID!
@@ -262,10 +263,11 @@ type Mutation {
   newLanguage(language: CreateLanguageDto!): Language!
   newOpening(opening: CreateOpeningDto!, project: String!): Opening!
   newProject(project: CreateProjectDto!): Project!
-  newSoftskill(softskill: CreateSoftskillDto!): Softskill!
   newUser(user: RegisterEmailUserDto!): InsertionResult!
   registerHardSkill(skill: CreateHardskillDto!): Hardskill!
+  registerMultipleSoftSkills(skills: [CreateSoftskillDto!]!): [Softskill!]!
   registerMutlipleHardSkills(skills: [CreateHardskillDto!]!): [Hardskill!]!
+  registerSoftskill(softskill: CreateSoftskillDto!): Softskill!
   saveDraft(draft: DraftProjectDto!): DraftProject!
   updateUser(user: UpdateUserDto!): User!
 }

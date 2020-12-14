@@ -15,9 +15,15 @@ export class SoftskillResolver {
     }
 
     @Mutation(returns => Softskill)
-    async newSoftskill(@Args('softskill') softskill: CreateSoftskillDto) : Promise<Softskill> {
+    async registerSoftskill(@Args('softskill') softskill: CreateSoftskillDto) : Promise<Softskill> {
 
         return await this.softskillService.new(softskill);
+    }
+
+    @Mutation(returns => [Softskill])
+    async registerMultipleSoftSkills(@Args({ name: 'skills', type: () => [CreateSoftskillDto] }) skills: CreateSoftskillDto[]): Promise<Softskill[]> {
+
+        return await this.softskillService.many_new(skills);
     }
 
 }

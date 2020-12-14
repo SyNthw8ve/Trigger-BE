@@ -15,6 +15,12 @@ export class SoftskillService {
         return skill.save();
     }
 
+    async many_new(registerSoftSkills: CreateSoftskillDto[]):  Promise<Softskill[]> {
+        return Promise.all(
+            registerSoftSkills.map(value => this.new(value))
+        );
+    }
+
     async findWithId(id: Softskill['_id']) : Promise<Softskill> {
 
         return await this.model.findById(id);
