@@ -457,13 +457,13 @@ input UserExperienceInput {
 type UserHardskill {
   hardskillId: Hardskill!
   recommendedBy: [User!]!
-  score: Float!
+  score: Int!
 }
 
 input UserHardskillInput {
   hardskillId: ID!
-  recommendedBy: [ID!]!
-  score: Float!
+  recommendedBy: [ID!]
+  score: Int!
 }
 
 type UserLanguage {
@@ -499,7 +499,7 @@ input UserLearningInput {
 }
 
 type UserSoftskill {
-  score: Float!
+  score: Int!
   softskillId: Softskill!
   visible: Boolean!
 }
