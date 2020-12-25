@@ -309,7 +309,7 @@ type Project {
   institution: Institution
   location: Locale!
   manager: User!
-  openings: [ID!]!
+  openings: [Opening!]!
   scope: String!
   status: ProjectStatus!
   title: String!
