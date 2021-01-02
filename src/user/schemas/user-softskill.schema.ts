@@ -2,7 +2,7 @@ import { Prop, Schema, raw, SchemaFactory } from '@nestjs/mongoose'
 import { Document, SchemaTypes } from 'mongoose';
 import { Softskill } from "src/softskill/schemas/softskill.schema";
 
-import { ObjectType, Field, ID, Float, InputType } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Int, InputType } from '@nestjs/graphql';
 
 @ObjectType()
 @Schema()
@@ -12,7 +12,7 @@ export class UserSoftskill {
     @Prop({ type: SchemaTypes.ObjectId, ref: Softskill.name, required: true })
     softskillId: Softskill['_id'];
 
-    @Field(type => Float, { nullable: false })
+    @Field(type => Int, { nullable: false })
     @Prop({ type: Number, required: true })
     score: number;
 
@@ -30,7 +30,7 @@ export class UserSoftskillInput {
     @Prop({ type: SchemaTypes.ObjectId, ref: Softskill.name, required: true })
     softskillId: Softskill['_id'];
 
-    @Field(type => Float, { nullable: false })
+    @Field(type => Int, { nullable: false })
     @Prop({ type: Number, required: true })
     score: number;
 

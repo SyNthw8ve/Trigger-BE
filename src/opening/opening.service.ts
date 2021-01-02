@@ -26,6 +26,10 @@ export class OpeningService {
         await opening.save();
     }
 
+    async findWithId(id: Opening['_id']): Promise<Opening> {
+        return await this.openingModel.findById(id);
+    }
+
     async new(createDto: CreateOpeningDto, project: Project['_id']): Promise<Opening> {
         // TODO: validate this
 
