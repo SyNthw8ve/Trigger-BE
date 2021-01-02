@@ -56,9 +56,9 @@ export class UserResolver {
 
         let result = await this.userService.new(user);
 
-        if (result.success) {
+        /* if (result.success) {
             this.matchService.attendToUserCreated(result._id);
-        }
+        } */
 
         return result;
     }
